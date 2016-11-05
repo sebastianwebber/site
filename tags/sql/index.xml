@@ -16,7 +16,7 @@
       <guid>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</guid>
       <description>&lt;p&gt;Para listar as maiores tabelas do seu banco de dados, utilize a consulta abaixo:&lt;/p&gt;
 
-&lt;script src=&#34;//gist.github.com/ebe4810bf03278624e31/.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//gist.github.com/sebastianwebber/ebe4810bf03278624e31.js&#34;&gt;&lt;/script&gt;
 </description>
     </item>
     
@@ -28,7 +28,7 @@
       <guid>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</guid>
       <description>&lt;p&gt;Para listar os próximos jobs, execute a consulta abaixo no banco postgres (ou o banco que tem o pgagent instalado):&lt;/p&gt;
 
-&lt;script src=&#34;//gist.github.com/763e5fc88549d1d2a3708a1e2b0eb216/.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//gist.github.com/sebastianwebber/763e5fc88549d1d2a3708a1e2b0eb216.js&#34;&gt;&lt;/script&gt;
 </description>
     </item>
     
@@ -40,7 +40,7 @@
       <guid>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</guid>
       <description>&lt;p&gt;Encontrei essa dica em outro site e resolvi compartilhar.&lt;/p&gt;
 
-&lt;script src=&#34;//gist.github.com/13a1f07311a9420cf66298a7cb12a597/.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;//gist.github.com/sebastianwebber/13a1f07311a9420cf66298a7cb12a597.js&#34;&gt;&lt;/script&gt;
 
 &lt;p&gt;Fonte: &lt;a href=&#34;http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html&#34;&gt;http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html&lt;/a&gt;&lt;/p&gt;
 </description>
