@@ -1,0 +1,21 @@
+#list {
+    list-style: none;
+}
+
+#list > li {
+    vertical-align: top;
+    margin-bottom: .5em;
+    display: table;
+    width: 100%;
+    padding: 0 0;
+}
+#list > li > a {
+    display: table-cell;
+    padding: 0 .5em;
+}
+#list > li > .meta {
+    display: table-cell;
+    text-align: right;
+    width: 25%;
+    /*float:right;*/
+}

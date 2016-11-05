@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="heading">
+		<h1 class="title"><a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a> </h1>
+		<h2 class="subtitle">{{ .Date.Format "Jan 2, 2006" }}
+		</h2>
+	</div>
+	<div class="content is-medium">
+		{{ .Summary }}
+	</div>
+
+	<footer>
+		<a href='{{ .Permalink }}' class="button">
+			<nobr>Read more →</nobr>
+		</a>
+	</footer>
+	
+</div>

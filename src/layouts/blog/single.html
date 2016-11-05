@@ -1,0 +1,26 @@
+{{ partial "header.html" . }} {{ partial "blog-banner.html" . }}
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a> </h1>
+		<h2 class="subtitle is-4">{{ .Date.Format "Jan 2, 2006" }}
+		</h2>
+			<div class="content is-medium">
+		{{ .Content }}
+		</div>
+	</div>
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>{{ .Site.Params.blog_title }}</strong> by <a href="{{ .Site.BaseURL }}">{{ .Site.Params.blog_author }}</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/jgthms/bulma">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+{{ partial "footer.html" . }}
