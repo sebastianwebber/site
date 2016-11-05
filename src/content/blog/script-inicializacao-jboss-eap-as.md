@@ -26,5 +26,5 @@ Tags = [ "Gist", "Startup", "System-v", "init.d" ]
 
 - Atualizando para um novo script, agora no gist.
 
-{{< gist 10837e4003b84f626842 >}} 
+{{< gist sebastianwebber 10837e4003b84f626842 >}} 
  
