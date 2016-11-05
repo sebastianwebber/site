@@ -5,6 +5,10 @@ comments: true
 categories: 
  - Londiste
  - PostgreSQL
+tags:
+ - tips
+ - compilation
+ - basics
 ---
 
 Devido ao pacote do skytools não estar disponível no repositório oficial do pgdg, é necessário compilar o mesmo.

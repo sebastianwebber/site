@@ -1,7 +1,8 @@
 +++
 date = "2016-11-03T17:06:58-02:00"
 title = "Olá hugo! Até mais octopress. :)"
-Categories = [ "Hugo", "Octopress", "Migration" ]
+Categories = [ "Hugo"]
+Tags = [ "Hugo", "Octopress", "Migration" ]
 +++
 
 Depois de sofrer com a migração pro octopress 3 eu meio que abandonei este blog.
