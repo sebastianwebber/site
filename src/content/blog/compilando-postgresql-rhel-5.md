@@ -51,7 +51,7 @@ su - postgres
 logout
 ```
 
-*OBS: para fins didaticos, criei o cluster no diretório aonde o postgres foi instalado. O ideal é que o diretório do cluster fique em discos e/ou partições separadas. O [blog do telles](http://savepoint.blog.br) tem um [artigo muito interessante a respeito dos discos e partições](http://savepoint.blog.br/postgresql-discos-cia/).
+> **OBS:** para fins didaticos, criei o cluster no diretório aonde o postgres foi instalado. O ideal é que o diretório do cluster fique em discos e/ou partições separadas. O [blog do telles](http://savepoint.blog.br) tem um [artigo muito interessante a respeito dos discos e partições](http://savepoint.blog.br/postgresql-discos-cia/).
 
 Crie o script de inicialização, inicie o banco e habilite a inicialização automática:
 
