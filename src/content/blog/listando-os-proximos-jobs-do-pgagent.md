@@ -9,4 +9,4 @@ Tags = [ "Tips", "SQL", "PGAgent" ]
 
 Para listar os próximos jobs, execute a consulta abaixo no banco postgres (ou o banco que tem o pgagent instalado):
 
-{{< gist 763e5fc88549d1d2a3708a1e2b0eb216 >}} 
+{{< gist sebastianwebber 763e5fc88549d1d2a3708a1e2b0eb216 >}} 

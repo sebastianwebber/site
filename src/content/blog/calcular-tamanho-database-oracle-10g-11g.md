@@ -9,7 +9,7 @@ Tags = [ "Tips", "SQL" ]
 
 Encontrei essa dica em outro site e resolvi compartilhar.
 
-{{< gist 13a1f07311a9420cf66298a7cb12a597 >}} 
+{{< gist sebastianwebber 13a1f07311a9420cf66298a7cb12a597 >}} 
 
 Fonte: http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html
 

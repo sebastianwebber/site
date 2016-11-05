@@ -9,4 +9,4 @@ Tags = [ "Tips", "SQL" ]
 
 Para listar as maiores tabelas do seu banco de dados, utilize a consulta abaixo:
 
-{{< gist ebe4810bf03278624e31 >}} 
+{{< gist sebastianwebber ebe4810bf03278624e31 >}} 
