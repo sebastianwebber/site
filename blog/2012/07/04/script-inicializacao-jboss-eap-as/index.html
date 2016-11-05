@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/">Script de inicialização para o JBoss EAP/AS </a> </h1>
+		<h2 class="subtitle is-4">Jul 4, 2012
+		</h2>
+ 
+
+<h5> 200 Words. Read in about 1 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/jboss">JBoss</a> 
+    <a href="http://swebber.me//categories/wildfly">Wildfly</a> 
+    <a href="http://swebber.me//categories/script">Script</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/gist"><span class="tag is-medium">Gist</span></a> 
+    <a href="http://swebber.me//tags/startup"><span class="tag is-medium">Startup</span></a> 
+    <a href="http://swebber.me//tags/system-v"><span class="tag is-medium">System-v</span></a> 
+    <a href="http://swebber.me//tags/init.d"><span class="tag is-medium">init.d</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p><strong>UPDATE Oct/2012</strong>:</p>
+
+<ul>
+<li>Após 30 tentativas de matar o processo, dá um ‘kill -9’ nele!</li>
+<li>Antes de iniciar o serviço , apaga os arquivos da pasta tmp e work da instância.</li>
+</ul>
+
+<p><strong>UPDATE Feb/2014</strong>:</p>
+
+<ul>
+<li>Move o arquivo console.log para YYYY-DD-MM_console.log após o stop.
+– Antes do stop ou start, é testado se a instância já está rodando. Caso esteja rodando o start é abortado, caso não esteja o stop é abortado, de acordo com cada operação. – Ajustado a chamada do metodo de limpeza (do_cleanup). agora chamado no método de startup (do_start).</li>
+</ul>
+
+<p><strong>UPDATE Feb/2014</strong>:</p>
+
+<ul>
+<li>caso o diretório de log da instância não exista, o mesmo será criado durante do startup</li>
+</ul>
+
+<p><strong>UPDATE Nov/2016</strong>:</p>
+
+<ul>
+<li>Atualizando para um novo script, agora no gist.</li>
+</ul>
+
+<script src="//gist.github.com/10837e4003b84f626842/.js"></script>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

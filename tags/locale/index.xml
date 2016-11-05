@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/locale/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/locale/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Corrigindo o problema de ordenação do PostgreSQL no RHEL 6</title>
+      <link>http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/</link>
+      <pubDate>Thu, 16 May 2013 19:46:53 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/</guid>
+      <description>&lt;p&gt;Sobre o ambiente:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Red Hat Enterprise Linux Server release 6.4 (Santiago)&lt;/p&gt;
+
+&lt;p&gt;PostgreSQL 9.2.4&lt;/p&gt;
+
+&lt;p&gt;LANG=pt_BR.UTF-8&lt;/p&gt;
+
+&lt;p&gt;Banco de dados &lt;code&gt;teste&lt;/code&gt;, utilizando o encoding &lt;code&gt;UTF-8&lt;/code&gt; e o &lt;code&gt;LC_TYPES&lt;/code&gt; e &lt;code&gt;COLLATE&lt;/code&gt; como &lt;code&gt;pt_BR.UTF-8&lt;/code&gt;`&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Para exemplificar melhor o problema de ordenação, criei a tabela abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;teste=# create table foo (id serial primary key, nome text);
+NOTICE:  CREATE TABLE will create implicit sequence &amp;quot;foo_id_seq&amp;quot; for serial column &amp;quot;foo.id&amp;quot;
+NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index &amp;quot;foo_pkey&amp;quot; for table &amp;quot;foo&amp;quot;
+CREATE TABLE
+teste=# \d foo
+                             Tabela &amp;quot;public.foo&amp;quot;
+ Coluna |  Tipo   |                      Modificadores
+--------+---------+----------------------------------------------------------
+ id     | integer | não nulo valor padrão de nextval(&#39;foo_id_seq&#39;::regclass)
+ nome   | text    |
+Índices:
+    &amp;quot;foo_pkey&amp;quot; PRIMARY KEY, btree (id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;E inseri uns dados de teste:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;teste=# insert into foo (nome) values (&#39;CRIANSCA&#39;), (&#39;CRIANSCA&#39;), (&#39;CRIANÇA&#39;), (&#39;DANIEL ALDROVANO&#39;), (&#39;DANIELA LAZARUS&#39;), (&#39;DANIELA LEITE&#39;);
+INSERT 0 6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ao listar os dados, a primeira surpresa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;teste=# select * from foo order by nome ;
+ id |              nome
+----+--------------------------------
+  2 | CRIANCA
+  3 | CRIANÇA
+  1 | CRIANSCA
+  5 | DANIELA LAZARUS
+  4 | DANIEL ALDROVANO
+  6 | DANIELA LEITE
+(6 registros)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notem que o problema em sí está na ordem dada aos IDs 5, 4 e 6. Esse problema é esperado, devido ao fato que (nesse collate especificamente) a operação de ordenação é realizada sem os espaços, assim, &lt;code&gt;DANIELALAZARUS&lt;/code&gt; vem antes de &lt;code&gt;DANIELALDROVANO&lt;/code&gt; e assim por diante.&lt;/p&gt;
+
+&lt;p&gt;Para sanar o problema, pensei em mudar o collate para C por que o mesmo não ignora os espaços na operação de ordenação, porém surgiu um novo problema: os acentos não são ordenados corretamente.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;teste=# create collation teste (locale=&#39;C&#39;);
+CREATE COLLATION
+teste=# select * from foo order by nome collate teste;
+ id |              nome
+----+--------------------------------
+  2 | CRIANCA
+  1 | CRIANSCA
+  3 | CRIANÇA
+  4 | DANIEL ALDROVANO
+  5 | DANIELA LAZARUS
+  6 | DANIELA LEITE
+(6 registros)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para sanar o problema, edite o arquivo &lt;code&gt;/usr/share/i18n/locales/pt_BR&lt;/code&gt;, e adicione antes de &lt;code&gt;END LC_COLLATE&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;reorder-after &amp;lt;U00A0&amp;gt;
+&amp;lt;U0020&amp;gt;&amp;lt;CAP&amp;gt;;&amp;lt;CAP&amp;gt;;&amp;lt;CAP&amp;gt;;&amp;lt;U0020&amp;gt;
+reorder-end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Aplique as modificações, rodando o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após configurar o locale, reinicie o banco de dados.&lt;/p&gt;
+
+&lt;p&gt;Assim os dados são ordenados corretamente:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;teste=# select * from foo order by nome;
+ id |              nome
+----+--------------------------------
+  2 | CRIANCA
+  3 | CRIANÇA
+  1 | CRIANSCA
+  4 | DANIEL ALDROVANO
+  5 | DANIELA LAZARUS
+  6 | DANIELA LEITE
+(6 registros)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Em especial, um obrigado ao &lt;a href=&#34;http://fabriziomello.github.io/&#34;&gt;@fabriziomello&lt;/a&gt; pela dica.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

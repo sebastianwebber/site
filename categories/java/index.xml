@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/categories/java/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Instalação do Oracle JDK 6 no EL6</title>
+      <link>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</link>
+      <pubDate>Mon, 05 May 2014 09:49:11 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</guid>
+      <description>&lt;p&gt;Faça o download da versão legada na URL abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR&#34;&gt;http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Faça a instalação do mesmo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bash jdk-6u45-linux-x64-rpm.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o alternatives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/bin/java 20000
+alternatives --install /usr/bin/javac javac /usr/java/jdk1.6.0_45/bin/javac 20000
+alternatives --install /usr/bin/jar jar /usr/java/jdk1.6.0_45/bin/jar 20000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;o número &lt;code&gt;20000&lt;/code&gt; deve ser o valor que o de outras possíveis instalações (confira com o resultado do comando &lt;code&gt;alternatives --display java&lt;/code&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@servidor [~]# alternatives --display java
+java - status is auto.
+ link currently points to /usr/java/jdk1.6.0_45/bin/java
+/usr/java/jdk1.6.0_45/bin/java - priority 20000
+Current `best&#39; version is /usr/java/jdk1.6.0_45/bin/java.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

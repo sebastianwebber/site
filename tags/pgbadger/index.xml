@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/pgbadger/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/pgbadger/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Automatizando os reports do PGBadger</title>
+      <link>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</link>
+      <pubDate>Mon, 04 Nov 2013 00:58:11 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</guid>
+      <description>&lt;p&gt;Minha idéia com esse post é &amp;lsquo;despejar&amp;rsquo; uma série de scripts e configurações pra que o &lt;a href=&#34;http://dalibo.github.io/pgbadger/&#34;&gt;pgbadger&lt;/a&gt; gere quase que automaticamente os reports, seguindo a regra de tempo abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Report dos últimos 30min&lt;/li&gt;
+&lt;li&gt;da última 1h&lt;/li&gt;
+&lt;li&gt;das últimas 3h&lt;/li&gt;
+&lt;li&gt;das últimas 6h&lt;/li&gt;
+&lt;li&gt;do último dia&lt;/li&gt;
+&lt;li&gt;da última semana&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Além da configuração padrão, sugerida no site do próprio pgbadger, é necessário configurar o syslog, para que ele direcione os logs do postgres para um arquivo separado, assim, adicione esse trecho no arquivo /etc/rsyslog.conf:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;local0.*        -/var/log/pgsql/pgsql.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Pode ser necessário criar o diretório /var/log/pgsql, se explodir qualquer erro aí, confirme se o mesmo foi criado. :D&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Após isso, dê um reload no serviço e os logs do postgres serão criados nesse diretório.&lt;/p&gt;
+
+&lt;p&gt;É necessário configurar o LogRotate para que o mesmo rotacione os logs. Baseado nas regras acima, crie o arquivo &lt;code&gt;/etc/pgsql/cron.logrotate&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/var/log/pgsql/pgsql.log {
+    missingok
+    rotate 1488
+    nomail
+    sharedscripts
+    create 0660 root root
+    postrotate
+    /etc/init.d/rsyslog restart
+    /etc/init.d/postgresql-9.2 reload
+    endscript
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie um script para gerar os reports, chamado update_badger.sh:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+filter_mask=&amp;quot;$1&amp;quot;
+filter_mask_cmd=&#39;mmin&#39;
+file_name=&amp;quot;/var/www/html&amp;quot;
+
+if [ $filter_mask = &amp;quot;30min&amp;quot; ]; then
+  filter_mask=30
+  file_name=&amp;quot;${file_name}/index.html&amp;quot;
+elif [ $filter_mask = &amp;quot;1h&amp;quot; ]; then
+  filter_mask=60
+  file_name=&amp;quot;${file_name}/last-1h.html&amp;quot;
+elif [ $filter_mask = &amp;quot;3h&amp;quot; ]; then
+  filter_mask=300
+  file_name=&amp;quot;${file_name}/last-3h.html&amp;quot;
+elif [ $filter_mask = &amp;quot;6h&amp;quot; ]; then
+  filter_mask=600
+  file_name=&amp;quot;${file_name}/last-6h.html&amp;quot;
+elif [ $filter_mask = &amp;quot;1d&amp;quot; ]; then
+  filter_mask=1
+  filter_mask_cmd=&#39;mtime&#39;
+  file_name=&amp;quot;${file_nam3e}/last-day.html&amp;quot;
+elif [ $filter_mask = &amp;quot;1w&amp;quot; ]; then
+  filter_mask=7
+  filter_mask_cmd=&#39;mtime&#39;
+  file_name=&amp;quot;${file_name}/last-week.html&amp;quot;
+fi
+
+echo
+echo $(date) - Generating ${file_name} file...
+echo
+/usr/bin/pgbadger $(/bin/find /var/log/pgsql/ -${filter_mask_cmd} -$filter_mask -type f) -o ${file_name}
+/bin/chown apache:apache ${file_name}
+/bin/chmod 755 ${file_name}
+
+if [ ${filter_mask} -eq 30 ]; then
+  echo $(date) - Rotating log file
+  /usr/sbin/logrotate -f /etc/pgsql/cron.logrotate
+fi
+echo $(date) - Done.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note que nesse script, o log rotate é chamado (com a configuração descrita anteriormente) a cada 30min. Assim, não é necessário configurar o crontab ou similar pra fazer esse trabalho sujo. ;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Agora, agende a geração dos reports no cron:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# pgbadger reports
+*/30 * * * * /opt/resources/update_badger.sh 30min &amp;gt;&amp;gt; /var/log/pgbagder.log 2&amp;gt;&amp;amp;1
+00 */1 * * * /opt/resources/update_badger.sh 1h &amp;gt;&amp;gt; /var/log/pgbagder.log 2&amp;gt;&amp;amp;1
+00 */3 * * * /opt/resources/update_badger.sh 3h &amp;gt;&amp;gt; /var/log/pgbagder.log 2&amp;gt;&amp;amp;1
+00 */6 * * * /opt/resources/update_badger.sh 6h &amp;gt;&amp;gt; /var/log/pgbagder.log 2&amp;gt;&amp;amp;1
+00 00 * * * /opt/resources/update_badger.sh 1d &amp;gt;&amp;gt; /var/log/pgbagder.log 2&amp;gt;&amp;amp;1
+00 00 * * Sat /opt/resources/update_badger.sh 1w &amp;gt;&amp;gt; /var/log/pgbagder.log 2&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Pra finalizar, eu fiz uma pequena modificação no pgbadger, para que ele mostre um pequeno menu dropdown com os horários dos reports disponíveis. Você pode fazer download do mesmo no github: &lt;a href=&#34;http://github.com/sebastianwebber/pgbadger&#34;&gt;https://github.com/sebastianwebber/pgbadger&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Todo caso, fica aí um screenshot da minima modificação que fiz (só pra dar um gostinho):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2013/11/badger_custom.png&#34; alt=&#34;screenshot&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

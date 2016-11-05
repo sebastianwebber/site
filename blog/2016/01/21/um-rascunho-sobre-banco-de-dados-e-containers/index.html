@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/">Um rascunho sobre banco de dados e containers </a> </h1>
+		<h2 class="subtitle is-4">Jan 21, 2016
+		</h2>
+ 
+
+<h5> 800 Words. Read in about 4 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/docker">Docker</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/docker"><span class="tag is-medium">Docker</span></a> 
+    <a href="http://swebber.me//tags/database"><span class="tag is-medium">Database</span></a> 
+    <a href="http://swebber.me//tags/linux"><span class="tag is-medium">Linux</span></a> 
+    <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p>Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.</p>
+
+<p>Usar o docker e criar um container é relativamente fácil, se você der uma olhada no google, vai achar uma dezena de tutoriais e dicas infalíveis pra deixar tudo rodando como deve. Vou deixar uns links abaixo pra tentar fazer a minha parte.</p>
+
+<ul>
+<li><a href="https://docs.docker.com/engine/installation/centos/">Documentação oficial</a></li>
+</ul>
+
+<p>O docker tem uma limitação simples: <em>até o momento, ele só roda no linux</em>. Temos artificios pra usar o docker no Windows e ou Mac, mas a verdade é que mesmo &ldquo;com jeitinho&rdquo;, vai ter uma vm linux rodando o docker por debaixo dos panos. Não sei da Apple, mas <a href="https://blog.docker.com/2015/08/tp-docker-engine-windows-server-2016/">a Microsoft ta dando um jeitinho pra rodar ele no Windows Server 2016</a>.</p>
+
+<blockquote>
+<p><strong>O que isso quer dizer?</strong></p>
+
+<p>Quer dizer que, no atual momento, docker só funciona no linux.</p>
+</blockquote>
+
+<p>Se você ficou curioso sobre como usar ele no windows ou mac, dá uma olhada no <a href="https://kitematic.com/">Kitematic</a>.</p>
+
+<p>Bom, depois de discurso todo eu quero dizer uma coisa bem simples: Se sua aplicação precisa do Windows pra rodar (seja pelo SQL Server, IIS, etc) acho que esse post não é bem pra você.</p>
+
+<p>É comum usarmos docker para rodar nossa aplicação web, seja ela como for: ERP rodando em java, blog em php, etc. A idéia é simples: a gente sobe um container com o mínimo pra ela rodar e gentilmente manda o docker rodar muitas instancias dessa mesma imagem simultaneamente. Pensando assim você indaga: Se precisar um balanceador de carga, o que fazemos? Subimos ele num container também. Fácil assim.</p>
+
+<p>Quer um exemplo? Suponha que tenhamos que publicar um blog feito no wordpress. Wordpress precisa do php e um banco MySQL pra funcionar. Dessa forma, precisamos, <strong>necessariamente</strong> de 2 containers: 1 de MySQL e outro de apache+php (ou qualquer outro webserver que rode php e te deixe feliz).</p>
+
+<p>Assim que nosso servidor estiver rodando esses containers e nosso blog imaginario começa a receber muitos acessos, nosso container de apache e php começa a ter dificuldade de responder a todas as requisições e assim, temos a grande idéia de colocar mais um container rodando apache com minha aplicação (wordpress) e assim, ganhamos um problema novo: tenho 2 apaches e nimguém pra balancear o mesmo.</p>
+
+<p>O que fazer nesse caso? você pode subir um <a href="https://hub.docker.com/_/haproxy/">container com o haproxy</a> e passar a apontar tuas requisições pra ele e ele passar a balancear as conexões entre os apaches. Até que é facil não é? agora, se o site ficar lento denovo, o que a gente faz? aumenta os apaches! Quantos? Quantos forem necessários!!! :D</p>
+
+<blockquote>
+<p><strong>Agora, quando baixou a demanda, o que eu faço?</strong></p>
+
+<p>Diminuo a quantidade de containers em execução, fazendo manualmente um <a href="https://en.wikipedia.org/wiki/Autoscaling">autoscaling</a>.</p>
+</blockquote>
+
+<p>Talvez aqui tenhamos um furo no conceito: a aplicação do wordpress vai eventualmente criar uns arquivos no disco com dados da aplicação (imagens, css, js, etc) e isso a gente pode contornar com uma area de disco compartilhada entre os containers.</p>
+
+<p>A analogia é simples nesse caso: cada imagem docker tem tudo que eu preciso pra rodar o php+wordpress+coisas+do+blog e o MySQL é quem guarda os dados dinamicos.</p>
+
+<p>Então vai chegar o temido dia: meu banco rodando no container não dá conta do recado. Você tenta todo tipo de mandinga necessária: tunning, hardware e não tem jeito. Aí, depois de pensar em todos os planos pra aumentar os recursos passa pra pensar em algum tipo de processamento horizontal e nota que vai precisar distribuir a carga e balancear os acessos entre esses nós. Assim, você que já foi doutrinado vai dizer: &ldquo;ótimo! vou colocar a rodar mais um haproxy e vou subir outro container MySQL!&rdquo;. Não, isso não vai funcionar.</p>
+
+<p>Por que? basicamente por causa da integridade dos dados. Precisamos de algum mecanismo (seja nativo ou não) que garanta que ambas os containers rodando MySQL tenham a mesma informação. Isso não é tão simples: cada fabricante de banco de dados implementa do seu jeito e cada solução de replicação tem seus prós e contras.</p>
+
+<p>Tá, mas o MySQL não tem replicação? eu não posso usar pra resolver meu problema? Pode. E posso fazer igual como fiz com os apaches+php, apagando os containers conforme ele não for usado? Provavelmente não.</p>
+
+<p>Aqui é o ponto em questão: bancos de dados não apenas arquivos no disco. Precisamos pensar uma forma diferente de tratar ele pra que funcione bem como de costume.</p>
+
+<p>Quanto ao armazenamento, tem alguns links que valem a pena dar uma olhada:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker">http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker</a></li>
+<li><a href="http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/">http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/</a></li>
+<li><a href="https://docs.docker.com/engine/userguide/dockervolumes/">https://docs.docker.com/engine/userguide/dockervolumes/</a></li>
+<li><a href="http://container42.com/2014/11/18/data-only-container-madness/">http://container42.com/2014/11/18/data-only-container-madness/</a></li>
+</ul>
+
+<p>Continua&hellip;</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

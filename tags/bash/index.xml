@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/bash/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly</title>
+      <link>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</link>
+      <pubDate>Thu, 17 Jul 2014 14:14:52 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</guid>
+      <description>&lt;p&gt;Execute o script abaixo, substituindo o diretório &lt;code&gt;/var/log/jbossas&lt;/code&gt; pelo diretório de logs do seu servidor JBoss/Wildfly:
+&amp;gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+   1864 [org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver]
+    716 [grails.app.controllers.ar.com.site.app.acesso.LoginController]
+    475 [stderr]
+    254 [org.grails.plugin.resource.ResourceMeta]
+     88 [grails.app.services.ar.com.site.app.banner.BannerService]
+     84 [StackTrace]
+     46 [org.hibernate.util.JDBCExceptionReporter]
+     27 [grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao]
+     26 [grails.app.taglib.ar.com.site.app.banner.BannerTagLib]
+     15 [org.hibernate.transaction.JDBCTransaction]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, podemos jogar tudo num script, dando uma ajustada na apresentação:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+search_dir=&amp;quot;${1}&amp;quot;
+
+if [ &amp;quot;${search_dir}x&amp;quot; = &#39;x&#39; ]; then
+    echo &#39;Informe o diretório de busca!&#39;
+    exit 2
+fi
+
+error_list=$(egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find -L &amp;quot;${1}&amp;quot; -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10)
+
+seq=1
+echo
+printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;#&amp;quot; &amp;quot;COUNT&amp;quot; &amp;quot;LOGGER NAME&amp;quot;
+echo &amp;quot;---|------------|------------------------------------------------------------------------------------------------------|&amp;quot;
+
+IFS=&#39;
+&#39;
+for error in ${error_list}; do
+    count=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $1}&#39;)
+    logger_name=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $2}&#39; | tr -d &#39;[]&#39;)
+
+    printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;${seq}&amp;quot; &amp;quot;${count}&amp;quot; &amp;quot;${logger_name}&amp;quot;
+
+    seq=$(($seq + 1))
+done
+echo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# ./procura_erros.sh /var/log/jbossas/
+
+#  | COUNT      | LOGGER NAME                                                                       |
+---|------------|-----------------------------------------------------------------------------------|
+1  | 1926       | org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver                     |
+2  | 759        | grails.app.controllers.ar.com.site.app.acesso.LoginController                     |
+3  | 475        | stderr                                                                            |
+4  | 265        | org.grails.plugin.resource.ResourceMeta                                           |
+5  | 90         | grails.app.services.ar.com.site.app.banner.BannerService                          |
+6  | 84         | StackTrace                                                                        |
+7  | 46         | org.hibernate.util.JDBCExceptionReporter                                          |
+8  | 27         | grails.app.taglib.ar.com.site.app.banner.BannerTagLib                             |
+9  | 27         | grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao                         |
+10 | 15         | org.hibernate.transaction.JDBCTransaction                                         |
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Caso precisem de um exemplo do erro em questão, utilize o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pcregrep -Mi &#39;.*ERROR \[NOME_DO_PACKAGE.*(\n.*(\n\s*at.*)+)?&#39; $(find /var/log/jbossas/ -ctime -7 | grep server)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Lembre de substituir o &lt;code&gt;NOME_DO_PACKAGE&lt;/code&gt; pelo package que você está procurando.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Acho que é isso por hoje.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

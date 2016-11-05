@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/gist/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/gist/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Script de inicialização do JBoss AS7&#43;/EAP 6&#43; em modo domain</title>
+      <link>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</link>
+      <pubDate>Thu, 30 Oct 2014 23:23:08 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</guid>
+      <description>&lt;p&gt;Criei o script e deixei lá no github. Veja abaixo:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/sebastianwebber/885b620bdf9dde39eadf.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;O mesmo pode ser utilizado no Wildfly 8 sem problemas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Script de inicialização para o JBoss EAP/AS</title>
+      <link>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</link>
+      <pubDate>Wed, 04 Jul 2012 18:00:40 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;UPDATE Oct/2012&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Após 30 tentativas de matar o processo, dá um ‘kill -9’ nele!&lt;/li&gt;
+&lt;li&gt;Antes de iniciar o serviço , apaga os arquivos da pasta tmp e work da instância.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE Feb/2014&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Move o arquivo console.log para YYYY-DD-MM_console.log após o stop.
+– Antes do stop ou start, é testado se a instância já está rodando. Caso esteja rodando o start é abortado, caso não esteja o stop é abortado, de acordo com cada operação. – Ajustado a chamada do metodo de limpeza (do_cleanup). agora chamado no método de startup (do_start).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE Feb/2014&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;caso o diretório de log da instância não exista, o mesmo será criado durante do startup&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE Nov/2016&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Atualizando para um novo script, agora no gist.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script src=&#34;//gist.github.com/10837e4003b84f626842/.js&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

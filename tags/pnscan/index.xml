@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/pnscan/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/pnscan/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Como tratar a vulnerabilidade do JBoss ao WORM &#39;pnscan&#39;</title>
+      <link>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</link>
+      <pubDate>Mon, 24 Oct 2011 12:07:48 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</guid>
+      <description>&lt;p&gt;Altere o arquivo &lt;code&gt;deploy/jmx-console.war/WEB-INF/web.xml&lt;/code&gt;, removendo as tags abaixo da sessão &lt;code&gt;security-constraint&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;http-method&amp;gt;GET&amp;lt;/http-method&amp;gt;
+&amp;lt;http-method&amp;gt;POST&amp;lt;/http-method&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Deve ficar parecido com isso:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;security-constraint&amp;gt;
+  &amp;lt;web-resource-collection&amp;gt;
+    &amp;lt;web-resource-name&amp;gt;HtmlAdaptor&amp;lt;/web-resource-name&amp;gt;
+    &amp;lt;description&amp;gt;
+       An example security config that only allows users with the role
+       JBossAdmin to access the HTML JMX console web application
+    &amp;lt;/description&amp;gt;
+    &amp;lt;url-pattern&amp;gt;/*&amp;lt;/url-pattern&amp;gt;
+  &amp;lt;/web-resource-collection&amp;gt;
+  &amp;lt;auth-constraint&amp;gt;
+    &amp;lt;role-name&amp;gt;JBossAdmin&amp;lt;/role-name&amp;gt;
+  &amp;lt;/auth-constraint&amp;gt;
+&amp;lt;/security-constraint&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora reinicie sua instância.&lt;/p&gt;
+
+&lt;p&gt;Mais detalhes/Referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://community.jboss.org/blogs/mjc/2011/10/20/statement-regarding-security-threat-to-jboss-application-server&#34;&gt;http://community.jboss.org/blogs/mjc/2011/10/20/statement-regarding-security-threat-to-jboss-application-server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/kb/docs/DOC-30741&#34;&gt;https://access.redhat.com/kb/docs/DOC-30741&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://community.jboss.org/wiki/SecureTheJmxConsole&#34;&gt;http://community.jboss.org/wiki/SecureTheJmxConsole&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/oracle-asm/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/oracle-asm/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Após reboot o ASM não iniciou (ORA-27154, ORA-27300, ORA-27301 e ORA-27302)</title>
+      <link>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</link>
+      <pubDate>Sat, 28 Apr 2012 15:12:19 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</guid>
+      <description>&lt;p&gt;Após reboot, a ASM não iniciou. Ao tentar iniciar manualmente, ocorre o erro abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlplus / as sysasm
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Apr 28 11:30:13 2012
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL&amp;gt; startup
+ORA-27154: post/wait create failed
+ORA-27300: OS system dependent operation:semget failed with status: 28
+ORA-27301: OS failure message: No space left on device
+ORA-27302: failure occurred at: sskgpsemsper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após analizar os &amp;ldquo;ORA-&amp;rdquo;, descobri que o parametro kernel.sem estava com o valor padrão, dessa forma, altere-o:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim /etc/sysctl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alter o valor de:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250  100
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250 32000 100 256
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após alterar o arquivo, aplique as alterações:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora inicie a ASM novamente (não é necessário reiniciar).&lt;/p&gt;
+
+&lt;p&gt;Referencias:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&#34;&gt;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

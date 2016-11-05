@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/categories/rhel/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/categories/rhel/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Instalação do Oracle JDK 6 no EL6</title>
+      <link>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</link>
+      <pubDate>Mon, 05 May 2014 09:49:11 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</guid>
+      <description>&lt;p&gt;Faça o download da versão legada na URL abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR&#34;&gt;http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Faça a instalação do mesmo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bash jdk-6u45-linux-x64-rpm.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o alternatives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/bin/java 20000
+alternatives --install /usr/bin/javac javac /usr/java/jdk1.6.0_45/bin/javac 20000
+alternatives --install /usr/bin/jar jar /usr/java/jdk1.6.0_45/bin/jar 20000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;o número &lt;code&gt;20000&lt;/code&gt; deve ser o valor que o de outras possíveis instalações (confira com o resultado do comando &lt;code&gt;alternatives --display java&lt;/code&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@servidor [~]# alternatives --display java
+java - status is auto.
+ link currently points to /usr/java/jdk1.6.0_45/bin/java
+/usr/java/jdk1.6.0_45/bin/java - priority 20000
+Current `best&#39; version is /usr/java/jdk1.6.0_45/bin/java.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Expandindo o volume de uma partição no Grupo do LVM</title>
+      <link>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</link>
+      <pubDate>Wed, 15 Feb 2012 18:53:16 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;No exemplo desse post, o servidor foi instalado com um disco de 15gb, porém o disco foi expandido para 60gb.  O disco utilizado é o ‘/dev/xvda’.  É possível que adicionando o disco a operação seja semelhante.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;crie-a-partição-disponível&#34;&gt;Crie a partição disponível&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cfdisk /dev/xvda
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie a nova partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select o tipo de partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image1.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Informe o tamanho da partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image2.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Altere o tipo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image3.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Selecione o tipo “8E – Linux LVM”:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image4.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Grave as partições no disco:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image5.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Confirme a gravação das mudanças no disco e saia. Após isso, reinicie a máquina.&lt;/p&gt;
+
+&lt;h3 id=&#34;crie-o-novo-volume&#34;&gt;Crie o novo volume&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# pvcreate /dev/xvda3
+Writing physical volume data to disk &amp;quot;/dev/xvda3&amp;quot;
+Physical volume &amp;quot;/dev/xvda3&amp;quot; successfully created
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;adicione-o-novo-volume-no-grupo-existente&#34;&gt;Adicione o novo volume no grupo existente&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server&amp;rsquo; é o nome do volume&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# vgextend /dev/vg_server /dev/xvda3
+Volume group &amp;quot;vg_server&amp;quot; successfully extended
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;redimensione-o-grupo-existente&#34;&gt;Redimensione o grupo existente&lt;/h2&gt;
+
+&lt;h3 id=&#34;liste-o-grupo-atual&#34;&gt;Liste o grupo atual&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# vgdisplay --units m
+--- Volume group ---
+VG Name               vg_server
+System ID
+Format                lvm2
+Metadata Areas        2
+Metadata Sequence No  4
+VG Access             read/write
+VG Status             resizable
+MAX LV                0
+Cur LV                2
+Open LV               2
+Max PV                0
+Cur PV                2
+Act PV                2
+VG Size               60932.00 MiB
+PE Size               4.00 MiB
+Total PE              15233
+Alloc PE / Size       3714 / 14856.00 MiB
+Free  PE / Size       11519 / 46076.00 MiB
+VG UUID               PHTPKa-f1vQ-Ge3q-wc2l-uAn6-gcmP-WlE495
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;O campo &lt;strong&gt;&amp;lsquo;Free PE / Size&amp;rsquo;&lt;/strong&gt; mostra o espaço disponível (&lt;strong&gt;46076.00 MiB&lt;/strong&gt; no exemplo).&lt;/p&gt;
+
+&lt;h3 id=&#34;aumente-o-volume&#34;&gt;Aumente o volume&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server/lv_root&amp;rsquo; é a partição utilizada&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# lvextend -l +100%FREE /dev/vg_server/lv_root
+Extending logical volume lv_root to 51.50 GiB
+Logical volume lv_root successfully resized
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;aumente-a-partição-no-sistema-de-arquivos&#34;&gt;Aumente a partição no sistema de arquivos&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server/lv_root&amp;rsquo; é a partição utilizada&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# resize2fs /dev/vg_server/lv_root
+resize2fs 1.41.12 (17-May-2010)
+Filesystem at /dev/vg_server/lv_root is mounted on /; on-line resizing required
+old desc_blocks = 1, new_desc_blocks = 4
+Performing an on-line resize of /dev/vg_server/lv_root to 13501440 (4k) blocks.
+The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Fontes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group&#34;&gt;http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Compilando o PostgreSQL no RHEL 5</title>
+      <link>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</link>
+      <pubDate>Wed, 14 Jul 2010 02:13:35 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</guid>
+      <description>&lt;p&gt;Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:&lt;/p&gt;
+
+&lt;p&gt;Instale as bibliotecas necessárias:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install bison flex zlib zlib-devel readline readline-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe o postgresql (no exemplo estou usando uma versão antiga e tenho que baixar ela do ftp-archive):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget -c ftp://ftp-archives.postgresql.org/pub/source/v8.2.4/postgresql-8.2.4.tar.bz2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Descompacte e instale:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xvjf postgresql-8.2.4.tar.bz2
+cd postgresql-8.2.4
+./configure --bindir=/usr/bin
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora crie o usuário postgres e inicialize o cluster*:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adduser postgres
+mkdir /usr/local/pgsql/data
+chown -R postgres /usr/local/pgsql
+su - postgres
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+logout
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;*OBS: para fins didaticos, criei o cluster no diretório aonde o postgres foi instalado. O ideal é que o diretório do cluster fique em discos e/ou partições separadas. O &lt;a href=&#34;http://savepoint.blog.br&#34;&gt;blog do telles&lt;/a&gt; tem um &lt;a href=&#34;http://savepoint.blog.br/postgresql-discos-cia/&#34;&gt;artigo muito interessante a respeito dos discos e partições&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Crie o script de inicialização, inicie o banco e habilite a inicialização automática:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp contrib/start-scripts/linux /etc/init.d/postgresql
+chmod +x /etc/init.d/postgresql
+service postgresql start
+chkconfig postgresql on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Um abraço!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

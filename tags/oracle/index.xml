@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/oracle/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ORA-00439: feature not enabled: Deferred Segment Creation</title>
+      <link>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</link>
+      <pubDate>Sun, 06 May 2012 16:34:38 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</guid>
+      <description>&lt;p&gt;Durante a migração de um banco, me deparei com a seguinte saida do impdp:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;CREATE TABLE &amp;quot;MYUSER&amp;quot;.&amp;quot;MYTABLE&amp;quot; (&amp;quot;COL1&amp;quot; NUMBER(11,0) NOT NULL ENABLE, &amp;quot;COL2&amp;quot; NUMBER(11,0) NOT NULL ENABLE...) SEGMENT CREATION DEFERRED ..
+ORA-39083: Tipo de objeto TABLE:&amp;quot;MYUSER&amp;quot;.&amp;quot;MYTABLE&amp;quot; falhou ao ser criado com o erro:
+ORA-00439: recurso não ativado: Deferred Segment Creation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após isso, fui confirmar o valor do parametro:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SQL&amp;gt; column type format a7
+SQL&amp;gt; show parameter deferred_segment_creation
+
+NAME                                 TYPE    VALUE
+------------------------------------ ------- ------------------------------
+deferred_segment_creation            boolean TRUE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ao confirmar que o parametro estava habilitado tive que alterar a compatibilidade do dump, adicionando o parametro &amp;lsquo;version=10.2&amp;rsquo; na chamada do expdp e do impdp. Como no exemplo:&lt;/p&gt;
+
+&lt;p&gt;Para exportar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;EXPDP usuario/senha dumpfile=arquivo_dump.dmp directory=DATA_DUMP_DIR version=10.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;No outro server, para importar o dump criado&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;IMPDP usuario/senha dumpfile=arquivo_dump.dmp directory=DATA_DUMP_DIR version=10.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Referência:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://oraclequirks.blogspot.com.br/2011/02/ora-00439-feature-not-enabled-deferred.html&#34;&gt;http://oraclequirks.blogspot.com.br/2011/02/ora-00439-feature-not-enabled-deferred.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Após reboot o ASM não iniciou (ORA-27154, ORA-27300, ORA-27301 e ORA-27302)</title>
+      <link>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</link>
+      <pubDate>Sat, 28 Apr 2012 15:12:19 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</guid>
+      <description>&lt;p&gt;Após reboot, a ASM não iniciou. Ao tentar iniciar manualmente, ocorre o erro abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlplus / as sysasm
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Apr 28 11:30:13 2012
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL&amp;gt; startup
+ORA-27154: post/wait create failed
+ORA-27300: OS system dependent operation:semget failed with status: 28
+ORA-27301: OS failure message: No space left on device
+ORA-27302: failure occurred at: sskgpsemsper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após analizar os &amp;ldquo;ORA-&amp;rdquo;, descobri que o parametro kernel.sem estava com o valor padrão, dessa forma, altere-o:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim /etc/sysctl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alter o valor de:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250  100
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250 32000 100 256
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após alterar o arquivo, aplique as alterações:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora inicie a ASM novamente (não é necessário reiniciar).&lt;/p&gt;
+
+&lt;p&gt;Referencias:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&#34;&gt;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Criando o ambiente inicial para a instalação do Oracle 11gR2 no RHEL 5</title>
+      <link>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</link>
+      <pubDate>Sat, 21 Apr 2012 16:18:57 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</guid>
+      <description>&lt;p&gt;Após a instalação do RHEL e os devidos updates, crie os respectivos usuários e grupos:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;groupadd oinstall
+groupadd dba
+groupadd oper
+useradd -g oinstall -G dba,oper oracle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, identifique seu kernel:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# uname -r
+2.6.18-308.4.1.el5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe, &lt;a href=&#34;http://www.oracle.com/technetwork/server-storage/linux/downloads/rhel5-084877.html&#34;&gt;do site da oracle&lt;/a&gt;, os pacotes necessários:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;oracleasm-support-2.1.7-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;oracleasmlib-2.0.4-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;oracleasm-2.6.18-308.4.1.el5-2.0.5-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Estou baixando o pacote do oracleasm de acordo a minha versão do kernel, caso a sua não seja a mesma, baixa a respectiva.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Instale os pacotes no baixados:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rpm -Uvh oracleasm-support-2.1.7-1.el5.x86_64.rpm
+rpm -Uvh oracleasmlib-2.0.4-1.el5.x86_64.rpm
+rpm -Uvh oracleasm-2.6.18-308.4.1.el5-2.0.5-1.el5.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o ASM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm configure
+Configuring the Oracle ASM library driver.
+
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets (&#39;[]&#39;).  Hitting  without typing an
+answer will keep that current value.  Ctrl-C will abort.
+
+Default user to own the driver interface []: oracle
+Default group to own the driver interface []: oinstall
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+Writing Oracle ASM library driver configuration: done
+Initializing the Oracle ASMLib driver:                     [  OK  ]
+Scanning the system for Oracle ASMLib disks:               [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Nesse ponto, particione os discos de acordo com a necessidade.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;No exemplo, a instalação está no disco 1 (sda) e o ASM está nos discos 2 (sdb) e 3 (sdc) e os particionei em 8 partes de 5gb cada um.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# fdisk -l
+
+Disk /dev/sda: 21.4 GB, 21474836480 bytes
+255 heads, 63 sectors/track, 2610 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          13      104391   83  Linux
+/dev/sda2              14        2610    20860402+  8e  Linux LVM
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        5221    41937651    5  Extended
+/dev/sdb5               1         609     4891729+  83  Linux
+/dev/sdb6             610        1218     4891761   83  Linux
+/dev/sdb7            1219        1827     4891761   83  Linux
+/dev/sdb8            1828        2436     4891761   83  Linux
+/dev/sdb9            2437        3045     4891761   83  Linux
+/dev/sdb10           3046        3654     4891761   83  Linux
+/dev/sdb11           3655        4263     4891761   83  Linux
+/dev/sdb12           4264        5221     7695103+  83  Linux
+
+Disk /dev/sdc: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        5221    41937651    5  Extended
+/dev/sdc5               1         609     4891729+  83  Linux
+/dev/sdc6             610        1218     4891761   83  Linux
+/dev/sdc7            1219        1827     4891761   83  Linux
+/dev/sdc8            1828        2436     4891761   83  Linux
+/dev/sdc9            2437        3045     4891761   83  Linux
+/dev/sdc10           3046        3654     4891761   83  Linux
+/dev/sdc11           3655        4263     4891761   83  Linux
+/dev/sdc12           4264        5221     7695103+  83  Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora marque os discos como disponíveis para a ASM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm createdisk ASMDISK01 /dev/sdb5
+Marking disk &amp;quot;ASMDISK01&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK02 /dev/sdb6
+Marking disk &amp;quot;ASMDISK02&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK03 /dev/sdb7
+Marking disk &amp;quot;ASMDISK03&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK04 /dev/sdb8
+Marking disk &amp;quot;ASMDISK04&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK05 /dev/sdb9
+Marking disk &amp;quot;ASMDISK05&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK06 /dev/sdb10
+Marking disk &amp;quot;ASMDISK06&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK07 /dev/sdb11
+Marking disk &amp;quot;ASMDISK07&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK08 /dev/sdb12
+Marking disk &amp;quot;ASMDISK08&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK09 /dev/sdc5
+Marking disk &amp;quot;ASMDISK09&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK10 /dev/sdc6
+Marking disk &amp;quot;ASMDISK10&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK11 /dev/sdc7
+Marking disk &amp;quot;ASMDISK11&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK12 /dev/sdc8
+Marking disk &amp;quot;ASMDISK12&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK13 /dev/sdc9
+Marking disk &amp;quot;ASMDISK13&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK14 /dev/sdc10
+Marking disk &amp;quot;ASMDISK14&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK15 /dev/sdc11
+Marking disk &amp;quot;ASMDISK15&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK16 /dev/sdc12
+Marking disk &amp;quot;ASMDISK16&amp;quot; as an ASM disk:                   [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora veja a relação discos disponíveis:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm listdisks
+ASMDISK01
+ASMDISK02
+ASMDISK03
+ASMDISK04
+ASMDISK05
+ASMDISK06
+ASMDISK07
+ASMDISK08
+ASMDISK09
+ASMDISK10
+ASMDISK11
+ASMDISK12
+ASMDISK13
+ASMDISK14
+ASMDISK15
+ASMDISK16
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;ASMDISKXX é o label que dei para o disco e é como você irá identificar o mesmo na configuração da ASM&amp;hellip; Ajuste o nome conforme achar necessário.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Agora instale os pacotes necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# yum install gcc elfutils-libelf-devel glibc-devel glibc-headers gcc-c++ libaio-devel libstdc++-devel sysstat unixODBC unixODBC-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;UPDATE: Após o reboot do servidor a ASM não iniciou, logo, deixei a correção &lt;a href=&#34;http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/&#34;&gt;em outro post&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/">Compilando o PostgreSQL no RHEL 5 </a> </h1>
+		<h2 class="subtitle is-4">Jul 14, 2010
+		</h2>
+ 
+
+<h5> 200 Words. Read in about 1 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> 
+    <a href="http://swebber.me//categories/rhel">RHEL</a> 
+    <a href="http://swebber.me//categories/linux">Linux</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/compilar"><span class="tag is-medium">compilar</span></a> 
+    <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> 
+    <a href="http://swebber.me//tags/rhel"><span class="tag is-medium">rhel</span></a> 
+    <a href="http://swebber.me//tags/source"><span class="tag is-medium">source</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p>Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:</p>
+
+<p>Instale as bibliotecas necessárias:</p>
+
+<pre><code class="language-bash">yum install bison flex zlib zlib-devel readline readline-devel
+</code></pre>
+
+<p>Baixe o postgresql (no exemplo estou usando uma versão antiga e tenho que baixar ela do ftp-archive):</p>
+
+<pre><code class="language-bash">wget -c ftp://ftp-archives.postgresql.org/pub/source/v8.2.4/postgresql-8.2.4.tar.bz2
+</code></pre>
+
+<p>Descompacte e instale:</p>
+
+<pre><code class="language-bash">tar xvjf postgresql-8.2.4.tar.bz2
+cd postgresql-8.2.4
+./configure --bindir=/usr/bin
+make
+make install
+</code></pre>
+
+<p>Agora crie o usuário postgres e inicialize o cluster*:</p>
+
+<pre><code class="language-bash">adduser postgres
+mkdir /usr/local/pgsql/data
+chown -R postgres /usr/local/pgsql
+su - postgres
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+logout
+</code></pre>
+
+<p>*OBS: para fins didaticos, criei o cluster no diretório aonde o postgres foi instalado. O ideal é que o diretório do cluster fique em discos e/ou partições separadas. O <a href="http://savepoint.blog.br">blog do telles</a> tem um <a href="http://savepoint.blog.br/postgresql-discos-cia/">artigo muito interessante a respeito dos discos e partições</a>.</p>
+
+<p>Crie o script de inicialização, inicie o banco e habilite a inicialização automática:</p>
+
+<pre><code class="language-bash">cp contrib/start-scripts/linux /etc/init.d/postgresql
+chmod +x /etc/init.d/postgresql
+service postgresql start
+chkconfig postgresql on
+</code></pre>
+
+<p>Um abraço!</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/">Utilizando o log CSV do PostgreSQL </a> </h1>
+		<h2 class="subtitle is-4">Aug 14, 2010
+		</h2>
+ 
+
+<h5> 400 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/csv"><span class="tag is-medium">csv</span></a> 
+    <a href="http://swebber.me//tags/log"><span class="tag is-medium">log</span></a> 
+    <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> 
+    <a href="http://swebber.me//tags/sql"><span class="tag is-medium">sql</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p>Uma das novidades bacanas da versão 8.3 do PostgreSQL foi a possibilidade de gerar os logs do banco no formato <a href="http://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>. Quando eu precisei de uma forma mais eficiente de analisar os logs do banco eu assumi o seguinte raciocínio: &ldquo;com o csv eu posso criar minha super aplicação .net para extrair os dados e dai pensei: se fosse só uma tabela, é só dar um select!&ldquo;. Abaixo eu dou mais detalhes de como isso faz sentido.</p>
+
+<p>Na <a href="http://www.postgresql.org/docs/8.4/static/">documentação</a> eu encontrei toda a <a href="http://www.postgresql.org/docs/8.4/static/runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-CSVLOG">estrutura da tabela e como importar o arquivo</a>. Mas antes de começarmos, vamos alterar algumas configurações no postgresql.conf:</p>
+
+<p>Segue exemplo das configurações no postgresql.conf:</p>
+
+<pre><code class="language-bash"># habilito o log em csv
+log_destination = 'csvlog'
+# habilito o coletor de estatisticas
+logging_collector = on
+# defino que grave no log a duração dos comandos executados
+log_duration = on
+# defino para gravar todas as consultas no log
+log_statement = 'all'
+</code></pre>
+
+<p>Após alterar as configurações, reinicie o serviço.</p>
+
+<p>Segue a estrutura da tabela que iremos importar o log:</p>
+
+<pre><code class="language-sql">CREATE TABLE postgres_log
+(
+  log_time timestamp(3) with time zone,
+  user_name text,
+  database_name text,
+  process_id integer,
+  connection_from text,
+  session_id text,
+  session_line_num bigint,
+  command_tag text,
+  session_start_time timestamp with time zone,
+  virtual_transaction_id text,
+  transaction_id bigint,
+  error_severity text,
+  sql_state_code text,
+  message text,
+  detail text,
+  hint text,
+  internal_query text,
+  internal_query_pos integer,
+  context text,
+  query text,
+  query_pos integer,
+  location text,
+  PRIMARY KEY (session_id, session_line_num)
+);
+</code></pre>
+
+<p>Com a tabela criada, vamos importar o log (Repita o processo sempre que quiser atualizar a tabela com os dados do arquivo de log):</p>
+
+<pre><code class="language-sql">TRUNCATE postgres_log;
+COPY postgres_log FROM '/caminho/do/pgdata/pg_log/main_log.csv' WITH csv;
+</code></pre>
+
+<p>Com a tabela atualizada podemos criar diversas consultas, como não sou muito criativo, vou <a href="http://pgfouine.projects.postgresql.org/reports/sample_default.html#normalizedqueriesmostfrequentreport">roubar o exemplo do pgFouine</a>:</p>
+
+<p>Most frequent queries:</p>
+
+<pre><code class="language-sql">CREATE TEMP SEQUENCE rank_seq;
+WITH
+  custom_log AS ( 
+    SELECT
+      REGEXP_REPLACE(REGEXP_REPLACE(MESSAGE, '[0-9]{1,}', '0', 'g'), '''.*?''', '''''', 'g') AS MESSAGE,
+      session_id,
+      session_line_num
+    FROM
+      postgres_log
+  ), summary AS (
+    SELECT
+      substring(custom_log.message, 12, LENGTH(custom_log.message)) AS consulta,
+      COUNT(custom_log.message) AS quantidade_execucoes,
+      AVG(SUBSTR(dur.message, 10, LENGTH(dur.message))::interval) AS tempo_medio,
+      SUM(SUBSTR(dur.message, 10, LENGTH(dur.message))::interval) AS tempo_total
+    FROM
+      custom_log
+      LEFT JOIN postgres_log dur
+      ON
+        custom_log.session_id               = dur.session_id
+        AND custom_log.session_line_num + 1 = dur.session_line_num
+    WHERE
+      custom_log.message LIKE 'statement%'
+      AND dur.message    LIKE 'duration%'
+    GROUP BY
+      custom_log.message
+    ORDER BY
+      2 DESC
+    LIMIT
+      10
+  )
+  SELECT
+      nextval('rank_seq')::INT AS rank,
+      summary.tempo_medio AS AvDuration,
+      summary.quantidade_execucoes::INT AS TimesExecuted,
+      summary.tempo_total AS TotalDuration,
+      summary.consulta::text AS Query
+    FROM
+      summary;
+</code></pre>
+
+<p>Espero que seja útil.</p>
+
+<p>[]&rsquo;s</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

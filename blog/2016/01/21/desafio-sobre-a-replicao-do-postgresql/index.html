@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/">Desafio sobre a replicação do PostgreSQL! </a> </h1>
+		<h2 class="subtitle is-4">Jan 21, 2016
+		</h2>
+ 
+
+<h5> 300 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/database"><span class="tag is-medium">Database</span></a> 
+    <a href="http://swebber.me//tags/replication"><span class="tag is-medium">Replication</span></a> 
+    <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		
+
+<p>Esse ano, <a href="http://savepoint.blog.br/10-anos-de-pgbr/">segundo fontes confiáveis</a>, é aniversário da Comunidade Brasileira de PostgreSQL. E pra fazer a minha parte (e tirar a poeira do blog) eu lanço um desafio público: falar sobre a replicação do PostgreSQL. E isso não é pouca coisa!</p>
+
+<p>Até o momento, essas são as soluções mais populares:</p>
+
+<ul>
+<li>Replicação Nativa: <a href="http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION">Streaming Replication</a> e <a href="http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION-SLOTS">Replication Slots</a></li>
+<li><a href="http://2ndquadrant.com/en-us/resources/bdr/">BDR</a></li>
+<li><a href="http://2ndquadrant.com/en/resources/pglogical/">PGLogical</a></li>
+<li><a href="http://slony.info/">Slony</a></li>
+<li><a href="https://wiki.postgresql.org/wiki/SkyTools#Londiste">Londiste</a></li>
+<li><a href="https://bucardo.org/wiki/Bucardo">Bucardo</a></li>
+<li><a href="http://www.keithf4.com/mimeo-introduction/">Mimeo</a></li>
+<li><a href="http://www.pgpool.net/mediawiki/index.php/Main_Page">PGpool II</a></li>
+<li><a href="http://www.repmgr.org/">REPMgr</a></li>
+</ul>
+
+<h2 id="a-proposta">A proposta</h2>
+
+<p>A idéia é fazer um ambiente de testes utilizando a versão mais recente do banco e da solução cobrindo os pontos abaixo:</p>
+
+<ul>
+<li>Instalação e configuração</li>
+<li>Operação basica para replicar dados ou conjunto de dados</li>
+<li>Procedimentos que previnem tolerancia a falhas</li>
+<li>Validar meios para replicar dados distribuidos geograficamente</li>
+<li>Medição dos tempos de carga intensa (como o restore do banco) e moderado (como a atualização de dados e tudo mais)</li>
+<li>Avaliação de pontos fortes e fracos</li>
+</ul>
+
+<h2 id="sobre-o-ambiente-de-testes">Sobre o ambiente de testes</h2>
+
+<h3 id="quanto-a-máquina-virtual-dos-testes">Quanto a máquina virtual dos testes</h3>
+
+<p>Pra simplificar o processo de setup do lab, eu criei uma configuração do <a href="https://www.vagrantup.com/">Vagrant</a> composta de duas máquinas virtuais na configuração abaixo:</p>
+
+<ul>
+<li>2GB de RAM</li>
+<li>35GB espaço em disco</li>
+<li>CEntOS 7 64 Bits</li>
+<li>Repositórios configurados: epel, pgdg94 e pgdg95</li>
+</ul>
+
+<p>Detalhes da configuração de rede:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hostname</th>
+            <th>IP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>master</td>
+            <td>192.168.100.100</td>
+        </tr>
+        <tr>
+            <td>slave</td>
+            <td>192.168.100.200</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Abaixo segue o Vagrantfile:
+<script src="//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=Vagrantfile"></script></p>
+
+<p>Para utiliza-lo, execute:</p>
+
+<script src="//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=setup.sh"></script>
+
+<h3 id="quanto-a-base-de-dados">Quanto a base de dados</h3>
+
+<p>A base de testes adotada é o banco do <a href="http://www.imdb.com/">IMDB</a>. Pra simplificar o processo de importação e teste eu já deixei um dump prontinho na URL abaixo:</p>
+
+<blockquote>
+<p><a href="http://1drv.ms/1TjlPXl"><code>http://1drv.ms/1TjlPXl</code></a></p>
+</blockquote>
+
+<p>Detalhes pra importação do dump são os de sempre:</p>
+
+<pre><code class="language-bash">createdb -U postgres imdb
+pg_restore -U postgres -d imdb -Fc --disable-triggers imdb.dump -j 4
+vacuumdb -U postgres -d imdb -z
+</code></pre>
+
+<p>Na sequência já publico detalhes de como popular e alterar os dados.</p>
+
+<p>E aí, vai encarar?</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

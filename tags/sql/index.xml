@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/sql/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Listando as 10 maiores tabelas no PostgreSQL</title>
+      <link>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</link>
+      <pubDate>Tue, 22 Jan 2013 19:43:26 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</guid>
+      <description>&lt;p&gt;Para listar as maiores tabelas do seu banco de dados, utilize a consulta abaixo:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/ebe4810bf03278624e31/.js&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Listando os próximos jobs do pgagent</title>
+      <link>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</link>
+      <pubDate>Mon, 10 Dec 2012 19:25:49 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</guid>
+      <description>&lt;p&gt;Para listar os próximos jobs, execute a consulta abaixo no banco postgres (ou o banco que tem o pgagent instalado):&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/763e5fc88549d1d2a3708a1e2b0eb216/.js&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calcular o tamanho da database no oracle 10g/11g</title>
+      <link>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</link>
+      <pubDate>Mon, 26 Nov 2012 19:22:46 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</guid>
+      <description>&lt;p&gt;Encontrei essa dica em outro site e resolvi compartilhar.&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/13a1f07311a9420cf66298a7cb12a597/.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Fonte: &lt;a href=&#34;http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html&#34;&gt;http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Utilizando o log CSV do PostgreSQL</title>
+      <link>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</link>
+      <pubDate>Sat, 14 Aug 2010 17:32:36 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</guid>
+      <description>&lt;p&gt;Uma das novidades bacanas da versão 8.3 do PostgreSQL foi a possibilidade de gerar os logs do banco no formato &lt;a href=&#34;http://pt.wikipedia.org/wiki/Comma-separated_values&#34;&gt;CSV&lt;/a&gt;. Quando eu precisei de uma forma mais eficiente de analisar os logs do banco eu assumi o seguinte raciocínio: &amp;ldquo;com o csv eu posso criar minha super aplicação .net para extrair os dados e dai pensei: se fosse só uma tabela, é só dar um select!&amp;ldquo;. Abaixo eu dou mais detalhes de como isso faz sentido.&lt;/p&gt;
+
+&lt;p&gt;Na &lt;a href=&#34;http://www.postgresql.org/docs/8.4/static/&#34;&gt;documentação&lt;/a&gt; eu encontrei toda a &lt;a href=&#34;http://www.postgresql.org/docs/8.4/static/runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-CSVLOG&#34;&gt;estrutura da tabela e como importar o arquivo&lt;/a&gt;. Mas antes de começarmos, vamos alterar algumas configurações no postgresql.conf:&lt;/p&gt;
+
+&lt;p&gt;Segue exemplo das configurações no postgresql.conf:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# habilito o log em csv
+log_destination = &#39;csvlog&#39;
+# habilito o coletor de estatisticas
+logging_collector = on
+# defino que grave no log a duração dos comandos executados
+log_duration = on
+# defino para gravar todas as consultas no log
+log_statement = &#39;all&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após alterar as configurações, reinicie o serviço.&lt;/p&gt;
+
+&lt;p&gt;Segue a estrutura da tabela que iremos importar o log:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE TABLE postgres_log
+(
+  log_time timestamp(3) with time zone,
+  user_name text,
+  database_name text,
+  process_id integer,
+  connection_from text,
+  session_id text,
+  session_line_num bigint,
+  command_tag text,
+  session_start_time timestamp with time zone,
+  virtual_transaction_id text,
+  transaction_id bigint,
+  error_severity text,
+  sql_state_code text,
+  message text,
+  detail text,
+  hint text,
+  internal_query text,
+  internal_query_pos integer,
+  context text,
+  query text,
+  query_pos integer,
+  location text,
+  PRIMARY KEY (session_id, session_line_num)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Com a tabela criada, vamos importar o log (Repita o processo sempre que quiser atualizar a tabela com os dados do arquivo de log):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;TRUNCATE postgres_log;
+COPY postgres_log FROM &#39;/caminho/do/pgdata/pg_log/main_log.csv&#39; WITH csv;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Com a tabela atualizada podemos criar diversas consultas, como não sou muito criativo, vou &lt;a href=&#34;http://pgfouine.projects.postgresql.org/reports/sample_default.html#normalizedqueriesmostfrequentreport&#34;&gt;roubar o exemplo do pgFouine&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;Most frequent queries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE TEMP SEQUENCE rank_seq;
+WITH
+  custom_log AS ( 
+    SELECT
+      REGEXP_REPLACE(REGEXP_REPLACE(MESSAGE, &#39;[0-9]{1,}&#39;, &#39;0&#39;, &#39;g&#39;), &#39;&#39;&#39;.*?&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;, &#39;g&#39;) AS MESSAGE,
+      session_id,
+      session_line_num
+    FROM
+      postgres_log
+  ), summary AS (
+    SELECT
+      substring(custom_log.message, 12, LENGTH(custom_log.message)) AS consulta,
+      COUNT(custom_log.message) AS quantidade_execucoes,
+      AVG(SUBSTR(dur.message, 10, LENGTH(dur.message))::interval) AS tempo_medio,
+      SUM(SUBSTR(dur.message, 10, LENGTH(dur.message))::interval) AS tempo_total
+    FROM
+      custom_log
+      LEFT JOIN postgres_log dur
+      ON
+        custom_log.session_id               = dur.session_id
+        AND custom_log.session_line_num + 1 = dur.session_line_num
+    WHERE
+      custom_log.message LIKE &#39;statement%&#39;
+      AND dur.message    LIKE &#39;duration%&#39;
+    GROUP BY
+      custom_log.message
+    ORDER BY
+      2 DESC
+    LIMIT
+      10
+  )
+  SELECT
+      nextval(&#39;rank_seq&#39;)::INT AS rank,
+      summary.tempo_medio AS AvDuration,
+      summary.quantidade_execucoes::INT AS TimesExecuted,
+      summary.tempo_total AS TotalDuration,
+      summary.consulta::text AS Query
+    FROM
+      summary;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Espero que seja útil.&lt;/p&gt;
+
+&lt;p&gt;[]&amp;rsquo;s&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

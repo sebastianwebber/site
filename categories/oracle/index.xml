@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/categories/oracle/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/categories/oracle/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Primeiras impressões do xDB Replication Server</title>
+      <link>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</link>
+      <pubDate>Tue, 08 Jan 2013 19:27:58 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</guid>
+      <description>
+
+&lt;p&gt;O &lt;a href=&#34;http://www.enterprisedb.com/products-services-training/products-overview/xdb-replication-server-multi-master&#34;&gt;xDB Replication Server&lt;/a&gt; é o produto da &lt;a href=&#34;http://www.enterprisedb.com&#34;&gt;EnterpriseDB&lt;/a&gt; que permite replicação assincrona tanto Single-Master (ou Master/Slave) quanto Multi-Master para banco de dados PostgreSQL/PostgreSQL Plus. O produto tem um funcionamento bem similar a replicação através de &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ms152567.aspx&#34;&gt;publicação do SQL Server&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A finalidade desse teste foi replicar tabelas disponibilizadas no Oracle para uma base PostgreSQL.&lt;/p&gt;
+
+&lt;p&gt;Para minha surpresa, na atual versão do produto (5.0-2), a replicação Multi-master apenas está disponível para o PostgreSQL/PostgreSQL Plus. Quanto a Single-Master, não há problemas em utilizar Oracle ou SQL Server. Todos os testes realizados foram realizados com o Oracle como master e o PostgreSQL como slave. Acredito que o contrário (PostgreSQL –&amp;gt; Oracle) possa funcionar normalmente.&lt;/p&gt;
+
+&lt;h3 id=&#34;ambiente-de-testes&#34;&gt;Ambiente de testes&lt;/h3&gt;
+
+&lt;h4 id=&#34;banco-master-oracle&#34;&gt;Banco Master – Oracle&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Versão:&lt;/strong&gt; Oracle 11GR2&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sistema Operacional:&lt;/strong&gt; Red Hat Enterprise Linux Server release 5.6 (Tikanga)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plataforma:&lt;/strong&gt; x86_64&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;banco-slave-postgresql&#34;&gt;Banco Slave – PostgreSQL&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Versão:&lt;/strong&gt; PostgreSQL 8.4.13&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sistema Operacional:&lt;/strong&gt; CentOS release 6.3 (Final)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plataforma:&lt;/strong&gt; x86_64&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Produto:&lt;/strong&gt; xDB Replication Server 5.0-2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;h3 id=&#34;observações&#34;&gt;Observações&lt;/h3&gt;
+
+&lt;p&gt;Propositalmente o Oracle está sendo executado em outro local e, necessariamente, em outra cidade. Para facilitar o ambiente, tanto o servidor Publicação quanto Subscrição estão rodando no mesmo servidor que está rodando o PostgreSQL e, especificamente, configurados no banco de dados ‘postgres’.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;na-prática&#34;&gt;Na prática&lt;/h3&gt;
+
+&lt;p&gt;Após liberar acesso aos servidores através de VPN e criar usuários e definir permissões de acesso ao usuário ‘hr’ no Oracle, criamos a tabela ‘tabela_teste’ com as colunas descritas abaixo:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Nome&lt;/th&gt;
+&lt;th&gt;Tipo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;id&lt;/td&gt;
+&lt;td&gt;NUMBER(30,0)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;nome&lt;/td&gt;
+&lt;td&gt;VARCHAR2(2048)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Ao mandar realizar um snapshot dados, ocorreu o erro abaixo:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Disabling FK constraints &amp;amp; triggers on hr.tabela_teste before truncate… Error Loading Data into Table: TABELA_TESTE: ERROR: relation “hr.tabela_teste” does not exist at position 67&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Assim notei o primeiro problema: &lt;strong&gt;é necessário ter a mesma estrutura das tabelas publicadas no servidor destino&lt;/strong&gt; (mesmo schema inclusive) para que a replicação funcione.&lt;/p&gt;
+
+&lt;p&gt;Após criar a tabela no PostgreSQL, fizemos um novo teste: Adicionar uma coluna do tipo CLOB. Após criar a mesma coluna em nossa tabela no PostgreSQL. A replicação deixou de funcionar, com isso foi identificado incompatibilidade com os tipos de dados binários.&lt;/p&gt;
+
+&lt;p&gt;Nosso teste final cobria o uso de campos data/hora. Assim, foi adicionado uma nova coluna na tabela e a mesma foi replicada seguindo a ordem das colunas e isso resultou o seguinte problema:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;hr=# select * from hr.tabela_teste order by id;
+ id | nome |                 pdf                  | data
+----+------+--------------------------------------+------
+  1 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  2 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  3 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  4 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  5 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  6 |      | 2013-01-08 10:44:51.000000 -02:00:00 |
+  7 |      | 2013-01-08 10:44:51.000000 -02:00:00 |
+  8 |      | 2013-01-08 10:54:36.000000 -02:00:00 |
+  9 |      | 2013-01-08 10:54:36.000000 -02:00:00 |
+ 10 |      | 2013-01-08 10:54:36.000000 -02:00:00 |
+(10 rows)
+
+hr=# \d hr.tabela_teste
+             Table &amp;quot;hr.tabela_teste&amp;quot;
+ Column |            Type             | Modifiers
+--------+-----------------------------+-----------
+ id     | integer                     | not null
+ nome   | text                        |
+ pdf    | bytea                       |
+ data   | timestamp without time zone |
+Indexes:
+    &amp;quot;tabela_teste_pk&amp;quot; PRIMARY KEY, btree (id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;O problema foi normalizado apenas quando a coluna pdf foi excluida.&lt;/p&gt;
+
+&lt;p&gt;Por fim, foi realizada uma carga de dados nessa tabela para levantarmos o tempo de resposta (&lt;a href=&#34;http://helkmut.blogspot.com.br/2013/01/oracle-populando-tabelas-com-clob-e.html&#34;&gt;detalhes da carga aqui&lt;/a&gt;). Enquanto tentamos popular a tabela ocorreu mais uma surpresa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ORA-01438: valor maior que a precisão especificada usado para esta coluna
+ORA-06512: em “HR.RRPI_HR_TABELA_TESTE”, line 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Pelo que identificamos o problema ocorre nas tabelas de controle da replicação que são criadas baseadas na estrutura da tabela original. Como antes da carga aumentamos o tamanho do campo para poder inserir mais registros as tabelas de controle não foram alteradas acabou causando esse erro.&lt;/p&gt;
+
+&lt;h3 id=&#34;conclusões&#34;&gt;Conclusões&lt;/h3&gt;
+
+&lt;h4 id=&#34;o-que-ele-faz&#34;&gt;O que ele faz&lt;/h4&gt;
+
+&lt;p&gt;O xDB Replication Server permite fazer replicação de pacotes de dados entre multiplos servidores, sejam eles PostgreSQL/PostgreSQL Plus, Oracle ou SQL Server de forma assincrona. Atualmente apenas o PostgreSQL/PostgreSQL Plus tem disponível o modelo Multi-Master.&lt;/p&gt;
+
+&lt;h4 id=&#34;o-que-ele-não-faz&#34;&gt;O que ele não faz&lt;/h4&gt;
+
+&lt;p&gt;Com o produto não é possível criar qualquer solução de alta disponibilidade. Basicamente o produto mantém uma cópia das tabelas da base origem, na base destino.&lt;/p&gt;
+
+&lt;h4 id=&#34;pontos-positivos&#34;&gt;Pontos positivos&lt;/h4&gt;
+
+&lt;p&gt;Pelo fato de o mesmo replicar os dados em suas tabelas de controle, caso o servidor de subscrições esteja indisponível, os dados serão analisados quando ele se tornar disponível e assim executar todas as tarefas necessárias para manter os dados iguais em ambos os lados. É possível, também, efetuar filtros dos dados a serem copiados e assim diminir o tempo de carga de um servidor para outro. Por fim, é possível agendar para que replica dos dados seja atualizada de tempos em tempos pela própria interface do xDB Replication Console, sem depender de componentes do SO ou ferramentas de terceiros.&lt;/p&gt;
+
+&lt;h4 id=&#34;pontos-negativos&#34;&gt;Pontos negativos&lt;/h4&gt;
+
+&lt;p&gt;A primeira limitação que incomodou é que, pelo menos através do xDB Replication Console, não foi possível criar a estrutura de tabelas automaticamente. É possível que, em ambientes que a publicação contenha muitas tabelas, ocorram muitos problemas devido a divergencia das tabelas ou colunas entre os servidores. A replicação dos dados é feita através de triggers nas tabelas que fazem parte da publicação e as alterações ficam gravadas em tabelas de controle. Além do fato gravação dos dados nessas tabelas concorrer com as outras transações, em nossos testes, essas tabelas de controle não eram alteradas quando realizadas mudanças nas tabelas alvo e assim impedindo a replicação de funcionar. Na interface de administração, não encontrei opção para atualizar-las e a única solução que encontrei foi recriar a publicação. Há algumas restrições quanto aos tipos de dados, em especial os binários. Não há opção para selecionar quais colunas serão replicadas (nem como uma consulta ao invés de um objeto) e também não conseguimos mapear views, sejam materializadas ou não.&lt;/p&gt;
+
+&lt;p&gt;Em especial, obrigado ao &lt;a href=&#34;http://helkmut.blogspot.com.br&#34;&gt;Gabriel&lt;/a&gt;, pela ajuda com a integração com o Oracle.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Calcular o tamanho da database no oracle 10g/11g</title>
+      <link>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</link>
+      <pubDate>Mon, 26 Nov 2012 19:22:46 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</guid>
+      <description>&lt;p&gt;Encontrei essa dica em outro site e resolvi compartilhar.&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/13a1f07311a9420cf66298a7cb12a597/.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;Fonte: &lt;a href=&#34;http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html&#34;&gt;http://techxploration.blogspot.com.au/2012/06/script-to-get-oracle-database-size.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ORA-00439: feature not enabled: Deferred Segment Creation</title>
+      <link>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</link>
+      <pubDate>Sun, 06 May 2012 16:34:38 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</guid>
+      <description>&lt;p&gt;Durante a migração de um banco, me deparei com a seguinte saida do impdp:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;CREATE TABLE &amp;quot;MYUSER&amp;quot;.&amp;quot;MYTABLE&amp;quot; (&amp;quot;COL1&amp;quot; NUMBER(11,0) NOT NULL ENABLE, &amp;quot;COL2&amp;quot; NUMBER(11,0) NOT NULL ENABLE...) SEGMENT CREATION DEFERRED ..
+ORA-39083: Tipo de objeto TABLE:&amp;quot;MYUSER&amp;quot;.&amp;quot;MYTABLE&amp;quot; falhou ao ser criado com o erro:
+ORA-00439: recurso não ativado: Deferred Segment Creation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após isso, fui confirmar o valor do parametro:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SQL&amp;gt; column type format a7
+SQL&amp;gt; show parameter deferred_segment_creation
+
+NAME                                 TYPE    VALUE
+------------------------------------ ------- ------------------------------
+deferred_segment_creation            boolean TRUE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ao confirmar que o parametro estava habilitado tive que alterar a compatibilidade do dump, adicionando o parametro &amp;lsquo;version=10.2&amp;rsquo; na chamada do expdp e do impdp. Como no exemplo:&lt;/p&gt;
+
+&lt;p&gt;Para exportar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;EXPDP usuario/senha dumpfile=arquivo_dump.dmp directory=DATA_DUMP_DIR version=10.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;No outro server, para importar o dump criado&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;IMPDP usuario/senha dumpfile=arquivo_dump.dmp directory=DATA_DUMP_DIR version=10.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Referência:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://oraclequirks.blogspot.com.br/2011/02/ora-00439-feature-not-enabled-deferred.html&#34;&gt;http://oraclequirks.blogspot.com.br/2011/02/ora-00439-feature-not-enabled-deferred.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Após reboot o ASM não iniciou (ORA-27154, ORA-27300, ORA-27301 e ORA-27302)</title>
+      <link>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</link>
+      <pubDate>Sat, 28 Apr 2012 15:12:19 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</guid>
+      <description>&lt;p&gt;Após reboot, a ASM não iniciou. Ao tentar iniciar manualmente, ocorre o erro abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlplus / as sysasm
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Apr 28 11:30:13 2012
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL&amp;gt; startup
+ORA-27154: post/wait create failed
+ORA-27300: OS system dependent operation:semget failed with status: 28
+ORA-27301: OS failure message: No space left on device
+ORA-27302: failure occurred at: sskgpsemsper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após analizar os &amp;ldquo;ORA-&amp;rdquo;, descobri que o parametro kernel.sem estava com o valor padrão, dessa forma, altere-o:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim /etc/sysctl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alter o valor de:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250  100
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250 32000 100 256
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após alterar o arquivo, aplique as alterações:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora inicie a ASM novamente (não é necessário reiniciar).&lt;/p&gt;
+
+&lt;p&gt;Referencias:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&#34;&gt;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Criando o ambiente inicial para a instalação do Oracle 11gR2 no RHEL 5</title>
+      <link>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</link>
+      <pubDate>Sat, 21 Apr 2012 16:18:57 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</guid>
+      <description>&lt;p&gt;Após a instalação do RHEL e os devidos updates, crie os respectivos usuários e grupos:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;groupadd oinstall
+groupadd dba
+groupadd oper
+useradd -g oinstall -G dba,oper oracle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, identifique seu kernel:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# uname -r
+2.6.18-308.4.1.el5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe, &lt;a href=&#34;http://www.oracle.com/technetwork/server-storage/linux/downloads/rhel5-084877.html&#34;&gt;do site da oracle&lt;/a&gt;, os pacotes necessários:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;oracleasm-support-2.1.7-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;oracleasmlib-2.0.4-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;oracleasm-2.6.18-308.4.1.el5-2.0.5-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Estou baixando o pacote do oracleasm de acordo a minha versão do kernel, caso a sua não seja a mesma, baixa a respectiva.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Instale os pacotes no baixados:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rpm -Uvh oracleasm-support-2.1.7-1.el5.x86_64.rpm
+rpm -Uvh oracleasmlib-2.0.4-1.el5.x86_64.rpm
+rpm -Uvh oracleasm-2.6.18-308.4.1.el5-2.0.5-1.el5.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o ASM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm configure
+Configuring the Oracle ASM library driver.
+
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets (&#39;[]&#39;).  Hitting  without typing an
+answer will keep that current value.  Ctrl-C will abort.
+
+Default user to own the driver interface []: oracle
+Default group to own the driver interface []: oinstall
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+Writing Oracle ASM library driver configuration: done
+Initializing the Oracle ASMLib driver:                     [  OK  ]
+Scanning the system for Oracle ASMLib disks:               [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Nesse ponto, particione os discos de acordo com a necessidade.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;No exemplo, a instalação está no disco 1 (sda) e o ASM está nos discos 2 (sdb) e 3 (sdc) e os particionei em 8 partes de 5gb cada um.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# fdisk -l
+
+Disk /dev/sda: 21.4 GB, 21474836480 bytes
+255 heads, 63 sectors/track, 2610 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          13      104391   83  Linux
+/dev/sda2              14        2610    20860402+  8e  Linux LVM
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        5221    41937651    5  Extended
+/dev/sdb5               1         609     4891729+  83  Linux
+/dev/sdb6             610        1218     4891761   83  Linux
+/dev/sdb7            1219        1827     4891761   83  Linux
+/dev/sdb8            1828        2436     4891761   83  Linux
+/dev/sdb9            2437        3045     4891761   83  Linux
+/dev/sdb10           3046        3654     4891761   83  Linux
+/dev/sdb11           3655        4263     4891761   83  Linux
+/dev/sdb12           4264        5221     7695103+  83  Linux
+
+Disk /dev/sdc: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        5221    41937651    5  Extended
+/dev/sdc5               1         609     4891729+  83  Linux
+/dev/sdc6             610        1218     4891761   83  Linux
+/dev/sdc7            1219        1827     4891761   83  Linux
+/dev/sdc8            1828        2436     4891761   83  Linux
+/dev/sdc9            2437        3045     4891761   83  Linux
+/dev/sdc10           3046        3654     4891761   83  Linux
+/dev/sdc11           3655        4263     4891761   83  Linux
+/dev/sdc12           4264        5221     7695103+  83  Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora marque os discos como disponíveis para a ASM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm createdisk ASMDISK01 /dev/sdb5
+Marking disk &amp;quot;ASMDISK01&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK02 /dev/sdb6
+Marking disk &amp;quot;ASMDISK02&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK03 /dev/sdb7
+Marking disk &amp;quot;ASMDISK03&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK04 /dev/sdb8
+Marking disk &amp;quot;ASMDISK04&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK05 /dev/sdb9
+Marking disk &amp;quot;ASMDISK05&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK06 /dev/sdb10
+Marking disk &amp;quot;ASMDISK06&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK07 /dev/sdb11
+Marking disk &amp;quot;ASMDISK07&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK08 /dev/sdb12
+Marking disk &amp;quot;ASMDISK08&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK09 /dev/sdc5
+Marking disk &amp;quot;ASMDISK09&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK10 /dev/sdc6
+Marking disk &amp;quot;ASMDISK10&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK11 /dev/sdc7
+Marking disk &amp;quot;ASMDISK11&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK12 /dev/sdc8
+Marking disk &amp;quot;ASMDISK12&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK13 /dev/sdc9
+Marking disk &amp;quot;ASMDISK13&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK14 /dev/sdc10
+Marking disk &amp;quot;ASMDISK14&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK15 /dev/sdc11
+Marking disk &amp;quot;ASMDISK15&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK16 /dev/sdc12
+Marking disk &amp;quot;ASMDISK16&amp;quot; as an ASM disk:                   [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora veja a relação discos disponíveis:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm listdisks
+ASMDISK01
+ASMDISK02
+ASMDISK03
+ASMDISK04
+ASMDISK05
+ASMDISK06
+ASMDISK07
+ASMDISK08
+ASMDISK09
+ASMDISK10
+ASMDISK11
+ASMDISK12
+ASMDISK13
+ASMDISK14
+ASMDISK15
+ASMDISK16
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;ASMDISKXX é o label que dei para o disco e é como você irá identificar o mesmo na configuração da ASM&amp;hellip; Ajuste o nome conforme achar necessário.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Agora instale os pacotes necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# yum install gcc elfutils-libelf-devel glibc-devel glibc-headers gcc-c++ libaio-devel libstdc++-devel sysstat unixODBC unixODBC-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;UPDATE: Após o reboot do servidor a ASM não iniciou, logo, deixei a correção &lt;a href=&#34;http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/&#34;&gt;em outro post&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

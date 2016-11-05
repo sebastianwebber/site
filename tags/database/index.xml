@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/database/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Checklist mensal do PostgreSQL</title>
+      <link>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</link>
+      <pubDate>Mon, 15 Feb 2016 16:54:52 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</guid>
+      <description>
+
+&lt;p&gt;Este post é uma humilde adaptação de um &lt;a href=&#34;http://www.jasonstrate.com/monthly-sql-server-checklist/&#34;&gt;ótimo artigo sobre o SQL Server&lt;/a&gt;. Sim, você leu certo: Peguei umas idéias do checklist do SQL Server.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-atualize-o-so-do-seu-servidor&#34;&gt;1. Atualize o SO do seu servidor&lt;/h2&gt;
+
+&lt;p&gt;Eu sei. Você não faz isso. Acha que não precisa, que o problema não é seu, mas nos últimos anos tivemos tantos problemas de segurança recentes (&lt;a href=&#34;http://heartbleed.com&#34;&gt;HeartBleead&lt;/a&gt;, &lt;a href=&#34;https://access.redhat.com/articles/1200223&#34;&gt;Shellshock&lt;/a&gt;, etc), que sabe-se lá o que pode nos assustar no futuro. Quer uma sugestão? Atualiza tudo, sempre [que possível].&lt;/p&gt;
+
+&lt;h2 id=&#34;2-atualize-seu-servidor-postgresql&#34;&gt;2. Atualize seu servidor PostgreSQL&lt;/h2&gt;
+
+&lt;p&gt;Por que? por que sim, oras. Precisa de mais motivos? Então pensa que BUGs e falhas de segurança são corrigidos o quanto antes.&lt;/p&gt;
+
+&lt;p&gt;Sua versão instalada não tem mais atualizações ou não é mais suportada? Para tudo e bora atualizar. Não só pela segurança, mas toda versão tem muita coisa bacana, aposto que os desenvolvedores implorariam pra você atualizar. Vai lá e mostra o release notes pros caras, depois vem e me agradece. :P&lt;/p&gt;
+
+&lt;p&gt;Não acredita? Abre aí então:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://wiki.postgresql.org/wiki/What&#39;s_new_in_PostgreSQL_9.5&#34;&gt;&lt;code&gt;https://wiki.postgresql.org/wiki/What&#39;s_new_in_PostgreSQL_9.5&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Pra te dar uma dica de como atualizar, sempre dê uma lida no release notes. Lá tem tudo o que nós, meros mortais (&lt;em&gt;ou não devs&lt;/em&gt;), precisavamos saber pra atualizar o banco. Normalmente é bem simples (para o banco, atualiza os binários, sobe o banco), e caso seja mais elaborado, vai estar la no release notes, bem bonitinho.&lt;/p&gt;
+
+&lt;p&gt;Quer saber das versões novas e tem preguiça de ver o site toda hora? Então assine o &lt;a href=&#34;http://www.postgresql.org/versions.rss&#34;&gt;feed RSS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ainda assim da muito trabalho? Então utilize os repositórios do PGDG, que tem pra varios sabores (&lt;a href=&#34;https://wiki.postgresql.org/wiki/Apt&#34;&gt;APT&lt;/a&gt; e &lt;a href=&#34;https://wiki.postgresql.org/wiki/RPM_Installation&#34;&gt;YUM&lt;/a&gt;  por exemplo).&lt;/p&gt;
+
+&lt;h2 id=&#34;3-valide-suas-rotinas-de-backup&#34;&gt;3. Valide suas rotinas de backup&lt;/h2&gt;
+
+&lt;p&gt;Verifique todo seu processo de backup. Messa os tempos de execução, documente cada etapa do processo e tente deixar ele o mais simples possível. Pontos importantes a validar são: &lt;em&gt;Tamanho ocupado&lt;/em&gt;, &lt;em&gt;duração&lt;/em&gt;, &lt;em&gt;falhas na execução&lt;/em&gt; e &lt;em&gt;monitoramento do mesmo&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Já que estamos falando de backup, faça a lição de casa e avalie as soluções de backup mais populares:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.postgresql.org/docs/current/static/backup.html&#34;&gt;DOC Oficial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.pgbarman.org&#34;&gt;pgbarman&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/michaelpq/pg_arman&#34;&gt;pg_arman&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.depesz.com/2013/09/11/how-to-make-backups-of-postgresql/&#34;&gt;scripts customizados do @depesz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Já que você faz backup do seu banco, não esqueça de fazer backup das suas configurações. Afinal, nunca se sabe quando vamos precisar fazer um &lt;code&gt;Disaster Recovery&lt;/code&gt;. Falando nisso, é uma boa planejar uma solução de &lt;code&gt;HA&lt;/code&gt;, não é mesmo?&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Se você ainda usa o &lt;code&gt;pg_dump&lt;/code&gt; como sua principal solução de backup, dá uma olhada nesse &lt;a href=&#34;http://savepoint.blog.br/dump-nao-e-backup/&#34;&gt;artigo bacana do @telles&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;4-teste-com-vontade-a-sua-rotina-de-restore&#34;&gt;4. Teste, &lt;em&gt;com vontade&lt;/em&gt;, a sua rotina de restore&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Backup bom é o que restaura.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Eu nunca canso de dizer isso!&lt;/p&gt;
+
+&lt;p&gt;Já que seu backup está rodando certinho, faça um restore dos dados. Meça os tempos, documente o processo. Se tiver como fazer isso num servidor novo, melhor aínda! O importante é ficar tranquilo e ter tudo sob controle quando a casa cair e ele for realmente necessário.&lt;/p&gt;
+
+&lt;h2 id=&#34;5-verifique-o-desempenho-e-a-saude-do-seu-banco&#34;&gt;5. Verifique o desempenho e a saude do seu banco&lt;/h2&gt;
+
+&lt;p&gt;Deixe de sofrer. Há muitas soluções de monitoramento no mercado (&lt;a href=&#34;http://www.zabbix.com&#34;&gt;zabbix&lt;/a&gt;, &lt;a href=&#34;https://www.nagios.org/&#34;&gt;Nagios&lt;/a&gt;, etc). Coloque ele pra funcionar e monitorar detalhes uteis do SO e também do servidor PostgreSQL. Ajuste seu log para um formato de leitura mais eficiente (como o CSV, por exemplo) e gere reports do &lt;a href=&#34;http://dalibo.github.io/pgbadger/&#34;&gt;pgbadger&lt;/a&gt; ou &lt;a href=&#34;https://prezi.com/f2dvt6m9tbf9/integrating-postgresql-with-logstash-for-real-time-monitoring/&#34;&gt;uma solução mais elaborada&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Caso você use a versão 9.3 ou superior, você &lt;strong&gt;DEVE&lt;/strong&gt; dar uma olhada no &lt;a href=&#34;http://dalibo.github.io/powa/&#34;&gt;PoWA&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;6-revise-seu-tuning-no-so-e-no-postgresql-conf&#34;&gt;6. Revise seu tuning no SO e no &lt;code&gt;postgresql.conf&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Agora que você passou a monitorar o banco, aproveita o embalo e começa a dar uma revisada no tuning do sistema operacional, começando pelo &lt;code&gt;/etc/sysctl.conf&lt;/code&gt;. Infelizmente, cada evento pode apontar um arquivo de configuração diferente. O jeito fácil é entender o que está rolando no servidor e ver se isso tu trata num dos &lt;strong&gt;3 pilares&lt;/strong&gt;: &lt;em&gt;Hardware&lt;/em&gt;, &lt;em&gt;Sistema Operacional&lt;/em&gt; e &lt;em&gt;Banco de dados&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;SO revisado? Então manda ver e da uma olhada configurações do &lt;code&gt;postgresql.conf&lt;/code&gt;. Se você nunca fez isso, eu sugiro que dê uma olhada no &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;. Lá é um bom lugar pra começar.&lt;/p&gt;
+
+&lt;p&gt;Não esqueça do hardware. As vezes não tem jeito, precisamos de um upgrade. :D&lt;/p&gt;
+
+&lt;h2 id=&#34;7-analise-e-ajuste-o-baseline&#34;&gt;7. Analise e ajuste o baseline&lt;/h2&gt;
+
+&lt;p&gt;Chegou a conclusão que precisa de algum ajuste no tuning? O que mudou? Aumentou a quantidade de usuários? Nova feature baseado em &lt;a href=&#34;http://desciclopedia.org/wiki/Gambi_Design_Patterns&#34;&gt;boas praticas do mercado&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;Será que é realmente necessário esse ajuste?&lt;/p&gt;
+
+&lt;h2 id=&#34;8-valide-o-seu-capacity-plan-https-en-wikipedia-org-wiki-capacity-planning&#34;&gt;8. Valide o seu &lt;a href=&#34;https://en.wikipedia.org/wiki/Capacity_planning&#34;&gt;Capacity Plan&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Se você tem um em ação, será que o mesmo está adequado? Se você fez algum ajuste sugerido acima, será que o mesmo não precisa de nenhum ajuste? Talvez seja o momento de mudar algumas projeções.&lt;/p&gt;
+
+&lt;h2 id=&#34;9-sumarize-e-monte-um-plano&#34;&gt;9. Sumarize e monte um plano&lt;/h2&gt;
+
+&lt;p&gt;Avaliou tudo o que precisa mudar? Agora monte o seu proprio plano de ação, alinhe com a equipe e batalhe pelas janelas de manutenção.&lt;/p&gt;
+
+&lt;p&gt;Depois de tudo pronto e configurado, mande o seu próprio release notes pro pessoal do marketing e deixe eles fazerem propaganda da saude do seu banco! :P&lt;/p&gt;
+
+&lt;h2 id=&#34;faltou-algo&#34;&gt;Faltou algo?&lt;/h2&gt;
+
+&lt;p&gt;Certamente algo importante pode ter ficado pra trás. Deixa um comentário pra gente ajustar assim que der. :D&lt;/p&gt;
+
+&lt;p&gt;[]&amp;rsquo;s&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Desafio sobre a replicação do PostgreSQL!</title>
+      <link>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</link>
+      <pubDate>Thu, 21 Jan 2016 20:05:03 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</guid>
+      <description>
+
+&lt;p&gt;Esse ano, &lt;a href=&#34;http://savepoint.blog.br/10-anos-de-pgbr/&#34;&gt;segundo fontes confiáveis&lt;/a&gt;, é aniversário da Comunidade Brasileira de PostgreSQL. E pra fazer a minha parte (e tirar a poeira do blog) eu lanço um desafio público: falar sobre a replicação do PostgreSQL. E isso não é pouca coisa!&lt;/p&gt;
+
+&lt;p&gt;Até o momento, essas são as soluções mais populares:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Replicação Nativa: &lt;a href=&#34;http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION&#34;&gt;Streaming Replication&lt;/a&gt; e &lt;a href=&#34;http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION-SLOTS&#34;&gt;Replication Slots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://2ndquadrant.com/en-us/resources/bdr/&#34;&gt;BDR&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://2ndquadrant.com/en/resources/pglogical/&#34;&gt;PGLogical&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://slony.info/&#34;&gt;Slony&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.postgresql.org/wiki/SkyTools#Londiste&#34;&gt;Londiste&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://bucardo.org/wiki/Bucardo&#34;&gt;Bucardo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.keithf4.com/mimeo-introduction/&#34;&gt;Mimeo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.pgpool.net/mediawiki/index.php/Main_Page&#34;&gt;PGpool II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.repmgr.org/&#34;&gt;REPMgr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;a-proposta&#34;&gt;A proposta&lt;/h2&gt;
+
+&lt;p&gt;A idéia é fazer um ambiente de testes utilizando a versão mais recente do banco e da solução cobrindo os pontos abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Instalação e configuração&lt;/li&gt;
+&lt;li&gt;Operação basica para replicar dados ou conjunto de dados&lt;/li&gt;
+&lt;li&gt;Procedimentos que previnem tolerancia a falhas&lt;/li&gt;
+&lt;li&gt;Validar meios para replicar dados distribuidos geograficamente&lt;/li&gt;
+&lt;li&gt;Medição dos tempos de carga intensa (como o restore do banco) e moderado (como a atualização de dados e tudo mais)&lt;/li&gt;
+&lt;li&gt;Avaliação de pontos fortes e fracos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;sobre-o-ambiente-de-testes&#34;&gt;Sobre o ambiente de testes&lt;/h2&gt;
+
+&lt;h3 id=&#34;quanto-a-máquina-virtual-dos-testes&#34;&gt;Quanto a máquina virtual dos testes&lt;/h3&gt;
+
+&lt;p&gt;Pra simplificar o processo de setup do lab, eu criei uma configuração do &lt;a href=&#34;https://www.vagrantup.com/&#34;&gt;Vagrant&lt;/a&gt; composta de duas máquinas virtuais na configuração abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2GB de RAM&lt;/li&gt;
+&lt;li&gt;35GB espaço em disco&lt;/li&gt;
+&lt;li&gt;CEntOS 7 64 Bits&lt;/li&gt;
+&lt;li&gt;Repositórios configurados: epel, pgdg94 e pgdg95&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Detalhes da configuração de rede:&lt;/p&gt;
+
+&lt;table class=&#34;table&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Hostname&lt;/th&gt;
+            &lt;th&gt;IP&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;master&lt;/td&gt;
+            &lt;td&gt;192.168.100.100&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;slave&lt;/td&gt;
+            &lt;td&gt;192.168.100.200&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Abaixo segue o Vagrantfile:
+&lt;script src=&#34;//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=Vagrantfile&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Para utiliza-lo, execute:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=setup.sh&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;quanto-a-base-de-dados&#34;&gt;Quanto a base de dados&lt;/h3&gt;
+
+&lt;p&gt;A base de testes adotada é o banco do &lt;a href=&#34;http://www.imdb.com/&#34;&gt;IMDB&lt;/a&gt;. Pra simplificar o processo de importação e teste eu já deixei um dump prontinho na URL abaixo:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://1drv.ms/1TjlPXl&#34;&gt;&lt;code&gt;http://1drv.ms/1TjlPXl&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Detalhes pra importação do dump são os de sempre:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;createdb -U postgres imdb
+pg_restore -U postgres -d imdb -Fc --disable-triggers imdb.dump -j 4
+vacuumdb -U postgres -d imdb -z
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Na sequência já publico detalhes de como popular e alterar os dados.&lt;/p&gt;
+
+&lt;p&gt;E aí, vai encarar?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Um rascunho sobre banco de dados e containers</title>
+      <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
+      <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
+      <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
+
+&lt;p&gt;Usar o docker e criar um container é relativamente fácil, se você der uma olhada no google, vai achar uma dezena de tutoriais e dicas infalíveis pra deixar tudo rodando como deve. Vou deixar uns links abaixo pra tentar fazer a minha parte.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/engine/installation/centos/&#34;&gt;Documentação oficial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;O docker tem uma limitação simples: &lt;em&gt;até o momento, ele só roda no linux&lt;/em&gt;. Temos artificios pra usar o docker no Windows e ou Mac, mas a verdade é que mesmo &amp;ldquo;com jeitinho&amp;rdquo;, vai ter uma vm linux rodando o docker por debaixo dos panos. Não sei da Apple, mas &lt;a href=&#34;https://blog.docker.com/2015/08/tp-docker-engine-windows-server-2016/&#34;&gt;a Microsoft ta dando um jeitinho pra rodar ele no Windows Server 2016&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;O que isso quer dizer?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Quer dizer que, no atual momento, docker só funciona no linux.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Se você ficou curioso sobre como usar ele no windows ou mac, dá uma olhada no &lt;a href=&#34;https://kitematic.com/&#34;&gt;Kitematic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Bom, depois de discurso todo eu quero dizer uma coisa bem simples: Se sua aplicação precisa do Windows pra rodar (seja pelo SQL Server, IIS, etc) acho que esse post não é bem pra você.&lt;/p&gt;
+
+&lt;p&gt;É comum usarmos docker para rodar nossa aplicação web, seja ela como for: ERP rodando em java, blog em php, etc. A idéia é simples: a gente sobe um container com o mínimo pra ela rodar e gentilmente manda o docker rodar muitas instancias dessa mesma imagem simultaneamente. Pensando assim você indaga: Se precisar um balanceador de carga, o que fazemos? Subimos ele num container também. Fácil assim.&lt;/p&gt;
+
+&lt;p&gt;Quer um exemplo? Suponha que tenhamos que publicar um blog feito no wordpress. Wordpress precisa do php e um banco MySQL pra funcionar. Dessa forma, precisamos, &lt;strong&gt;necessariamente&lt;/strong&gt; de 2 containers: 1 de MySQL e outro de apache+php (ou qualquer outro webserver que rode php e te deixe feliz).&lt;/p&gt;
+
+&lt;p&gt;Assim que nosso servidor estiver rodando esses containers e nosso blog imaginario começa a receber muitos acessos, nosso container de apache e php começa a ter dificuldade de responder a todas as requisições e assim, temos a grande idéia de colocar mais um container rodando apache com minha aplicação (wordpress) e assim, ganhamos um problema novo: tenho 2 apaches e nimguém pra balancear o mesmo.&lt;/p&gt;
+
+&lt;p&gt;O que fazer nesse caso? você pode subir um &lt;a href=&#34;https://hub.docker.com/_/haproxy/&#34;&gt;container com o haproxy&lt;/a&gt; e passar a apontar tuas requisições pra ele e ele passar a balancear as conexões entre os apaches. Até que é facil não é? agora, se o site ficar lento denovo, o que a gente faz? aumenta os apaches! Quantos? Quantos forem necessários!!! :D&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agora, quando baixou a demanda, o que eu faço?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Diminuo a quantidade de containers em execução, fazendo manualmente um &lt;a href=&#34;https://en.wikipedia.org/wiki/Autoscaling&#34;&gt;autoscaling&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Talvez aqui tenhamos um furo no conceito: a aplicação do wordpress vai eventualmente criar uns arquivos no disco com dados da aplicação (imagens, css, js, etc) e isso a gente pode contornar com uma area de disco compartilhada entre os containers.&lt;/p&gt;
+
+&lt;p&gt;A analogia é simples nesse caso: cada imagem docker tem tudo que eu preciso pra rodar o php+wordpress+coisas+do+blog e o MySQL é quem guarda os dados dinamicos.&lt;/p&gt;
+
+&lt;p&gt;Então vai chegar o temido dia: meu banco rodando no container não dá conta do recado. Você tenta todo tipo de mandinga necessária: tunning, hardware e não tem jeito. Aí, depois de pensar em todos os planos pra aumentar os recursos passa pra pensar em algum tipo de processamento horizontal e nota que vai precisar distribuir a carga e balancear os acessos entre esses nós. Assim, você que já foi doutrinado vai dizer: &amp;ldquo;ótimo! vou colocar a rodar mais um haproxy e vou subir outro container MySQL!&amp;rdquo;. Não, isso não vai funcionar.&lt;/p&gt;
+
+&lt;p&gt;Por que? basicamente por causa da integridade dos dados. Precisamos de algum mecanismo (seja nativo ou não) que garanta que ambas os containers rodando MySQL tenham a mesma informação. Isso não é tão simples: cada fabricante de banco de dados implementa do seu jeito e cada solução de replicação tem seus prós e contras.&lt;/p&gt;
+
+&lt;p&gt;Tá, mas o MySQL não tem replicação? eu não posso usar pra resolver meu problema? Pode. E posso fazer igual como fiz com os apaches+php, apagando os containers conforme ele não for usado? Provavelmente não.&lt;/p&gt;
+
+&lt;p&gt;Aqui é o ponto em questão: bancos de dados não apenas arquivos no disco. Precisamos pensar uma forma diferente de tratar ele pra que funcione bem como de costume.&lt;/p&gt;
+
+&lt;p&gt;Quanto ao armazenamento, tem alguns links que valem a pena dar uma olhada:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker&#34;&gt;http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/&#34;&gt;http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/engine/userguide/dockervolumes/&#34;&gt;https://docs.docker.com/engine/userguide/dockervolumes/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://container42.com/2014/11/18/data-only-container-madness/&#34;&gt;http://container42.com/2014/11/18/data-only-container-madness/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Continua&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/">Replicação lógica com o Londiste </a> </h1>
+		<h2 class="subtitle is-4">Apr 18, 2014
+		</h2>
+ 
+
+<h5> 1300 Words. Read in about 6 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> 
+    <a href="http://swebber.me//categories/londiste">Londiste</a> </h5>
+<h5>Tags: </h5>
+
+<hr/>
+			<div class="content is-medium">
+		
+
+<p>O objetivo desse post é implementar o londiste, que é uma ferramenta de replicação assincrona do tipo master/slave e faz parte do pacote de ferramentas SkyTools.</p>
+
+<p>Pontos a validar dessa solução:</p>
+
+<ul>
+<li>Tempo de replicação dos dados</li>
+<li>Tipos de dados suportados, em especial:
+
+<ul>
+<li>Sequence</li>
+<li>Timestamp</li>
+<li>Bytea</li>
+</ul></li>
+</ul>
+
+<h2 id="sobre-o-ambiente-de-testes">Sobre o ambiente de testes</h2>
+
+<p>O ambiente de testes é composto por 2 servidores linux conforme abaixo:</p>
+
+<table class="table">
+    <thead>
+        <tr>
+          <th></th>
+        <th>Master</th>
+        <th>Slave</th>
+        </tr>
+      </thead>
+    <tbody>
+        <tr>
+            <td><b>Hostname</b></td>
+            <td>pg-master</td>
+            <td>pg-slave</td>
+        </tr>
+        <tr>
+            <td><b>SO</b></td>
+            <td>CEntOS 6.5</td>
+            <td>CEntOS 6.5</td>
+        </tr>
+        <tr>
+            <td><b>PostgreSQL</b></td>
+            <td>9.3.4</td>
+            <td>9.3.4</td>
+        </tr>
+        <tr>
+            <td><b>Skytools</b></td>
+            <td>3.1.5</td>
+            <td>3.1.5</td>
+        </tr>
+        <tr>
+            <td><b>IP</b></td>
+            <td>192.168.152.149</td>
+            <td>192.168.152.150</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 id="instalação-do-postgresql">Instalação do PostgreSQL</h2>
+
+<p>Processo necessário em ambos os servidores.</p>
+
+<pre><code class="language-bash">cd /tmp
+wget -c http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+yum localinstall pgdg-centos93-9.3-1.noarch.rpm
+yum install postgresql93-server postgresql93-contrib
+service postgresql-9.3 initdb
+chkconfig postgresql-9.3 on
+</code></pre>
+
+<h3 id="ajustes-no-firewall">Ajustes no firewall</h3>
+
+<p>Executar apenas no servidor master:</p>
+
+<pre><code class="language-bash">iptables -I INPUT -p tcp --dport 5432 -s 192.168.152.149 -j ACCEPT
+service iptables save
+</code></pre>
+
+<blockquote>
+<p>Nesse lab não foi necessário parar ou ajustar o SELinux.</p>
+</blockquote>
+
+<h3 id="ajustes-no-postgresql-conf">Ajustes no postgresql.conf</h3>
+
+<pre><code class="language-bash">listen_addresses = '*'
+</code></pre>
+
+<h3 id="ajustes-na-configuração-do-pg-hba-conf">Ajustes na configuração do pg_hba.conf</h3>
+
+<p>Por questão de conveniência, libere acesso a todos os bancos dos servidores citados:</p>
+
+<pre><code class="language-bash">host    all   postgres    192.168.152.149/32  trust
+host    all   postgres    192.168.152.150/32  trust
+</code></pre>
+
+<p>Agora inicie o postgresql:</p>
+
+<pre><code class="language-bash">service postgresql-9.3 start
+</code></pre>
+
+<h2 id="sobre-o-londiste">Sobre o Londiste</h2>
+
+<p>O Londiste é uma ferramenta escrita em python, que utiliza o PgQ para o gerenciamento de eventos.</p>
+
+<p>O PgQ que é um sistema de filas escrito em PL/pgSQL. Ele é divido em 3 principais funcionalidades:</p>
+
+<ul>
+<li><strong>Producers:</strong> coloca eventos em uma determinada fila</li>
+<li><strong>Ticker:</strong> é um daemon que separa as filas em pacotes de eventos</li>
+<li><strong>Consumers:</strong> lê eventos de uma determinada fila</li>
+</ul>
+
+<p>Quanto à replicação do londiste, a mesma é controlada pelos nós (nodes), que são classicados como:</p>
+
+<ul>
+<li><b>root:</b> é o servidor master da replicação</li>
+<li><b>branch:</b> é o servidor slave da replicação e permite que outros nós o utilizem para replica de dados em cascata</li>
+<li><b>leaf:</b> é o servidor slave da replicação e não permite replicação apartir dele</li>
+</ul>
+
+<p>Na prática, cada configuração do nó é um job para processar as filas do PgQ. Para manter as filas atualizadas, um daemon chamado de worker é executado. Varios workers podem ser executados simulâneamente.</p>
+
+<p>O daemon do PgQ, diferente do worker, precisa ter acesso a todos os bancos, para procupar pelos jobs e manter as filas e é por isso que sua string de conexão é parcial (parâmetro <code>base_connstr</code>). Seu acesso padrão é realizado ao banco <code>template1</code>.</p>
+
+<p>Recomendo que o daemon do PgQ seja executado do servidor que for o nó root (master) mas nada impede de o mesmo ficar em um servidor isolado.</p>
+
+<blockquote>
+<p>É importante lembrar que a solução do Londiste é implementada através de triggers nas tabelas replicadas e isso gera 2 ações necessárias: obrigatoriedade de mesma estrutura de tabelas/colunas e criação de constraints tipo PK e FK nos objetos replicados.</p>
+</blockquote>
+
+<h2 id="instalação-do-londiste">Instalação do Londiste</h2>
+
+<pre><code class="language-bash">yum install skytools-93 skytools-93-modules
+</code></pre>
+
+<p>Talvez seja necessário reiniciar o postgresql nesse ponto.</p>
+
+<h2 id="configuração-do-londiste">Configuração do londiste</h2>
+
+<p>Crie a estrutura de dados em ambos os servidores:</p>
+
+<pre><code class="language-bash">psql -U postgres -f schema_londiste.sql
+</code></pre>
+
+<pre><code class="language-sql">-- criação do banco de dados
+CREATE DATABASE teste_replica;
+
+\c teste_replica
+
+-- estrutura de dados
+CREATE TABLE pessoa (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    data_nascimento DATE NOT NULL,
+    ultima_visita TIMESTAMP NOT NULL DEFAULT now(),
+    foto BYTEA,
+    biografia TEXT
+);
+
+-- funções de apoio
+CREATE OR REPLACE FUNCTION bytea_import(p_path text, p_result out bytea) 
+                   LANGUAGE plpgsql as $$
+DECLARE
+  l_oid oid;
+  r record;
+BEGIN
+  p_result := '';
+  select lo_import(p_path) into l_oid;
+  for r in ( select data 
+             from pg_largeobject 
+             where loid = l_oid 
+             order by pageno ) loop
+    p_result = p_result || r.data;
+  end loop;
+  perform lo_unlink(l_oid);
+END;
+$$;
+</code></pre>
+
+<h3 id="servidor-master">Servidor master</h3>
+
+<p>Crie os diretórios necessários:</p>
+
+<pre><code class="language-bash">mkdir {/etc,/var/log,/var/run}/londiste
+</code></pre>
+
+<p>Crie o arquivo <code>/etc/londiste/teste_replica_root.ini</code>, com o conteúdo abaixo:</p>
+
+<pre><code class="language-bash">[londiste3]
+job_name = teste_replica_root
+db = dbname=teste_replica host=192.168.152.149 user=postgres
+queue_name = q_teste_replica
+logfile = /var/log/londiste/teste_replica_root.log
+pidfile = /var/run/londiste/teste_replica_root.pid
+</code></pre>
+
+<p>Quanto aos parâmetros utilizados:</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Propriedade</th>
+            <th>Descrição</th>
+            <th>Sugestão de valores</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>job_name</b></td>
+            <td>Nome do Job a ser executado</td>
+            <td><pre>[NOME_BANCO]_[TIPO_NODE]</pre></td>
+        </tr>
+        <tr>
+            <td><b>db</b></td>
+            <td>Connection String com detalhes de conexão do banco replicado</td>
+            <td><pre>host=[PGHOST] port=[PGPORT] dbname=[NOME_BANCO] user=[PGUSER]</pre></td>
+        </tr>
+        <tr>
+            <td><b>queue_name</b></td>
+            <td>Nome da fila</td>
+            <td><pre>q_[NOME_BANCO]</pre></td>
+        </tr>
+        <tr>
+            <td><b>logfile</b></td>
+            <td>Caminho completo do arquivo de log</td>
+            <td><pre>/var/log/londiste/[NOME_BANCO]_[TIPO_NODE].log</pre></td>
+        </tr>
+        <tr>
+            <td><b>pidfile</b></td>
+            <td>Caminho completo do arquivo pid do worker</td>
+            <td><pre>/var/run/londiste/[NOME_BANCO]_[TIPO_NODE].pid</pre></td>
+        </tr>
+    </tbody>
+</table>
+
+<blockquote>
+<p>Caso seja necessário um arquivo de exemplo para ajudar a criar as configurações do job, utilize o comando <code>londiste3 \-\-ini</code> para gerar um arquivo de exemplo sanar as possíveis dúvidas ou ver as configurações disponíveis.</p>
+</blockquote>
+
+<p>Após o ajuste das configurações é necessário criar o nó do londiste dentro do banco a ser replicado, assim, execute o comando abaixo:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/teste_replica_root.ini create-root node1 &quot;dbname=teste_replica host=192.168.152.149 user=postgres&quot;
+</code></pre>
+
+<p>Inicie o daemon para o nó criado:</p>
+
+<pre><code class="language-bash">londiste3 -d /etc/londiste/teste_replica_root.ini worker
+</code></pre>
+
+<blockquote>
+<p>É importante lembrar que para cada novo job é necessário criar um novo arquivo de configuração e a inicialização do job no banco replicado, conforme detalhado acima.</p>
+</blockquote>
+
+<h4 id="configure-o-daemon-do-pgq">Configure o daemon do PgQ</h4>
+
+<p>Crie o arquivo <code>/etc/londiste/pgqd.ini</code>, com o conteúdo abaixo:</p>
+
+<pre><code class="language-bash">[pgqd]
+base_connstr = host=192.168.152.149 user=postgres
+logfile = /var/log/londiste/pgqd.log
+pidfile = /var/run/londiste/pgqd.pid
+</code></pre>
+
+<blockquote>
+<p>Caso seja necessário um arquivo de exemplo para ajudar a criar as configurações do daemon, utilize o comando <code>pgqd \-\-ini</code> para gerar um arquivo de exemplo sanar as possíveis dúvidas ou ver as configurações disponíveis.</p>
+</blockquote>
+
+<p>Inicie o daemon do PgQ:</p>
+
+<pre><code class="language-bash">pgqd /etc/londiste/pgqd.ini -d
+</code></pre>
+
+<h3 id="servidor-slave">Servidor slave</h3>
+
+<p>Crie o arquivo <code>/etc/londiste/teste_replica_leaf.ini</code>, com o conteúdo abaixo:</p>
+
+<pre><code class="language-bash">[londiste3]
+job_name = teste_replica_leaf
+db = dbname=teste_replica host=192.168.152.150 user=postgres
+queue_name = q_teste_replica
+logfile = /var/log/londiste/teste_replica_leaf.log
+pidfile = /var/run/londiste/teste_replica_leaf.pid
+</code></pre>
+
+<p>Crie o nó do londiste:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/teste_replica_leaf.ini create-leaf node2 &quot;dbname=teste_replica host=192.168.152.150 user=postgres&quot; --provider=&quot;dbname=teste_replica host=192.168.152.149 user=postgres&quot;
+</code></pre>
+
+<p>Inicie o worker:</p>
+
+<pre><code class="language-bash">londiste3 -d /etc/londiste/teste_replica_leaf.ini worker
+</code></pre>
+
+<h2 id="criando-a-carga-de-dados-no-servidor-master">Criando a carga de dados no servidor master</h2>
+
+<blockquote>
+<p>Note que não é necessário que as tabelas tenham os mesmos dados para iniciar a replicação, apenas a mesma estrutura.</p>
+</blockquote>
+
+<p>Copiando os arquivos necessários para o servidor:</p>
+
+<pre><code class="language-bash">scp /Users/seba/Desktop/28337_1323532011934_4739236_n.jpg root@192.168.152.149:/tmp
+</code></pre>
+
+<p>Ajustando as permissões:</p>
+
+<pre><code class="language-bash">chown postgres:postgres /tmp/28337_1323532011934_4739236_n.jpg
+</code></pre>
+
+<p>Execute a carga inicial:</p>
+
+<pre><code class="language-bash">psql -U postgres -d teste_replica -f carga_inicial_londiste.sql 
+</code></pre>
+
+<pre><code class="language-sql">
+\c teste_replica
+
+-- carga de dados
+INSERT INTO pessoa (nome, data_nascimento, foto, biografia)
+WITH config AS (
+    SELECT 
+      1000 AS max_size
+)
+SELECT
+  'Pessoa ' || new_id::text as nome,
+  ('1987-04-16'::DATE + (round(CAST (random()*config.max_size AS NUMERIC),0)::TEXT || ' days')::INTERVAL)::DATE as data_nascimento,
+  bytea_import('/tmp/28337_1323532011934_4739236_n.jpg') as foto,
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique quam erat, in pellentesque diam feugiat in. In hac habitasse platea dictumst. Mauris malesuada faucibus diam, in tristique arcu dapibus at. Phasellus commodo nulla et orci adipiscing, quis iaculis turpis tincidunt. Proin placerat nisl non molestie porttitor. Curabitur scelerisque libero in lorem consequat consectetur ac a massa. Cras volutpat est ac lacinia ultricies. Donec quis faucibus ligula. Morbi luctus cursus lacus, a fermentum odio dignissim non. Mauris a tellus adipiscing, sodales magna sed, vehicula justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi. Etiam eu augue nec lectus tristique bibendum vitae nec elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.' as biografia
+FROM
+  config,
+  generate_series(1,config.max_size) as new_id;
+</code></pre>
+
+<h2 id="adicione-as-tabelas-a-serem-replicadas">Adicione as tabelas a serem replicadas</h2>
+
+<h3 id="no-servidor-master">No servidor master</h3>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/teste_replica_root.ini add-table pessoa
+</code></pre>
+
+<h3 id="no-servidor-slave">No servidor slave</h3>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/teste_replica_leaf.ini add-table pessoa
+</code></pre>
+
+<h2 id="testando-a-replicação">Testando a replicação</h2>
+
+<p>Apartir desse ponto, em alguns segundos, ambos os bancos têm os mesmos registros na tabela pessoa, veja:</p>
+
+<pre><code class="language-bash">[root@pg-slave ~]# psql -U postgres -d teste_replica -c 'SELECT COUNT(1) FROM pessoa;' -h 192.168.152.149
+ count 
+-------
+  1000
+(1 row)
+
+[root@pg-slave ~]# psql -U postgres -d teste_replica -c 'SELECT COUNT(1) FROM pessoa;' -h 192.168.152.150
+ count 
+-------
+  1000
+(1 row)
+</code></pre>
+
+<p>Também, não é possível fazer alterações nos registros do servidor slave:</p>
+
+<pre><code class="language-bash">[root@pg-slave ~]# psql -U postgres -d teste_replica -h 192.168.152.150
+psql (9.3.4)
+Type &quot;help&quot; for help.
+
+teste_replica=# delete from pessoa;
+ERROR:  Table 'public.pessoa' to queue 'q_teste_replica': change not allowed (D)
+</code></pre>
+
+<p>Daqui pra frente, qualquer alteração será replicada (desde que a estrutura da tabela seja a mesma).</p>
+
+<p>Referências:</p>
+
+<ul>
+<li><a href="https://github.com/markokr/skytools">https://github.com/markokr/skytools</a></li>
+<li><a href="http://dba.stackexchange.com/questions/1742/how-to-insert-file-data-into-a-postgresql-bytea-column">http://dba.stackexchange.com/questions/1742/how-to-insert-file-data-into-a-postgresql-bytea-column</a></li>
+</ul>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

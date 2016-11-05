@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/categories/jboss/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/categories/jboss/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Script de inicialização do JBoss AS7&#43;/EAP 6&#43; em modo domain</title>
+      <link>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</link>
+      <pubDate>Thu, 30 Oct 2014 23:23:08 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</guid>
+      <description>&lt;p&gt;Criei o script e deixei lá no github. Veja abaixo:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/sebastianwebber/885b620bdf9dde39eadf.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;O mesmo pode ser utilizado no Wildfly 8 sem problemas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly</title>
+      <link>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</link>
+      <pubDate>Thu, 17 Jul 2014 14:14:52 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</guid>
+      <description>&lt;p&gt;Execute o script abaixo, substituindo o diretório &lt;code&gt;/var/log/jbossas&lt;/code&gt; pelo diretório de logs do seu servidor JBoss/Wildfly:
+&amp;gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+   1864 [org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver]
+    716 [grails.app.controllers.ar.com.site.app.acesso.LoginController]
+    475 [stderr]
+    254 [org.grails.plugin.resource.ResourceMeta]
+     88 [grails.app.services.ar.com.site.app.banner.BannerService]
+     84 [StackTrace]
+     46 [org.hibernate.util.JDBCExceptionReporter]
+     27 [grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao]
+     26 [grails.app.taglib.ar.com.site.app.banner.BannerTagLib]
+     15 [org.hibernate.transaction.JDBCTransaction]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, podemos jogar tudo num script, dando uma ajustada na apresentação:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+search_dir=&amp;quot;${1}&amp;quot;
+
+if [ &amp;quot;${search_dir}x&amp;quot; = &#39;x&#39; ]; then
+    echo &#39;Informe o diretório de busca!&#39;
+    exit 2
+fi
+
+error_list=$(egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find -L &amp;quot;${1}&amp;quot; -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10)
+
+seq=1
+echo
+printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;#&amp;quot; &amp;quot;COUNT&amp;quot; &amp;quot;LOGGER NAME&amp;quot;
+echo &amp;quot;---|------------|------------------------------------------------------------------------------------------------------|&amp;quot;
+
+IFS=&#39;
+&#39;
+for error in ${error_list}; do
+    count=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $1}&#39;)
+    logger_name=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $2}&#39; | tr -d &#39;[]&#39;)
+
+    printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;${seq}&amp;quot; &amp;quot;${count}&amp;quot; &amp;quot;${logger_name}&amp;quot;
+
+    seq=$(($seq + 1))
+done
+echo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# ./procura_erros.sh /var/log/jbossas/
+
+#  | COUNT      | LOGGER NAME                                                                       |
+---|------------|-----------------------------------------------------------------------------------|
+1  | 1926       | org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver                     |
+2  | 759        | grails.app.controllers.ar.com.site.app.acesso.LoginController                     |
+3  | 475        | stderr                                                                            |
+4  | 265        | org.grails.plugin.resource.ResourceMeta                                           |
+5  | 90         | grails.app.services.ar.com.site.app.banner.BannerService                          |
+6  | 84         | StackTrace                                                                        |
+7  | 46         | org.hibernate.util.JDBCExceptionReporter                                          |
+8  | 27         | grails.app.taglib.ar.com.site.app.banner.BannerTagLib                             |
+9  | 27         | grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao                         |
+10 | 15         | org.hibernate.transaction.JDBCTransaction                                         |
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Caso precisem de um exemplo do erro em questão, utilize o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pcregrep -Mi &#39;.*ERROR \[NOME_DO_PACKAGE.*(\n.*(\n\s*at.*)+)?&#39; $(find /var/log/jbossas/ -ctime -7 | grep server)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Lembre de substituir o &lt;code&gt;NOME_DO_PACKAGE&lt;/code&gt; pelo package que você está procurando.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Acho que é isso por hoje.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Guia de estudo para a prova EX248 - Red Hat Certified JBoss Administrator (RHCJA)</title>
+      <link>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</link>
+      <pubDate>Mon, 09 Sep 2013 00:40:10 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</guid>
+      <description>
+
+&lt;p&gt;Mais detalhes podem ser encontrados no site da RedHat&lt;sup&gt;[1]&lt;/sup&gt; e na documentação oficial&lt;sup&gt;[2]&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;install-and-manage-jboss-enterprise-application-platform&#34;&gt;Install and manage JBoss Enterprise Application Platform&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Installation_Guide/index.html#proc-Zip_Installation&#34;&gt;Install JBoss Enterprise Application Platform to a specific location on a system&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Install_the_mod_cluster_Module_Into_Apache_HTTPD_or_Enterprise_Web_Server_HTTPD1&#34;&gt;Install additional, operating system specific native libraries to enhance&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;jboss-enterprise-application-platform-performance&#34;&gt;JBoss Enterprise Application Platform performance&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Security_Guide/index.html#chap-Management_Interface_Security&#34;&gt;Configure minimal security requirements for accessing and managing JBoss Enterprise Application Platform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Management_Interfaces&#34;&gt;Access and manage JBoss Enterprise Application Platform using the provided tools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Configure and start a multi-node, multi-server JBoss Enterprise Application Platform domain spanning at least two hosts with multiple servers per host&lt;/li&gt;
+&lt;li&gt;Configure JBoss Enterprise Application Platform domains, hosts and servers&lt;/li&gt;
+&lt;li&gt;Create and remove JBoss Enterprise Application Platform domains, hosts and servers&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Start_JBoss_EAP_6&#34;&gt;Start, monitor and stop individual JBoss Enterprise Application Platform domains, hosts and servers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-About_JVM&#34;&gt;Configure Java™ memory usage at the host, server group and server level&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configure-jboss-enterprise-application-platform-to-support-clustered-and-ha-operation&#34;&gt;Configure JBoss Enterprise Application Platform to support clustered and HA operation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Network_and_Port_Configuration&#34;&gt;Configure persistent network bindings for JBoss Enterprise Application Platform services (both addresses and ports)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Use_TCP_Communication_for_the_Clustering_Subsystem1&#34;&gt;Configure high-availability clustering using either TCP unicast or UDP multicast networking&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secure the communications channels between clustered nodes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Web_HTTP_Connectors_and_HTTP_Clustering&#34;&gt;Configure an Apache based load balancer for handling HTTP session fail over in a HA environment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;monitoring-and-managing-jboss-enterprise-application-platform&#34;&gt;Monitoring and managing JBoss Enterprise Application Platform&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configuration_File_History&#34;&gt;Create and restore configuration snap shots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Introduction-3&#34;&gt;Configure JBoss Enterprise Application Platform logging&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Disable_Remote_Access_to_the_JMX_Subsystem1&#34;&gt;Configure and secure JBoss Enterprise Application Platform JMX interface for external monitoring&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configuring-java-messaging-service&#34;&gt;Configuring Java Messaging Service&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configure_the_JMS_Server1&#34;&gt;Create and configure JMS topics and queues&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secure access to JMS destinations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;manage-applications&#34;&gt;Manage applications&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Select appropriate JBoss Enterprise Application Platform server profiles based on application requirements&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;profiles&#34;&gt;Profiles&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;default:&lt;/strong&gt; os subsistemas mais comuns: logging, security, datasources, infinispan, weld, webservices,ee e ejb3&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ha&lt;/strong&gt;: &lt;em&gt;default&lt;/em&gt; + jgroups + modcluster&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;full:&lt;/strong&gt; default + messaging (HornetQ) + cmp + jacord + jaxr&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;full-ha:&lt;/strong&gt; full + jgroups + modcluster&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Datasource_Management&#34;&gt;Configure DataSources (both XA and non-XA compliant)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Application_Deployment&#34;&gt;Deploy and undeploy applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Configuring_Modules&#34;&gt;Deploy and undeploy additional libraries and drivers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Replace_the_Default_Welcome_Web_Application1&#34;&gt;Deploy a web application to the root context&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configure-jboss-web-connectors&#34;&gt;Configure JBoss Web Connectors&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tune and configure JBoss Enterprise Application Platform web connector properties as requested&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-HTTPD_Configuration&#34;&gt;Configure Apache integration with JBoss Enterprise Application Platform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-SSL_Encryption&#34;&gt;Configure an SSL encrypted connection&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configure-jboss-enterprise-application-platform-security&#34;&gt;Configure JBoss Enterprise Application Platform security&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Use_a_Security_Domain_in_Your_Application&#34;&gt;Create, modify and use security domains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Use_LDAP_to_Authenticate_to_the_Management_Interfaces1&#34;&gt;Connect JBoss Enterprise Application Platform to specified external security sources such as LDAP and DBMS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secure access to JBoss Enterprise Application Platform services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Referências:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.redhat.com/training/courses/ex248/&#34;&gt;https://www.redhat.com/training/courses/ex248/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/&#34;&gt;https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Script de inicialização para o JBoss EAP/AS</title>
+      <link>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</link>
+      <pubDate>Wed, 04 Jul 2012 18:00:40 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;UPDATE Oct/2012&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Após 30 tentativas de matar o processo, dá um ‘kill -9’ nele!&lt;/li&gt;
+&lt;li&gt;Antes de iniciar o serviço , apaga os arquivos da pasta tmp e work da instância.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE Feb/2014&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Move o arquivo console.log para YYYY-DD-MM_console.log após o stop.
+– Antes do stop ou start, é testado se a instância já está rodando. Caso esteja rodando o start é abortado, caso não esteja o stop é abortado, de acordo com cada operação. – Ajustado a chamada do metodo de limpeza (do_cleanup). agora chamado no método de startup (do_start).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE Feb/2014&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;caso o diretório de log da instância não exista, o mesmo será criado durante do startup&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE Nov/2016&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Atualizando para um novo script, agora no gist.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script src=&#34;//gist.github.com/10837e4003b84f626842/.js&#34;&gt;&lt;/script&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Como tratar a vulnerabilidade do JBoss ao WORM &#39;pnscan&#39;</title>
+      <link>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</link>
+      <pubDate>Mon, 24 Oct 2011 12:07:48 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</guid>
+      <description>&lt;p&gt;Altere o arquivo &lt;code&gt;deploy/jmx-console.war/WEB-INF/web.xml&lt;/code&gt;, removendo as tags abaixo da sessão &lt;code&gt;security-constraint&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;http-method&amp;gt;GET&amp;lt;/http-method&amp;gt;
+&amp;lt;http-method&amp;gt;POST&amp;lt;/http-method&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Deve ficar parecido com isso:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;security-constraint&amp;gt;
+  &amp;lt;web-resource-collection&amp;gt;
+    &amp;lt;web-resource-name&amp;gt;HtmlAdaptor&amp;lt;/web-resource-name&amp;gt;
+    &amp;lt;description&amp;gt;
+       An example security config that only allows users with the role
+       JBossAdmin to access the HTML JMX console web application
+    &amp;lt;/description&amp;gt;
+    &amp;lt;url-pattern&amp;gt;/*&amp;lt;/url-pattern&amp;gt;
+  &amp;lt;/web-resource-collection&amp;gt;
+  &amp;lt;auth-constraint&amp;gt;
+    &amp;lt;role-name&amp;gt;JBossAdmin&amp;lt;/role-name&amp;gt;
+  &amp;lt;/auth-constraint&amp;gt;
+&amp;lt;/security-constraint&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora reinicie sua instância.&lt;/p&gt;
+
+&lt;p&gt;Mais detalhes/Referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://community.jboss.org/blogs/mjc/2011/10/20/statement-regarding-security-threat-to-jboss-application-server&#34;&gt;http://community.jboss.org/blogs/mjc/2011/10/20/statement-regarding-security-threat-to-jboss-application-server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/kb/docs/DOC-30741&#34;&gt;https://access.redhat.com/kb/docs/DOC-30741&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://community.jboss.org/wiki/SecureTheJmxConsole&#34;&gt;http://community.jboss.org/wiki/SecureTheJmxConsole&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

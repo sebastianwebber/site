@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/">Automatizando os reports do PGBadger </a> </h1>
+		<h2 class="subtitle is-4">Nov 4, 2013
+		</h2>
+ 
+
+<h5> 500 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/logrotate"><span class="tag is-medium">LogRotate</span></a> 
+    <a href="http://swebber.me//tags/pgbadger"><span class="tag is-medium">PGBadger</span></a> 
+    <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> 
+    <a href="http://swebber.me//tags/syslog"><span class="tag is-medium">Syslog</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p>Minha idéia com esse post é &lsquo;despejar&rsquo; uma série de scripts e configurações pra que o <a href="http://dalibo.github.io/pgbadger/">pgbadger</a> gere quase que automaticamente os reports, seguindo a regra de tempo abaixo:</p>
+
+<ul>
+<li>Report dos últimos 30min</li>
+<li>da última 1h</li>
+<li>das últimas 3h</li>
+<li>das últimas 6h</li>
+<li>do último dia</li>
+<li>da última semana</li>
+</ul>
+
+<p>Além da configuração padrão, sugerida no site do próprio pgbadger, é necessário configurar o syslog, para que ele direcione os logs do postgres para um arquivo separado, assim, adicione esse trecho no arquivo /etc/rsyslog.conf:</p>
+
+<pre><code class="language-bash">local0.*        -/var/log/pgsql/pgsql.log
+</code></pre>
+
+<blockquote>
+<p>Pode ser necessário criar o diretório /var/log/pgsql, se explodir qualquer erro aí, confirme se o mesmo foi criado. :D</p>
+</blockquote>
+
+<p>Após isso, dê um reload no serviço e os logs do postgres serão criados nesse diretório.</p>
+
+<p>É necessário configurar o LogRotate para que o mesmo rotacione os logs. Baseado nas regras acima, crie o arquivo <code>/etc/pgsql/cron.logrotate</code>:</p>
+
+<pre><code class="language-bash">/var/log/pgsql/pgsql.log {
+    missingok
+    rotate 1488
+    nomail
+    sharedscripts
+    create 0660 root root
+    postrotate
+    /etc/init.d/rsyslog restart
+    /etc/init.d/postgresql-9.2 reload
+    endscript
+}
+</code></pre>
+
+<p>Crie um script para gerar os reports, chamado update_badger.sh:</p>
+
+<pre><code class="language-bash">#!/bin/bash
+
+filter_mask=&quot;$1&quot;
+filter_mask_cmd='mmin'
+file_name=&quot;/var/www/html&quot;
+
+if [ $filter_mask = &quot;30min&quot; ]; then
+  filter_mask=30
+  file_name=&quot;${file_name}/index.html&quot;
+elif [ $filter_mask = &quot;1h&quot; ]; then
+  filter_mask=60
+  file_name=&quot;${file_name}/last-1h.html&quot;
+elif [ $filter_mask = &quot;3h&quot; ]; then
+  filter_mask=300
+  file_name=&quot;${file_name}/last-3h.html&quot;
+elif [ $filter_mask = &quot;6h&quot; ]; then
+  filter_mask=600
+  file_name=&quot;${file_name}/last-6h.html&quot;
+elif [ $filter_mask = &quot;1d&quot; ]; then
+  filter_mask=1
+  filter_mask_cmd='mtime'
+  file_name=&quot;${file_nam3e}/last-day.html&quot;
+elif [ $filter_mask = &quot;1w&quot; ]; then
+  filter_mask=7
+  filter_mask_cmd='mtime'
+  file_name=&quot;${file_name}/last-week.html&quot;
+fi
+
+echo
+echo $(date) - Generating ${file_name} file...
+echo
+/usr/bin/pgbadger $(/bin/find /var/log/pgsql/ -${filter_mask_cmd} -$filter_mask -type f) -o ${file_name}
+/bin/chown apache:apache ${file_name}
+/bin/chmod 755 ${file_name}
+
+if [ ${filter_mask} -eq 30 ]; then
+  echo $(date) - Rotating log file
+  /usr/sbin/logrotate -f /etc/pgsql/cron.logrotate
+fi
+echo $(date) - Done.
+</code></pre>
+
+<blockquote>
+<p>Note que nesse script, o log rotate é chamado (com a configuração descrita anteriormente) a cada 30min. Assim, não é necessário configurar o crontab ou similar pra fazer esse trabalho sujo. ;)</p>
+</blockquote>
+
+<p>Agora, agende a geração dos reports no cron:</p>
+
+<pre><code class="language-bash"># pgbadger reports
+*/30 * * * * /opt/resources/update_badger.sh 30min &gt;&gt; /var/log/pgbagder.log 2&gt;&amp;1
+00 */1 * * * /opt/resources/update_badger.sh 1h &gt;&gt; /var/log/pgbagder.log 2&gt;&amp;1
+00 */3 * * * /opt/resources/update_badger.sh 3h &gt;&gt; /var/log/pgbagder.log 2&gt;&amp;1
+00 */6 * * * /opt/resources/update_badger.sh 6h &gt;&gt; /var/log/pgbagder.log 2&gt;&amp;1
+00 00 * * * /opt/resources/update_badger.sh 1d &gt;&gt; /var/log/pgbagder.log 2&gt;&amp;1
+00 00 * * Sat /opt/resources/update_badger.sh 1w &gt;&gt; /var/log/pgbagder.log 2&gt;&amp;1
+</code></pre>
+
+<p>Pra finalizar, eu fiz uma pequena modificação no pgbadger, para que ele mostre um pequeno menu dropdown com os horários dos reports disponíveis. Você pode fazer download do mesmo no github: <a href="http://github.com/sebastianwebber/pgbadger">https://github.com/sebastianwebber/pgbadger</a>.</p>
+
+<p>Todo caso, fica aí um screenshot da minima modificação que fiz (só pra dar um gostinho):</p>
+
+<p><img src="/wp-content/uploads/2013/11/badger_custom.png" alt="screenshot" /></p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

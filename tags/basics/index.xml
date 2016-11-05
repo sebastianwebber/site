@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/basics/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/basics/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Utilizando o Londiste 3 com o PostgreSQL 8.4</title>
+      <link>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</link>
+      <pubDate>Thu, 24 Apr 2014 18:34:52 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</guid>
+      <description>&lt;p&gt;Devido ao pacote do skytools não estar disponível no repositório oficial do pgdg, é necessário compilar o mesmo.&lt;/p&gt;
+
+&lt;p&gt;Instale os pacotes necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install gcc make libtool git python-devel python-psycopg2 asciidoc xmlto cpp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe o skytools do git e instale-o:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir /opt/resources
+git clone https://github.com/markokr/skytools.git /opt/resources/skytools
+cd /opt/resources/skytools/
+git submodule init
+git submodule update
+./autogen.sh
+./configure --prefix=/usr/local/skytools
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/markokr/skytools/blob/master/INSTALL&#34;&gt;https://github.com/markokr/skytools/blob/master/INSTALL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

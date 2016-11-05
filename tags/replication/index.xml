@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/replication/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/replication/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Desafio sobre a replicação do PostgreSQL!</title>
+      <link>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</link>
+      <pubDate>Thu, 21 Jan 2016 20:05:03 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</guid>
+      <description>
+
+&lt;p&gt;Esse ano, &lt;a href=&#34;http://savepoint.blog.br/10-anos-de-pgbr/&#34;&gt;segundo fontes confiáveis&lt;/a&gt;, é aniversário da Comunidade Brasileira de PostgreSQL. E pra fazer a minha parte (e tirar a poeira do blog) eu lanço um desafio público: falar sobre a replicação do PostgreSQL. E isso não é pouca coisa!&lt;/p&gt;
+
+&lt;p&gt;Até o momento, essas são as soluções mais populares:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Replicação Nativa: &lt;a href=&#34;http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION&#34;&gt;Streaming Replication&lt;/a&gt; e &lt;a href=&#34;http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION-SLOTS&#34;&gt;Replication Slots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://2ndquadrant.com/en-us/resources/bdr/&#34;&gt;BDR&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://2ndquadrant.com/en/resources/pglogical/&#34;&gt;PGLogical&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://slony.info/&#34;&gt;Slony&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.postgresql.org/wiki/SkyTools#Londiste&#34;&gt;Londiste&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://bucardo.org/wiki/Bucardo&#34;&gt;Bucardo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.keithf4.com/mimeo-introduction/&#34;&gt;Mimeo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.pgpool.net/mediawiki/index.php/Main_Page&#34;&gt;PGpool II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.repmgr.org/&#34;&gt;REPMgr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;a-proposta&#34;&gt;A proposta&lt;/h2&gt;
+
+&lt;p&gt;A idéia é fazer um ambiente de testes utilizando a versão mais recente do banco e da solução cobrindo os pontos abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Instalação e configuração&lt;/li&gt;
+&lt;li&gt;Operação basica para replicar dados ou conjunto de dados&lt;/li&gt;
+&lt;li&gt;Procedimentos que previnem tolerancia a falhas&lt;/li&gt;
+&lt;li&gt;Validar meios para replicar dados distribuidos geograficamente&lt;/li&gt;
+&lt;li&gt;Medição dos tempos de carga intensa (como o restore do banco) e moderado (como a atualização de dados e tudo mais)&lt;/li&gt;
+&lt;li&gt;Avaliação de pontos fortes e fracos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;sobre-o-ambiente-de-testes&#34;&gt;Sobre o ambiente de testes&lt;/h2&gt;
+
+&lt;h3 id=&#34;quanto-a-máquina-virtual-dos-testes&#34;&gt;Quanto a máquina virtual dos testes&lt;/h3&gt;
+
+&lt;p&gt;Pra simplificar o processo de setup do lab, eu criei uma configuração do &lt;a href=&#34;https://www.vagrantup.com/&#34;&gt;Vagrant&lt;/a&gt; composta de duas máquinas virtuais na configuração abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2GB de RAM&lt;/li&gt;
+&lt;li&gt;35GB espaço em disco&lt;/li&gt;
+&lt;li&gt;CEntOS 7 64 Bits&lt;/li&gt;
+&lt;li&gt;Repositórios configurados: epel, pgdg94 e pgdg95&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Detalhes da configuração de rede:&lt;/p&gt;
+
+&lt;table class=&#34;table&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Hostname&lt;/th&gt;
+            &lt;th&gt;IP&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;master&lt;/td&gt;
+            &lt;td&gt;192.168.100.100&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;slave&lt;/td&gt;
+            &lt;td&gt;192.168.100.200&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Abaixo segue o Vagrantfile:
+&lt;script src=&#34;//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=Vagrantfile&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Para utiliza-lo, execute:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=setup.sh&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;quanto-a-base-de-dados&#34;&gt;Quanto a base de dados&lt;/h3&gt;
+
+&lt;p&gt;A base de testes adotada é o banco do &lt;a href=&#34;http://www.imdb.com/&#34;&gt;IMDB&lt;/a&gt;. Pra simplificar o processo de importação e teste eu já deixei um dump prontinho na URL abaixo:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://1drv.ms/1TjlPXl&#34;&gt;&lt;code&gt;http://1drv.ms/1TjlPXl&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Detalhes pra importação do dump são os de sempre:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;createdb -U postgres imdb
+pg_restore -U postgres -d imdb -Fc --disable-triggers imdb.dump -j 4
+vacuumdb -U postgres -d imdb -z
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Na sequência já publico detalhes de como popular e alterar os dados.&lt;/p&gt;
+
+&lt;p&gt;E aí, vai encarar?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Primeiras impressões do xDB Replication Server</title>
+      <link>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</link>
+      <pubDate>Tue, 08 Jan 2013 19:27:58 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</guid>
+      <description>
+
+&lt;p&gt;O &lt;a href=&#34;http://www.enterprisedb.com/products-services-training/products-overview/xdb-replication-server-multi-master&#34;&gt;xDB Replication Server&lt;/a&gt; é o produto da &lt;a href=&#34;http://www.enterprisedb.com&#34;&gt;EnterpriseDB&lt;/a&gt; que permite replicação assincrona tanto Single-Master (ou Master/Slave) quanto Multi-Master para banco de dados PostgreSQL/PostgreSQL Plus. O produto tem um funcionamento bem similar a replicação através de &lt;a href=&#34;http://msdn.microsoft.com/en-us/library/ms152567.aspx&#34;&gt;publicação do SQL Server&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A finalidade desse teste foi replicar tabelas disponibilizadas no Oracle para uma base PostgreSQL.&lt;/p&gt;
+
+&lt;p&gt;Para minha surpresa, na atual versão do produto (5.0-2), a replicação Multi-master apenas está disponível para o PostgreSQL/PostgreSQL Plus. Quanto a Single-Master, não há problemas em utilizar Oracle ou SQL Server. Todos os testes realizados foram realizados com o Oracle como master e o PostgreSQL como slave. Acredito que o contrário (PostgreSQL –&amp;gt; Oracle) possa funcionar normalmente.&lt;/p&gt;
+
+&lt;h3 id=&#34;ambiente-de-testes&#34;&gt;Ambiente de testes&lt;/h3&gt;
+
+&lt;h4 id=&#34;banco-master-oracle&#34;&gt;Banco Master – Oracle&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Versão:&lt;/strong&gt; Oracle 11GR2&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sistema Operacional:&lt;/strong&gt; Red Hat Enterprise Linux Server release 5.6 (Tikanga)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plataforma:&lt;/strong&gt; x86_64&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;banco-slave-postgresql&#34;&gt;Banco Slave – PostgreSQL&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Versão:&lt;/strong&gt; PostgreSQL 8.4.13&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sistema Operacional:&lt;/strong&gt; CentOS release 6.3 (Final)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plataforma:&lt;/strong&gt; x86_64&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Produto:&lt;/strong&gt; xDB Replication Server 5.0-2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;h3 id=&#34;observações&#34;&gt;Observações&lt;/h3&gt;
+
+&lt;p&gt;Propositalmente o Oracle está sendo executado em outro local e, necessariamente, em outra cidade. Para facilitar o ambiente, tanto o servidor Publicação quanto Subscrição estão rodando no mesmo servidor que está rodando o PostgreSQL e, especificamente, configurados no banco de dados ‘postgres’.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;na-prática&#34;&gt;Na prática&lt;/h3&gt;
+
+&lt;p&gt;Após liberar acesso aos servidores através de VPN e criar usuários e definir permissões de acesso ao usuário ‘hr’ no Oracle, criamos a tabela ‘tabela_teste’ com as colunas descritas abaixo:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Nome&lt;/th&gt;
+&lt;th&gt;Tipo&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;id&lt;/td&gt;
+&lt;td&gt;NUMBER(30,0)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;nome&lt;/td&gt;
+&lt;td&gt;VARCHAR2(2048)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Ao mandar realizar um snapshot dados, ocorreu o erro abaixo:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Disabling FK constraints &amp;amp; triggers on hr.tabela_teste before truncate… Error Loading Data into Table: TABELA_TESTE: ERROR: relation “hr.tabela_teste” does not exist at position 67&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Assim notei o primeiro problema: &lt;strong&gt;é necessário ter a mesma estrutura das tabelas publicadas no servidor destino&lt;/strong&gt; (mesmo schema inclusive) para que a replicação funcione.&lt;/p&gt;
+
+&lt;p&gt;Após criar a tabela no PostgreSQL, fizemos um novo teste: Adicionar uma coluna do tipo CLOB. Após criar a mesma coluna em nossa tabela no PostgreSQL. A replicação deixou de funcionar, com isso foi identificado incompatibilidade com os tipos de dados binários.&lt;/p&gt;
+
+&lt;p&gt;Nosso teste final cobria o uso de campos data/hora. Assim, foi adicionado uma nova coluna na tabela e a mesma foi replicada seguindo a ordem das colunas e isso resultou o seguinte problema:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;hr=# select * from hr.tabela_teste order by id;
+ id | nome |                 pdf                  | data
+----+------+--------------------------------------+------
+  1 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  2 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  3 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  4 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  5 |      | 2012-01-08 00:00:00.000000 -02:00:00 |
+  6 |      | 2013-01-08 10:44:51.000000 -02:00:00 |
+  7 |      | 2013-01-08 10:44:51.000000 -02:00:00 |
+  8 |      | 2013-01-08 10:54:36.000000 -02:00:00 |
+  9 |      | 2013-01-08 10:54:36.000000 -02:00:00 |
+ 10 |      | 2013-01-08 10:54:36.000000 -02:00:00 |
+(10 rows)
+
+hr=# \d hr.tabela_teste
+             Table &amp;quot;hr.tabela_teste&amp;quot;
+ Column |            Type             | Modifiers
+--------+-----------------------------+-----------
+ id     | integer                     | not null
+ nome   | text                        |
+ pdf    | bytea                       |
+ data   | timestamp without time zone |
+Indexes:
+    &amp;quot;tabela_teste_pk&amp;quot; PRIMARY KEY, btree (id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;O problema foi normalizado apenas quando a coluna pdf foi excluida.&lt;/p&gt;
+
+&lt;p&gt;Por fim, foi realizada uma carga de dados nessa tabela para levantarmos o tempo de resposta (&lt;a href=&#34;http://helkmut.blogspot.com.br/2013/01/oracle-populando-tabelas-com-clob-e.html&#34;&gt;detalhes da carga aqui&lt;/a&gt;). Enquanto tentamos popular a tabela ocorreu mais uma surpresa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ORA-01438: valor maior que a precisão especificada usado para esta coluna
+ORA-06512: em “HR.RRPI_HR_TABELA_TESTE”, line 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Pelo que identificamos o problema ocorre nas tabelas de controle da replicação que são criadas baseadas na estrutura da tabela original. Como antes da carga aumentamos o tamanho do campo para poder inserir mais registros as tabelas de controle não foram alteradas acabou causando esse erro.&lt;/p&gt;
+
+&lt;h3 id=&#34;conclusões&#34;&gt;Conclusões&lt;/h3&gt;
+
+&lt;h4 id=&#34;o-que-ele-faz&#34;&gt;O que ele faz&lt;/h4&gt;
+
+&lt;p&gt;O xDB Replication Server permite fazer replicação de pacotes de dados entre multiplos servidores, sejam eles PostgreSQL/PostgreSQL Plus, Oracle ou SQL Server de forma assincrona. Atualmente apenas o PostgreSQL/PostgreSQL Plus tem disponível o modelo Multi-Master.&lt;/p&gt;
+
+&lt;h4 id=&#34;o-que-ele-não-faz&#34;&gt;O que ele não faz&lt;/h4&gt;
+
+&lt;p&gt;Com o produto não é possível criar qualquer solução de alta disponibilidade. Basicamente o produto mantém uma cópia das tabelas da base origem, na base destino.&lt;/p&gt;
+
+&lt;h4 id=&#34;pontos-positivos&#34;&gt;Pontos positivos&lt;/h4&gt;
+
+&lt;p&gt;Pelo fato de o mesmo replicar os dados em suas tabelas de controle, caso o servidor de subscrições esteja indisponível, os dados serão analisados quando ele se tornar disponível e assim executar todas as tarefas necessárias para manter os dados iguais em ambos os lados. É possível, também, efetuar filtros dos dados a serem copiados e assim diminir o tempo de carga de um servidor para outro. Por fim, é possível agendar para que replica dos dados seja atualizada de tempos em tempos pela própria interface do xDB Replication Console, sem depender de componentes do SO ou ferramentas de terceiros.&lt;/p&gt;
+
+&lt;h4 id=&#34;pontos-negativos&#34;&gt;Pontos negativos&lt;/h4&gt;
+
+&lt;p&gt;A primeira limitação que incomodou é que, pelo menos através do xDB Replication Console, não foi possível criar a estrutura de tabelas automaticamente. É possível que, em ambientes que a publicação contenha muitas tabelas, ocorram muitos problemas devido a divergencia das tabelas ou colunas entre os servidores. A replicação dos dados é feita através de triggers nas tabelas que fazem parte da publicação e as alterações ficam gravadas em tabelas de controle. Além do fato gravação dos dados nessas tabelas concorrer com as outras transações, em nossos testes, essas tabelas de controle não eram alteradas quando realizadas mudanças nas tabelas alvo e assim impedindo a replicação de funcionar. Na interface de administração, não encontrei opção para atualizar-las e a única solução que encontrei foi recriar a publicação. Há algumas restrições quanto aos tipos de dados, em especial os binários. Não há opção para selecionar quais colunas serão replicadas (nem como uma consulta ao invés de um objeto) e também não conseguimos mapear views, sejam materializadas ou não.&lt;/p&gt;
+
+&lt;p&gt;Em especial, obrigado ao &lt;a href=&#34;http://helkmut.blogspot.com.br&#34;&gt;Gabriel&lt;/a&gt;, pela ajuda com a integração com o Oracle.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

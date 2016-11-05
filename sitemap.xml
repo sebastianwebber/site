@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://swebber.me/</loc>
+    <lastmod>2016-11-03T17:06:58-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2016/11/03/ola-hugo/</loc>
+    <lastmod>2016-11-03T17:06:58-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</loc>
+    <lastmod>2016-02-15T16:54:52-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</loc>
+    <lastmod>2016-01-21T20:05:03-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</loc>
+    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</loc>
+    <lastmod>2015-08-28T03:28:48-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</loc>
+    <lastmod>2015-02-23T09:31:40-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</loc>
+    <lastmod>2014-10-30T23:23:08-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</loc>
+    <lastmod>2014-10-22T22:13:48-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</loc>
+    <lastmod>2014-07-17T14:14:52-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</loc>
+    <lastmod>2014-06-18T11:41:06-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/05/30/pgconfig/</loc>
+    <lastmod>2014-05-30T08:32:53-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</loc>
+    <lastmod>2014-05-05T09:49:11-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</loc>
+    <lastmod>2014-04-25T14:33:00-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</loc>
+    <lastmod>2014-04-24T18:34:52-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/</loc>
+    <lastmod>2014-04-18T18:38:04-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2014/04/18/casa-nova/</loc>
+    <lastmod>2014-04-18T17:06:58-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</loc>
+    <lastmod>2013-11-04T00:58:11-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</loc>
+    <lastmod>2013-09-09T00:40:10-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/</loc>
+    <lastmod>2013-05-16T19:46:53-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</loc>
+    <lastmod>2013-01-22T19:43:26-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</loc>
+    <lastmod>2013-01-08T19:27:58-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</loc>
+    <lastmod>2012-12-10T19:25:49-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</loc>
+    <lastmod>2012-11-26T19:22:46-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</loc>
+    <lastmod>2012-07-04T18:00:40-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</loc>
+    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</loc>
+    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</loc>
+    <lastmod>2012-04-21T16:18:57-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</loc>
+    <lastmod>2012-02-15T18:53:16-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</loc>
+    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</loc>
+    <lastmod>2010-08-14T17:32:36-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</loc>
+    <lastmod>2010-07-14T02:13:35-03:00</lastmod>
+  </url>
+  
+</urlset>

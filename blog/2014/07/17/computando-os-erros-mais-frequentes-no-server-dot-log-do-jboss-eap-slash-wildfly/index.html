@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/">Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly </a> </h1>
+		<h2 class="subtitle is-4">Jul 17, 2014
+		</h2>
+ 
+
+<h5> 400 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/jboss">JBoss</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/bash"><span class="tag is-medium">Bash</span></a> 
+    <a href="http://swebber.me//tags/linux"><span class="tag is-medium">Linux</span></a> 
+    <a href="http://swebber.me//tags/regex"><span class="tag is-medium">Regex</span></a> 
+    <a href="http://swebber.me//tags/wildfly"><span class="tag is-medium">Wildfly</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p>Execute o script abaixo, substituindo o diretório <code>/var/log/jbossas</code> pelo diretório de logs do seu servidor JBoss/Wildfly:
+&gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)</p>
+
+<pre><code class="language-bash">egrep --color=auto 'ERROR \[[a-zA-Z\.]{1,}\]' $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk '{print $2}' |  sort | uniq -c | sort -r | head -n 10
+</code></pre>
+
+<p>Por exemplo:</p>
+
+<pre><code class="language-bash">[root@servidor ~]# egrep --color=auto 'ERROR \[[a-zA-Z\.]{1,}\]' $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk '{print $2}' |  sort | uniq -c | sort -r | head -n 10
+   1864 [org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver]
+    716 [grails.app.controllers.ar.com.site.app.acesso.LoginController]
+    475 [stderr]
+    254 [org.grails.plugin.resource.ResourceMeta]
+     88 [grails.app.services.ar.com.site.app.banner.BannerService]
+     84 [StackTrace]
+     46 [org.hibernate.util.JDBCExceptionReporter]
+     27 [grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao]
+     26 [grails.app.taglib.ar.com.site.app.banner.BannerTagLib]
+     15 [org.hibernate.transaction.JDBCTransaction]
+</code></pre>
+
+<p>Agora, podemos jogar tudo num script, dando uma ajustada na apresentação:</p>
+
+<pre><code class="language-bash">#!/bin/bash
+
+search_dir=&quot;${1}&quot;
+
+if [ &quot;${search_dir}x&quot; = 'x' ]; then
+    echo 'Informe o diretório de busca!'
+    exit 2
+fi
+
+error_list=$(egrep --color=auto 'ERROR \[[a-zA-Z\.]{1,}\]' $(find -L &quot;${1}&quot; -ctime -7 | grep server) -o  | awk '{print $2}' |  sort | uniq -c | sort -r | head -n 10)
+
+seq=1
+echo
+printf '%-2s | %-10s | %-100s | \n' &quot;#&quot; &quot;COUNT&quot; &quot;LOGGER NAME&quot;
+echo &quot;---|------------|------------------------------------------------------------------------------------------------------|&quot;
+
+IFS='
+'
+for error in ${error_list}; do
+    count=$(echo &quot;${error}&quot; | awk '{print $1}')
+    logger_name=$(echo &quot;${error}&quot; | awk '{print $2}' | tr -d '[]')
+
+    printf '%-2s | %-10s | %-100s | \n' &quot;${seq}&quot; &quot;${count}&quot; &quot;${logger_name}&quot;
+
+    seq=$(($seq + 1))
+done
+echo
+</code></pre>
+
+<p>Por exemplo:</p>
+
+<pre><code class="language-bash">[root@servidor ~]# ./procura_erros.sh /var/log/jbossas/
+
+#  | COUNT      | LOGGER NAME                                                                       |
+---|------------|-----------------------------------------------------------------------------------|
+1  | 1926       | org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver                     |
+2  | 759        | grails.app.controllers.ar.com.site.app.acesso.LoginController                     |
+3  | 475        | stderr                                                                            |
+4  | 265        | org.grails.plugin.resource.ResourceMeta                                           |
+5  | 90         | grails.app.services.ar.com.site.app.banner.BannerService                          |
+6  | 84         | StackTrace                                                                        |
+7  | 46         | org.hibernate.util.JDBCExceptionReporter                                          |
+8  | 27         | grails.app.taglib.ar.com.site.app.banner.BannerTagLib                             |
+9  | 27         | grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao                         |
+10 | 15         | org.hibernate.transaction.JDBCTransaction                                         |
+
+</code></pre>
+
+<p>Caso precisem de um exemplo do erro em questão, utilize o comando abaixo:</p>
+
+<pre><code class="language-bash">pcregrep -Mi '.*ERROR \[NOME_DO_PACKAGE.*(\n.*(\n\s*at.*)+)?' $(find /var/log/jbossas/ -ctime -7 | grep server)
+</code></pre>
+
+<blockquote>
+<p>Lembre de substituir o <code>NOME_DO_PACKAGE</code> pelo package que você está procurando.</p>
+</blockquote>
+
+<p>Acho que é isso por hoje.</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

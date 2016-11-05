@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 Nov 2016 17:06:58 -0200</lastBuildDate>
+    <atom:link href="http://swebber.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Olá hugo! Até mais octopress. :)</title>
+      <link>http://swebber.me/blog/2016/11/03/ola-hugo/</link>
+      <pubDate>Thu, 03 Nov 2016 17:06:58 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/11/03/ola-hugo/</guid>
+      <description>&lt;p&gt;Depois de sofrer com a migração pro octopress 3 eu meio que abandonei este blog.&lt;/p&gt;
+
+&lt;p&gt;Escrevi mais algumas coisas, foquei no trabalho, no &lt;a href=&#34;http://pgconfig.org&#34;&gt;pgconfig.org&lt;/a&gt; e também na minha vida pessoal até o momento que eu resolvi tentar ajustar umas coisas na instalação da minha máquina e detonar minha instalação do octopress. Isso me chateou um pouco. Eu gostava da idéia de escrever o markdown e já sair um post todo formatado e agora isso não funcionava mais.&lt;/p&gt;
+
+&lt;p&gt;Deu trabalho (provavelmente por eu ser preguiçoso) atualizar o octpress por que eu não sabia nada sobre ele. Mesmo. Eu tinha que aprender muita coisa pra poder chegar aonde eu queria. No fim, quando eu essa confusão na minha máquina, eu não gostaria de passar por tudo isso denovo e assim, deixei o blog de lado e comecei a jogar muita coisa no &lt;a href=&#34;http://gist.github.com&#34;&gt;gist&lt;/a&gt;. O gist é bacana de trabalhar, mas não consigo (e sendo sincero: nem tentei procurar) usar meu próprio domínio nem ajustar os estilos de forma que me agrade.&lt;/p&gt;
+
+&lt;p&gt;A vida seguiu. Eu acabei indo palestrar no &lt;a href=&#34;http://fisl.softwarelivre.org&#34;&gt;FISL&lt;/a&gt; e alguém me recomendou o &lt;a href=&#34;http://gohugo.io&#34;&gt;hugo&lt;/a&gt;. Pensei comigo mesmo: Por quê não?&lt;/p&gt;
+
+&lt;p&gt;Assim, aqui estamos nós. Estou migrando tudo para o hugo. Seja o que Deus quiser! hahaahaha&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Checklist mensal do PostgreSQL</title>
+      <link>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</link>
+      <pubDate>Mon, 15 Feb 2016 16:54:52 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</guid>
+      <description>
+
+&lt;p&gt;Este post é uma humilde adaptação de um &lt;a href=&#34;http://www.jasonstrate.com/monthly-sql-server-checklist/&#34;&gt;ótimo artigo sobre o SQL Server&lt;/a&gt;. Sim, você leu certo: Peguei umas idéias do checklist do SQL Server.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-atualize-o-so-do-seu-servidor&#34;&gt;1. Atualize o SO do seu servidor&lt;/h2&gt;
+
+&lt;p&gt;Eu sei. Você não faz isso. Acha que não precisa, que o problema não é seu, mas nos últimos anos tivemos tantos problemas de segurança recentes (&lt;a href=&#34;http://heartbleed.com&#34;&gt;HeartBleead&lt;/a&gt;, &lt;a href=&#34;https://access.redhat.com/articles/1200223&#34;&gt;Shellshock&lt;/a&gt;, etc), que sabe-se lá o que pode nos assustar no futuro. Quer uma sugestão? Atualiza tudo, sempre [que possível].&lt;/p&gt;
+
+&lt;h2 id=&#34;2-atualize-seu-servidor-postgresql&#34;&gt;2. Atualize seu servidor PostgreSQL&lt;/h2&gt;
+
+&lt;p&gt;Por que? por que sim, oras. Precisa de mais motivos? Então pensa que BUGs e falhas de segurança são corrigidos o quanto antes.&lt;/p&gt;
+
+&lt;p&gt;Sua versão instalada não tem mais atualizações ou não é mais suportada? Para tudo e bora atualizar. Não só pela segurança, mas toda versão tem muita coisa bacana, aposto que os desenvolvedores implorariam pra você atualizar. Vai lá e mostra o release notes pros caras, depois vem e me agradece. :P&lt;/p&gt;
+
+&lt;p&gt;Não acredita? Abre aí então:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://wiki.postgresql.org/wiki/What&#39;s_new_in_PostgreSQL_9.5&#34;&gt;&lt;code&gt;https://wiki.postgresql.org/wiki/What&#39;s_new_in_PostgreSQL_9.5&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Pra te dar uma dica de como atualizar, sempre dê uma lida no release notes. Lá tem tudo o que nós, meros mortais (&lt;em&gt;ou não devs&lt;/em&gt;), precisavamos saber pra atualizar o banco. Normalmente é bem simples (para o banco, atualiza os binários, sobe o banco), e caso seja mais elaborado, vai estar la no release notes, bem bonitinho.&lt;/p&gt;
+
+&lt;p&gt;Quer saber das versões novas e tem preguiça de ver o site toda hora? Então assine o &lt;a href=&#34;http://www.postgresql.org/versions.rss&#34;&gt;feed RSS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ainda assim da muito trabalho? Então utilize os repositórios do PGDG, que tem pra varios sabores (&lt;a href=&#34;https://wiki.postgresql.org/wiki/Apt&#34;&gt;APT&lt;/a&gt; e &lt;a href=&#34;https://wiki.postgresql.org/wiki/RPM_Installation&#34;&gt;YUM&lt;/a&gt;  por exemplo).&lt;/p&gt;
+
+&lt;h2 id=&#34;3-valide-suas-rotinas-de-backup&#34;&gt;3. Valide suas rotinas de backup&lt;/h2&gt;
+
+&lt;p&gt;Verifique todo seu processo de backup. Messa os tempos de execução, documente cada etapa do processo e tente deixar ele o mais simples possível. Pontos importantes a validar são: &lt;em&gt;Tamanho ocupado&lt;/em&gt;, &lt;em&gt;duração&lt;/em&gt;, &lt;em&gt;falhas na execução&lt;/em&gt; e &lt;em&gt;monitoramento do mesmo&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Já que estamos falando de backup, faça a lição de casa e avalie as soluções de backup mais populares:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.postgresql.org/docs/current/static/backup.html&#34;&gt;DOC Oficial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.pgbarman.org&#34;&gt;pgbarman&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/michaelpq/pg_arman&#34;&gt;pg_arman&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.depesz.com/2013/09/11/how-to-make-backups-of-postgresql/&#34;&gt;scripts customizados do @depesz&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Já que você faz backup do seu banco, não esqueça de fazer backup das suas configurações. Afinal, nunca se sabe quando vamos precisar fazer um &lt;code&gt;Disaster Recovery&lt;/code&gt;. Falando nisso, é uma boa planejar uma solução de &lt;code&gt;HA&lt;/code&gt;, não é mesmo?&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Se você ainda usa o &lt;code&gt;pg_dump&lt;/code&gt; como sua principal solução de backup, dá uma olhada nesse &lt;a href=&#34;http://savepoint.blog.br/dump-nao-e-backup/&#34;&gt;artigo bacana do @telles&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;4-teste-com-vontade-a-sua-rotina-de-restore&#34;&gt;4. Teste, &lt;em&gt;com vontade&lt;/em&gt;, a sua rotina de restore&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Backup bom é o que restaura.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Eu nunca canso de dizer isso!&lt;/p&gt;
+
+&lt;p&gt;Já que seu backup está rodando certinho, faça um restore dos dados. Meça os tempos, documente o processo. Se tiver como fazer isso num servidor novo, melhor aínda! O importante é ficar tranquilo e ter tudo sob controle quando a casa cair e ele for realmente necessário.&lt;/p&gt;
+
+&lt;h2 id=&#34;5-verifique-o-desempenho-e-a-saude-do-seu-banco&#34;&gt;5. Verifique o desempenho e a saude do seu banco&lt;/h2&gt;
+
+&lt;p&gt;Deixe de sofrer. Há muitas soluções de monitoramento no mercado (&lt;a href=&#34;http://www.zabbix.com&#34;&gt;zabbix&lt;/a&gt;, &lt;a href=&#34;https://www.nagios.org/&#34;&gt;Nagios&lt;/a&gt;, etc). Coloque ele pra funcionar e monitorar detalhes uteis do SO e também do servidor PostgreSQL. Ajuste seu log para um formato de leitura mais eficiente (como o CSV, por exemplo) e gere reports do &lt;a href=&#34;http://dalibo.github.io/pgbadger/&#34;&gt;pgbadger&lt;/a&gt; ou &lt;a href=&#34;https://prezi.com/f2dvt6m9tbf9/integrating-postgresql-with-logstash-for-real-time-monitoring/&#34;&gt;uma solução mais elaborada&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Caso você use a versão 9.3 ou superior, você &lt;strong&gt;DEVE&lt;/strong&gt; dar uma olhada no &lt;a href=&#34;http://dalibo.github.io/powa/&#34;&gt;PoWA&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;6-revise-seu-tuning-no-so-e-no-postgresql-conf&#34;&gt;6. Revise seu tuning no SO e no &lt;code&gt;postgresql.conf&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Agora que você passou a monitorar o banco, aproveita o embalo e começa a dar uma revisada no tuning do sistema operacional, começando pelo &lt;code&gt;/etc/sysctl.conf&lt;/code&gt;. Infelizmente, cada evento pode apontar um arquivo de configuração diferente. O jeito fácil é entender o que está rolando no servidor e ver se isso tu trata num dos &lt;strong&gt;3 pilares&lt;/strong&gt;: &lt;em&gt;Hardware&lt;/em&gt;, &lt;em&gt;Sistema Operacional&lt;/em&gt; e &lt;em&gt;Banco de dados&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;SO revisado? Então manda ver e da uma olhada configurações do &lt;code&gt;postgresql.conf&lt;/code&gt;. Se você nunca fez isso, eu sugiro que dê uma olhada no &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;. Lá é um bom lugar pra começar.&lt;/p&gt;
+
+&lt;p&gt;Não esqueça do hardware. As vezes não tem jeito, precisamos de um upgrade. :D&lt;/p&gt;
+
+&lt;h2 id=&#34;7-analise-e-ajuste-o-baseline&#34;&gt;7. Analise e ajuste o baseline&lt;/h2&gt;
+
+&lt;p&gt;Chegou a conclusão que precisa de algum ajuste no tuning? O que mudou? Aumentou a quantidade de usuários? Nova feature baseado em &lt;a href=&#34;http://desciclopedia.org/wiki/Gambi_Design_Patterns&#34;&gt;boas praticas do mercado&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;Será que é realmente necessário esse ajuste?&lt;/p&gt;
+
+&lt;h2 id=&#34;8-valide-o-seu-capacity-plan-https-en-wikipedia-org-wiki-capacity-planning&#34;&gt;8. Valide o seu &lt;a href=&#34;https://en.wikipedia.org/wiki/Capacity_planning&#34;&gt;Capacity Plan&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Se você tem um em ação, será que o mesmo está adequado? Se você fez algum ajuste sugerido acima, será que o mesmo não precisa de nenhum ajuste? Talvez seja o momento de mudar algumas projeções.&lt;/p&gt;
+
+&lt;h2 id=&#34;9-sumarize-e-monte-um-plano&#34;&gt;9. Sumarize e monte um plano&lt;/h2&gt;
+
+&lt;p&gt;Avaliou tudo o que precisa mudar? Agora monte o seu proprio plano de ação, alinhe com a equipe e batalhe pelas janelas de manutenção.&lt;/p&gt;
+
+&lt;p&gt;Depois de tudo pronto e configurado, mande o seu próprio release notes pro pessoal do marketing e deixe eles fazerem propaganda da saude do seu banco! :P&lt;/p&gt;
+
+&lt;h2 id=&#34;faltou-algo&#34;&gt;Faltou algo?&lt;/h2&gt;
+
+&lt;p&gt;Certamente algo importante pode ter ficado pra trás. Deixa um comentário pra gente ajustar assim que der. :D&lt;/p&gt;
+
+&lt;p&gt;[]&amp;rsquo;s&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Desafio sobre a replicação do PostgreSQL!</title>
+      <link>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</link>
+      <pubDate>Thu, 21 Jan 2016 20:05:03 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</guid>
+      <description>
+
+&lt;p&gt;Esse ano, &lt;a href=&#34;http://savepoint.blog.br/10-anos-de-pgbr/&#34;&gt;segundo fontes confiáveis&lt;/a&gt;, é aniversário da Comunidade Brasileira de PostgreSQL. E pra fazer a minha parte (e tirar a poeira do blog) eu lanço um desafio público: falar sobre a replicação do PostgreSQL. E isso não é pouca coisa!&lt;/p&gt;
+
+&lt;p&gt;Até o momento, essas são as soluções mais populares:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Replicação Nativa: &lt;a href=&#34;http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION&#34;&gt;Streaming Replication&lt;/a&gt; e &lt;a href=&#34;http://www.postgresql.org/docs/current/static/warm-standby.html#STREAMING-REPLICATION-SLOTS&#34;&gt;Replication Slots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://2ndquadrant.com/en-us/resources/bdr/&#34;&gt;BDR&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://2ndquadrant.com/en/resources/pglogical/&#34;&gt;PGLogical&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://slony.info/&#34;&gt;Slony&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.postgresql.org/wiki/SkyTools#Londiste&#34;&gt;Londiste&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://bucardo.org/wiki/Bucardo&#34;&gt;Bucardo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.keithf4.com/mimeo-introduction/&#34;&gt;Mimeo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.pgpool.net/mediawiki/index.php/Main_Page&#34;&gt;PGpool II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.repmgr.org/&#34;&gt;REPMgr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;a-proposta&#34;&gt;A proposta&lt;/h2&gt;
+
+&lt;p&gt;A idéia é fazer um ambiente de testes utilizando a versão mais recente do banco e da solução cobrindo os pontos abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Instalação e configuração&lt;/li&gt;
+&lt;li&gt;Operação basica para replicar dados ou conjunto de dados&lt;/li&gt;
+&lt;li&gt;Procedimentos que previnem tolerancia a falhas&lt;/li&gt;
+&lt;li&gt;Validar meios para replicar dados distribuidos geograficamente&lt;/li&gt;
+&lt;li&gt;Medição dos tempos de carga intensa (como o restore do banco) e moderado (como a atualização de dados e tudo mais)&lt;/li&gt;
+&lt;li&gt;Avaliação de pontos fortes e fracos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;sobre-o-ambiente-de-testes&#34;&gt;Sobre o ambiente de testes&lt;/h2&gt;
+
+&lt;h3 id=&#34;quanto-a-máquina-virtual-dos-testes&#34;&gt;Quanto a máquina virtual dos testes&lt;/h3&gt;
+
+&lt;p&gt;Pra simplificar o processo de setup do lab, eu criei uma configuração do &lt;a href=&#34;https://www.vagrantup.com/&#34;&gt;Vagrant&lt;/a&gt; composta de duas máquinas virtuais na configuração abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2GB de RAM&lt;/li&gt;
+&lt;li&gt;35GB espaço em disco&lt;/li&gt;
+&lt;li&gt;CEntOS 7 64 Bits&lt;/li&gt;
+&lt;li&gt;Repositórios configurados: epel, pgdg94 e pgdg95&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Detalhes da configuração de rede:&lt;/p&gt;
+
+&lt;table class=&#34;table&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Hostname&lt;/th&gt;
+            &lt;th&gt;IP&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;master&lt;/td&gt;
+            &lt;td&gt;192.168.100.100&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;slave&lt;/td&gt;
+            &lt;td&gt;192.168.100.200&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Abaixo segue o Vagrantfile:
+&lt;script src=&#34;//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=Vagrantfile&#34;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Para utiliza-lo, execute:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/sebastianwebber/d49ac8507d48c9cfdc4f.js?file=setup.sh&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;quanto-a-base-de-dados&#34;&gt;Quanto a base de dados&lt;/h3&gt;
+
+&lt;p&gt;A base de testes adotada é o banco do &lt;a href=&#34;http://www.imdb.com/&#34;&gt;IMDB&lt;/a&gt;. Pra simplificar o processo de importação e teste eu já deixei um dump prontinho na URL abaixo:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://1drv.ms/1TjlPXl&#34;&gt;&lt;code&gt;http://1drv.ms/1TjlPXl&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Detalhes pra importação do dump são os de sempre:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;createdb -U postgres imdb
+pg_restore -U postgres -d imdb -Fc --disable-triggers imdb.dump -j 4
+vacuumdb -U postgres -d imdb -z
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Na sequência já publico detalhes de como popular e alterar os dados.&lt;/p&gt;
+
+&lt;p&gt;E aí, vai encarar?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Um rascunho sobre banco de dados e containers</title>
+      <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
+      <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
+      <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
+
+&lt;p&gt;Usar o docker e criar um container é relativamente fácil, se você der uma olhada no google, vai achar uma dezena de tutoriais e dicas infalíveis pra deixar tudo rodando como deve. Vou deixar uns links abaixo pra tentar fazer a minha parte.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/engine/installation/centos/&#34;&gt;Documentação oficial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;O docker tem uma limitação simples: &lt;em&gt;até o momento, ele só roda no linux&lt;/em&gt;. Temos artificios pra usar o docker no Windows e ou Mac, mas a verdade é que mesmo &amp;ldquo;com jeitinho&amp;rdquo;, vai ter uma vm linux rodando o docker por debaixo dos panos. Não sei da Apple, mas &lt;a href=&#34;https://blog.docker.com/2015/08/tp-docker-engine-windows-server-2016/&#34;&gt;a Microsoft ta dando um jeitinho pra rodar ele no Windows Server 2016&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;O que isso quer dizer?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Quer dizer que, no atual momento, docker só funciona no linux.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Se você ficou curioso sobre como usar ele no windows ou mac, dá uma olhada no &lt;a href=&#34;https://kitematic.com/&#34;&gt;Kitematic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Bom, depois de discurso todo eu quero dizer uma coisa bem simples: Se sua aplicação precisa do Windows pra rodar (seja pelo SQL Server, IIS, etc) acho que esse post não é bem pra você.&lt;/p&gt;
+
+&lt;p&gt;É comum usarmos docker para rodar nossa aplicação web, seja ela como for: ERP rodando em java, blog em php, etc. A idéia é simples: a gente sobe um container com o mínimo pra ela rodar e gentilmente manda o docker rodar muitas instancias dessa mesma imagem simultaneamente. Pensando assim você indaga: Se precisar um balanceador de carga, o que fazemos? Subimos ele num container também. Fácil assim.&lt;/p&gt;
+
+&lt;p&gt;Quer um exemplo? Suponha que tenhamos que publicar um blog feito no wordpress. Wordpress precisa do php e um banco MySQL pra funcionar. Dessa forma, precisamos, &lt;strong&gt;necessariamente&lt;/strong&gt; de 2 containers: 1 de MySQL e outro de apache+php (ou qualquer outro webserver que rode php e te deixe feliz).&lt;/p&gt;
+
+&lt;p&gt;Assim que nosso servidor estiver rodando esses containers e nosso blog imaginario começa a receber muitos acessos, nosso container de apache e php começa a ter dificuldade de responder a todas as requisições e assim, temos a grande idéia de colocar mais um container rodando apache com minha aplicação (wordpress) e assim, ganhamos um problema novo: tenho 2 apaches e nimguém pra balancear o mesmo.&lt;/p&gt;
+
+&lt;p&gt;O que fazer nesse caso? você pode subir um &lt;a href=&#34;https://hub.docker.com/_/haproxy/&#34;&gt;container com o haproxy&lt;/a&gt; e passar a apontar tuas requisições pra ele e ele passar a balancear as conexões entre os apaches. Até que é facil não é? agora, se o site ficar lento denovo, o que a gente faz? aumenta os apaches! Quantos? Quantos forem necessários!!! :D&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agora, quando baixou a demanda, o que eu faço?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Diminuo a quantidade de containers em execução, fazendo manualmente um &lt;a href=&#34;https://en.wikipedia.org/wiki/Autoscaling&#34;&gt;autoscaling&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Talvez aqui tenhamos um furo no conceito: a aplicação do wordpress vai eventualmente criar uns arquivos no disco com dados da aplicação (imagens, css, js, etc) e isso a gente pode contornar com uma area de disco compartilhada entre os containers.&lt;/p&gt;
+
+&lt;p&gt;A analogia é simples nesse caso: cada imagem docker tem tudo que eu preciso pra rodar o php+wordpress+coisas+do+blog e o MySQL é quem guarda os dados dinamicos.&lt;/p&gt;
+
+&lt;p&gt;Então vai chegar o temido dia: meu banco rodando no container não dá conta do recado. Você tenta todo tipo de mandinga necessária: tunning, hardware e não tem jeito. Aí, depois de pensar em todos os planos pra aumentar os recursos passa pra pensar em algum tipo de processamento horizontal e nota que vai precisar distribuir a carga e balancear os acessos entre esses nós. Assim, você que já foi doutrinado vai dizer: &amp;ldquo;ótimo! vou colocar a rodar mais um haproxy e vou subir outro container MySQL!&amp;rdquo;. Não, isso não vai funcionar.&lt;/p&gt;
+
+&lt;p&gt;Por que? basicamente por causa da integridade dos dados. Precisamos de algum mecanismo (seja nativo ou não) que garanta que ambas os containers rodando MySQL tenham a mesma informação. Isso não é tão simples: cada fabricante de banco de dados implementa do seu jeito e cada solução de replicação tem seus prós e contras.&lt;/p&gt;
+
+&lt;p&gt;Tá, mas o MySQL não tem replicação? eu não posso usar pra resolver meu problema? Pode. E posso fazer igual como fiz com os apaches+php, apagando os containers conforme ele não for usado? Provavelmente não.&lt;/p&gt;
+
+&lt;p&gt;Aqui é o ponto em questão: bancos de dados não apenas arquivos no disco. Precisamos pensar uma forma diferente de tratar ele pra que funcione bem como de costume.&lt;/p&gt;
+
+&lt;p&gt;Quanto ao armazenamento, tem alguns links que valem a pena dar uma olhada:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker&#34;&gt;http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/&#34;&gt;http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/engine/userguide/dockervolumes/&#34;&gt;https://docs.docker.com/engine/userguide/dockervolumes/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://container42.com/2014/11/18/data-only-container-madness/&#34;&gt;http://container42.com/2014/11/18/data-only-container-madness/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Continua&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deu trabalho! mas agora o blog usa o octopress 3.0</title>
+      <link>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</link>
+      <pubDate>Fri, 28 Aug 2015 03:28:48 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</guid>
+      <description>&lt;p&gt;Depois de apanhar, desistir, insistir e jogar tudo pra cima. Blog está sendo migrado pra usar o octopress 3.0.&lt;/p&gt;
+
+&lt;p&gt;Já que meti a mão na massa, aproveitei e mudei o tema para baseado no Pooler chamado Lanyon.&lt;/p&gt;
+
+&lt;p&gt;Falta pouco, mas acho que agora vai.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;PS:&lt;/strong&gt; No fim a unica coisa que estou usando do octopress 3 é o deploy. Conforme eu for pegando a manha eu ajeito essa bagunça que eu fiz.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PGConfig agora tem um dominio próprio!</title>
+      <link>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</link>
+      <pubDate>Mon, 23 Feb 2015 09:31:40 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</guid>
+      <description>&lt;p&gt;Depois de umas noites trabalhando no projeto do &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;, eu decidi registrar um dominio para facilitar o acesso ao mesmo e aí isso acabou mudando a URL de acesso do mesmo. Agora ficou &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pra quem interessar, o mesmo está hospedado na infraestrutura do &lt;a href=&#34;http://openshift.com&#34;&gt;OpenShift&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sugestões são bem vindas! =)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Script de inicialização do JBoss AS7&#43;/EAP 6&#43; em modo domain</title>
+      <link>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</link>
+      <pubDate>Thu, 30 Oct 2014 23:23:08 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</guid>
+      <description>&lt;p&gt;Criei o script e deixei lá no github. Veja abaixo:&lt;/p&gt;
+
+&lt;script src=&#34;//gist.github.com/sebastianwebber/885b620bdf9dde39eadf.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;O mesmo pode ser utilizado no Wildfly 8 sem problemas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Convertendo maquinas virtuais do VMWare Fusion para o VMware ESXI 5.X</title>
+      <link>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</link>
+      <pubDate>Wed, 22 Oct 2014 22:13:48 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</guid>
+      <description>
+
+&lt;p&gt;Para converter os arquivos do VMWare Fusion, é necessário utilizar o utilitário &lt;a href=&#34;https://www.vmware.com/support/developer/ovf/&#34;&gt;ovftool&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Para migrar a vm, utilize o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/Applications/VMware\ OVF\ Tool/ovftool -ds=datastore1 --network=&#39;VM Network&#39; --lax -n=nomevm /caminho/para/a/vm/nomevm.vmwarevm/nomevm.vmx &amp;quot;vi://[[user][:supersenhado]]@ip_do_servidor&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANTE:&lt;/strong&gt; lembre de substituir o nome do datastore e a rede para os nomes corretos configurados na sua infra estrutura. Caso queira, também informe o usuário e senha do servidor.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;h3 id=&#34;unsupported-hardware-family-vmx-10&#34;&gt;Unsupported hardware family &amp;lsquo;vmx-10&amp;rsquo;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Opening VI target: vi://root@ip_do_servidor:443/
+Error: OVF Package is not supported by target:
+ - Line 25: Unsupported hardware family &#39;vmx-10&#39;.
+Completed with errors
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Edite as propriedades da vm, vá em Compatibility, abra &lt;em&gt;Advanced Options&lt;/em&gt; e mude a opção &lt;strong&gt;Use Hardware Version&lt;/strong&gt; para &lt;strong&gt;8&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;no-support-for-the-virtual-hardware-device-type-20&#34;&gt;No support for the virtual hardware device type &amp;lsquo;20&amp;rsquo;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Opening VI target: vi://root@ip_do_servidor:443/
+Error: OVF Package is not supported by target:
+ - Line 49: OVF hardware element &#39;ResourceType&#39; with instance ID &#39;3&#39;: No support for the virtual hardware device type &#39;20&#39;.
+Completed with errors
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Edite as propriedades da vm, vá em Compatibility, abra &lt;em&gt;Advanced Options&lt;/em&gt; e mude a opção &lt;strong&gt;Use Hardware Version&lt;/strong&gt; para &lt;strong&gt;7&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;referencias&#34;&gt;Referencias&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wikis.uit.tufts.edu/confluence/display/exchange2010/Convert+VMware+Fusion+VM+to+ESXi+VM&#34;&gt;https://wikis.uit.tufts.edu/confluence/display/exchange2010/Convert+VMware+Fusion+VM+to+ESXi+VM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.virtuallyghetto.com/2012/05/how-to-deploy-ovfova-in-esxi-shell.html&#34;&gt;http://www.virtuallyghetto.com/2012/05/how-to-deploy-ovfova-in-esxi-shell.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://theitcrownd.blogspot.com.br/2011/02/importing-virtual-appliances.html&#34;&gt;http://theitcrownd.blogspot.com.br/2011/02/importing-virtual-appliances.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=2012352&#34;&gt;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=2012352&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly</title>
+      <link>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</link>
+      <pubDate>Thu, 17 Jul 2014 14:14:52 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</guid>
+      <description>&lt;p&gt;Execute o script abaixo, substituindo o diretório &lt;code&gt;/var/log/jbossas&lt;/code&gt; pelo diretório de logs do seu servidor JBoss/Wildfly:
+&amp;gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+   1864 [org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver]
+    716 [grails.app.controllers.ar.com.site.app.acesso.LoginController]
+    475 [stderr]
+    254 [org.grails.plugin.resource.ResourceMeta]
+     88 [grails.app.services.ar.com.site.app.banner.BannerService]
+     84 [StackTrace]
+     46 [org.hibernate.util.JDBCExceptionReporter]
+     27 [grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao]
+     26 [grails.app.taglib.ar.com.site.app.banner.BannerTagLib]
+     15 [org.hibernate.transaction.JDBCTransaction]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, podemos jogar tudo num script, dando uma ajustada na apresentação:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+search_dir=&amp;quot;${1}&amp;quot;
+
+if [ &amp;quot;${search_dir}x&amp;quot; = &#39;x&#39; ]; then
+    echo &#39;Informe o diretório de busca!&#39;
+    exit 2
+fi
+
+error_list=$(egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find -L &amp;quot;${1}&amp;quot; -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10)
+
+seq=1
+echo
+printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;#&amp;quot; &amp;quot;COUNT&amp;quot; &amp;quot;LOGGER NAME&amp;quot;
+echo &amp;quot;---|------------|------------------------------------------------------------------------------------------------------|&amp;quot;
+
+IFS=&#39;
+&#39;
+for error in ${error_list}; do
+    count=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $1}&#39;)
+    logger_name=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $2}&#39; | tr -d &#39;[]&#39;)
+
+    printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;${seq}&amp;quot; &amp;quot;${count}&amp;quot; &amp;quot;${logger_name}&amp;quot;
+
+    seq=$(($seq + 1))
+done
+echo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# ./procura_erros.sh /var/log/jbossas/
+
+#  | COUNT      | LOGGER NAME                                                                       |
+---|------------|-----------------------------------------------------------------------------------|
+1  | 1926       | org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver                     |
+2  | 759        | grails.app.controllers.ar.com.site.app.acesso.LoginController                     |
+3  | 475        | stderr                                                                            |
+4  | 265        | org.grails.plugin.resource.ResourceMeta                                           |
+5  | 90         | grails.app.services.ar.com.site.app.banner.BannerService                          |
+6  | 84         | StackTrace                                                                        |
+7  | 46         | org.hibernate.util.JDBCExceptionReporter                                          |
+8  | 27         | grails.app.taglib.ar.com.site.app.banner.BannerTagLib                             |
+9  | 27         | grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao                         |
+10 | 15         | org.hibernate.transaction.JDBCTransaction                                         |
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Caso precisem de um exemplo do erro em questão, utilize o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pcregrep -Mi &#39;.*ERROR \[NOME_DO_PACKAGE.*(\n.*(\n\s*at.*)+)?&#39; $(find /var/log/jbossas/ -ctime -7 | grep server)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Lembre de substituir o &lt;code&gt;NOME_DO_PACKAGE&lt;/code&gt; pelo package que você está procurando.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Acho que é isso por hoje.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Instalando o PL/Debugger no PostgreSQL 9.3 no EL6</title>
+      <link>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</link>
+      <pubDate>Wed, 18 Jun 2014 11:41:06 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTA:&lt;/strong&gt; Baseado na dica do @FabrizioMello, ajustei este post e ainda deixei o processo ainda mais simples.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Com o banco já instalado via RPM, é necessário instalar algumas bibliotecas para compilar a extensão, assim instale os RPMs necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install make gcc zlib-devel readline-devel postgresql93-devel openssl-devel git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, faça um clone do módulo pldebbuger:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;git clone http://git.postgresql.org/git/pldebugger.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para compilar o módulo, ajustar o PATH também a variável USE_PGXS:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export PATH=${PATH}:/usr/pgsql-9.3/bin
+export USE_PGXS=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, compile e instale o módulo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd pldebugger
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o PostgreSQL para utilizar o módulo compilado, ajustando o arquivo &lt;code&gt;/var/lib/pgsql-9.3/data/postgresql.conf&lt;/code&gt;, descomentando a variavel &lt;code&gt;shared_preload_libraries&lt;/code&gt; e configurando-a conforme abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;shared_preload_libraries = &#39;/usr/pgsql-9.3/lib/plugin_debugger.so&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Reinicie o banco de dados:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;service postgresql-9.3 restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para finalizar, crie a extensão no banco necessário para fazer o debug:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE EXTENSION pldbgapi;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>pgconfig</title>
+      <link>http://swebber.me/blog/2014/05/30/pgconfig/</link>
+      <pubDate>Fri, 30 May 2014 08:32:53 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/05/30/pgconfig/</guid>
+      <description>&lt;p&gt;Baseado na idéia da &lt;a href=&#34;http://lbconfig.appspot.com/&#34;&gt;ferramenta de configuração de Load Balancers da Redhat&lt;/a&gt;, criei uma página no mesmo formato, mas com a finalidade de fazer o tunning inicial do servidor PostgreSQL. Apesar de conhecer o &lt;a href=&#34;https://github.com/gregs1104/pgtune&#34;&gt;pgtune&lt;/a&gt;, achei que o formato web seria mais atrativo e tive ele como base em alguns parâmetros.&lt;/p&gt;
+
+&lt;p&gt;A versão inicial do mesmo cobre apenas alguns parâmetros básicos de memória, mas vou expandindo isso com o tempo. Pretendo nela cobrir alguns aspectos do SO também.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2014/05/30/pgconfig.png&#34; alt=&#34;PGConfig screenshot&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;Para acessa-lá, utilize a url: &lt;a href=&#34;http://swebber.me/pgconfig/&#34;&gt;http://swebber.me/pgconfig/&lt;/a&gt;&lt;/del&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Novo endereço disponível!&lt;/strong&gt; Acesse: &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Se tiver afim de me ajudar, dá uma olhada no &lt;a href=&#34;https://github.com/sebastianwebber/pgconfig&#34;&gt;repositório do projeto no github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;del&gt;PS: ainda não criei um repositório no github para o projeto, mas logo-logo, eu faço isso.&lt;/del&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Instalação do Oracle JDK 6 no EL6</title>
+      <link>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</link>
+      <pubDate>Mon, 05 May 2014 09:49:11 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</guid>
+      <description>&lt;p&gt;Faça o download da versão legada na URL abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR&#34;&gt;http://www.oracle.com/technetwork/java/javasebusiness/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Faça a instalação do mesmo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bash jdk-6u45-linux-x64-rpm.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o alternatives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/bin/java 20000
+alternatives --install /usr/bin/javac javac /usr/java/jdk1.6.0_45/bin/javac 20000
+alternatives --install /usr/bin/jar jar /usr/java/jdk1.6.0_45/bin/jar 20000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;o número &lt;code&gt;20000&lt;/code&gt; deve ser o valor que o de outras possíveis instalações (confira com o resultado do comando &lt;code&gt;alternatives --display java&lt;/code&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@servidor [~]# alternatives --display java
+java - status is auto.
+ link currently points to /usr/java/jdk1.6.0_45/bin/java
+/usr/java/jdk1.6.0_45/bin/java - priority 20000
+Current `best&#39; version is /usr/java/jdk1.6.0_45/bin/java.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Trabalhando com o londiste</title>
+      <link>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</link>
+      <pubDate>Fri, 25 Apr 2014 14:33:00 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</guid>
+      <description>
+
+&lt;p&gt;Este post é um complemento para o post que cita a instalação e configuração do Londiste. Vou atualizar este post conforme possível.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;É importante lembrar que a citação &lt;code&gt;[CON_STR]&lt;/code&gt; quer dizer a string de conexão utilizada, seguindo o padrão utilizado pela libpq.&lt;/p&gt;
+
+&lt;p&gt;Para simplificar a configuração, ao citar o arquivo de configuração, vou sempre utilizar o arquivo &lt;code&gt;/etc/londiste/config.ini&lt;/code&gt;, mas lembre é necessário criar um arquivo separado para cada job.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;string-de-conexão&#34;&gt;String de conexão&lt;/h2&gt;
+
+&lt;p&gt;A string de conexão é detalhada na documentação oficial, conforme abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sintaxe:&lt;/strong&gt; &lt;a href=&#34;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-CONNSTRING&#34;&gt;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-CONNSTRING&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Opções:&lt;/strong&gt; &lt;a href=&#34;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS&#34;&gt;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host=localhost port=5432 dbname=mydb connect_timeout=10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;manutenção-dos-nós&#34;&gt;Manutenção dos nós&lt;/h2&gt;
+
+&lt;h3 id=&#34;adicionando-e-removendo-nós&#34;&gt;Adicionando e removendo nós&lt;/h3&gt;
+
+&lt;p&gt;Para adicionar o nó tipo &lt;code&gt;root&lt;/code&gt; (master da replicação):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini create-root nome_node &amp;quot;[CON_STR]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para adicionar nós tipo &lt;code&gt;branch&lt;/code&gt; ou &lt;code&gt;leaf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini create-XXXXX nome_node &amp;quot;[CON_STR_DESTINO]&amp;quot; --provider=&amp;quot;[CON_STR_ROOT]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Aonde &lt;code&gt;XXXXX&lt;/code&gt; é o tipo de nó (branch ou leaf)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;[CON_STR_DESTINO]&lt;/code&gt; é a string de conexão do servidor que será o nó (slave)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;[CON_STR_ROOT]&lt;/code&gt; é a string de conexão do servidor que será o root (master)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Para remover o nó:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini drop-node nome_node
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;iniciando-e-parando-o-daemon&#34;&gt;Iniciando e parando o daemon&lt;/h3&gt;
+
+&lt;p&gt;Para iniciar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini -d worker
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para parar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini --stop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Para forçar a parada do mesmo, substitua o &lt;code&gt;\-\-stop&lt;/code&gt; por &lt;code&gt;\-\-kill&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;trabalhando-com-tabelas&#34;&gt;Trabalhando com tabelas&lt;/h2&gt;
+
+&lt;p&gt;Cada operação é específica para cada nó.&lt;/p&gt;
+
+&lt;h3 id=&#34;adicionando-e-removendo-tabelas&#34;&gt;Adicionando e removendo tabelas&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;a opção &lt;code&gt;\-\-all&lt;/code&gt; pode ser utilizada para aplicar a operação em todos os objetos&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Para adicionar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini add-table nome_tabela
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para remover:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini remove-table nome_tabela
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;listando-objetos-replicadas&#34;&gt;Listando objetos replicadas&lt;/h3&gt;
+
+&lt;p&gt;Para listar as tabelas:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini tables
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para listar as sequências:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini seqs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;listando-objetos-disponíveis-para-replicação&#34;&gt;Listando objetos disponíveis para replicação&lt;/h3&gt;
+
+&lt;p&gt;O comando a baixo necessáriamente precisa ser executado em um nó slave (leaf ou branch).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini missing
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;listando-status-da-replicação&#34;&gt;Listando status da replicação&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini status
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Utilizando o Londiste 3 com o PostgreSQL 8.4</title>
+      <link>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</link>
+      <pubDate>Thu, 24 Apr 2014 18:34:52 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</guid>
+      <description>&lt;p&gt;Devido ao pacote do skytools não estar disponível no repositório oficial do pgdg, é necessário compilar o mesmo.&lt;/p&gt;
+
+&lt;p&gt;Instale os pacotes necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install gcc make libtool git python-devel python-psycopg2 asciidoc xmlto cpp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe o skytools do git e instale-o:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir /opt/resources
+git clone https://github.com/markokr/skytools.git /opt/resources/skytools
+cd /opt/resources/skytools/
+git submodule init
+git submodule update
+./autogen.sh
+./configure --prefix=/usr/local/skytools
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/markokr/skytools/blob/master/INSTALL&#34;&gt;https://github.com/markokr/skytools/blob/master/INSTALL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Replicação lógica com o Londiste</title>
+      <link>http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/</link>
+      <pubDate>Fri, 18 Apr 2014 18:38:04 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/</guid>
+      <description>
+
+&lt;p&gt;O objetivo desse post é implementar o londiste, que é uma ferramenta de replicação assincrona do tipo master/slave e faz parte do pacote de ferramentas SkyTools.&lt;/p&gt;
+
+&lt;p&gt;Pontos a validar dessa solução:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tempo de replicação dos dados&lt;/li&gt;
+&lt;li&gt;Tipos de dados suportados, em especial:
+
+&lt;ul&gt;
+&lt;li&gt;Sequence&lt;/li&gt;
+&lt;li&gt;Timestamp&lt;/li&gt;
+&lt;li&gt;Bytea&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;sobre-o-ambiente-de-testes&#34;&gt;Sobre o ambiente de testes&lt;/h2&gt;
+
+&lt;p&gt;O ambiente de testes é composto por 2 servidores linux conforme abaixo:&lt;/p&gt;
+
+&lt;table class=&#34;table&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Master&lt;/th&gt;
+        &lt;th&gt;Slave&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Hostname&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;pg-master&lt;/td&gt;
+            &lt;td&gt;pg-slave&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;SO&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;CEntOS 6.5&lt;/td&gt;
+            &lt;td&gt;CEntOS 6.5&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;9.3.4&lt;/td&gt;
+            &lt;td&gt;9.3.4&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;Skytools&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;3.1.5&lt;/td&gt;
+            &lt;td&gt;3.1.5&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;IP&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;192.168.152.149&lt;/td&gt;
+            &lt;td&gt;192.168.152.150&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;instalação-do-postgresql&#34;&gt;Instalação do PostgreSQL&lt;/h2&gt;
+
+&lt;p&gt;Processo necessário em ambos os servidores.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /tmp
+wget -c http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+yum localinstall pgdg-centos93-9.3-1.noarch.rpm
+yum install postgresql93-server postgresql93-contrib
+service postgresql-9.3 initdb
+chkconfig postgresql-9.3 on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ajustes-no-firewall&#34;&gt;Ajustes no firewall&lt;/h3&gt;
+
+&lt;p&gt;Executar apenas no servidor master:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;iptables -I INPUT -p tcp --dport 5432 -s 192.168.152.149 -j ACCEPT
+service iptables save
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Nesse lab não foi necessário parar ou ajustar o SELinux.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;ajustes-no-postgresql-conf&#34;&gt;Ajustes no postgresql.conf&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;listen_addresses = &#39;*&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ajustes-na-configuração-do-pg-hba-conf&#34;&gt;Ajustes na configuração do pg_hba.conf&lt;/h3&gt;
+
+&lt;p&gt;Por questão de conveniência, libere acesso a todos os bancos dos servidores citados:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host    all   postgres    192.168.152.149/32  trust
+host    all   postgres    192.168.152.150/32  trust
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora inicie o postgresql:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;service postgresql-9.3 start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;sobre-o-londiste&#34;&gt;Sobre o Londiste&lt;/h2&gt;
+
+&lt;p&gt;O Londiste é uma ferramenta escrita em python, que utiliza o PgQ para o gerenciamento de eventos.&lt;/p&gt;
+
+&lt;p&gt;O PgQ que é um sistema de filas escrito em PL/pgSQL. Ele é divido em 3 principais funcionalidades:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Producers:&lt;/strong&gt; coloca eventos em uma determinada fila&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ticker:&lt;/strong&gt; é um daemon que separa as filas em pacotes de eventos&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Consumers:&lt;/strong&gt; lê eventos de uma determinada fila&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Quanto à replicação do londiste, a mesma é controlada pelos nós (nodes), que são classicados como:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;root:&lt;/b&gt; é o servidor master da replicação&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;branch:&lt;/b&gt; é o servidor slave da replicação e permite que outros nós o utilizem para replica de dados em cascata&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;leaf:&lt;/b&gt; é o servidor slave da replicação e não permite replicação apartir dele&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Na prática, cada configuração do nó é um job para processar as filas do PgQ. Para manter as filas atualizadas, um daemon chamado de worker é executado. Varios workers podem ser executados simulâneamente.&lt;/p&gt;
+
+&lt;p&gt;O daemon do PgQ, diferente do worker, precisa ter acesso a todos os bancos, para procupar pelos jobs e manter as filas e é por isso que sua string de conexão é parcial (parâmetro &lt;code&gt;base_connstr&lt;/code&gt;). Seu acesso padrão é realizado ao banco &lt;code&gt;template1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Recomendo que o daemon do PgQ seja executado do servidor que for o nó root (master) mas nada impede de o mesmo ficar em um servidor isolado.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;É importante lembrar que a solução do Londiste é implementada através de triggers nas tabelas replicadas e isso gera 2 ações necessárias: obrigatoriedade de mesma estrutura de tabelas/colunas e criação de constraints tipo PK e FK nos objetos replicados.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;instalação-do-londiste&#34;&gt;Instalação do Londiste&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install skytools-93 skytools-93-modules
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Talvez seja necessário reiniciar o postgresql nesse ponto.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuração-do-londiste&#34;&gt;Configuração do londiste&lt;/h2&gt;
+
+&lt;p&gt;Crie a estrutura de dados em ambos os servidores:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;psql -U postgres -f schema_londiste.sql
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;-- criação do banco de dados
+CREATE DATABASE teste_replica;
+
+\c teste_replica
+
+-- estrutura de dados
+CREATE TABLE pessoa (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    data_nascimento DATE NOT NULL,
+    ultima_visita TIMESTAMP NOT NULL DEFAULT now(),
+    foto BYTEA,
+    biografia TEXT
+);
+
+-- funções de apoio
+CREATE OR REPLACE FUNCTION bytea_import(p_path text, p_result out bytea) 
+                   LANGUAGE plpgsql as $$
+DECLARE
+  l_oid oid;
+  r record;
+BEGIN
+  p_result := &#39;&#39;;
+  select lo_import(p_path) into l_oid;
+  for r in ( select data 
+             from pg_largeobject 
+             where loid = l_oid 
+             order by pageno ) loop
+    p_result = p_result || r.data;
+  end loop;
+  perform lo_unlink(l_oid);
+END;
+$$;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;servidor-master&#34;&gt;Servidor master&lt;/h3&gt;
+
+&lt;p&gt;Crie os diretórios necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mkdir {/etc,/var/log,/var/run}/londiste
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie o arquivo &lt;code&gt;/etc/londiste/teste_replica_root.ini&lt;/code&gt;, com o conteúdo abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[londiste3]
+job_name = teste_replica_root
+db = dbname=teste_replica host=192.168.152.149 user=postgres
+queue_name = q_teste_replica
+logfile = /var/log/londiste/teste_replica_root.log
+pidfile = /var/run/londiste/teste_replica_root.pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Quanto aos parâmetros utilizados:&lt;/p&gt;
+
+&lt;table class=&#34;table table-bordered&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Propriedade&lt;/th&gt;
+            &lt;th&gt;Descrição&lt;/th&gt;
+            &lt;th&gt;Sugestão de valores&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;job_name&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;Nome do Job a ser executado&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;[NOME_BANCO]_[TIPO_NODE]&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;db&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;Connection String com detalhes de conexão do banco replicado&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;host=[PGHOST] port=[PGPORT] dbname=[NOME_BANCO] user=[PGUSER]&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;queue_name&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;Nome da fila&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;q_[NOME_BANCO]&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;logfile&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;Caminho completo do arquivo de log&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;/var/log/londiste/[NOME_BANCO]_[TIPO_NODE].log&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;b&gt;pidfile&lt;/b&gt;&lt;/td&gt;
+            &lt;td&gt;Caminho completo do arquivo pid do worker&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;/var/run/londiste/[NOME_BANCO]_[TIPO_NODE].pid&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Caso seja necessário um arquivo de exemplo para ajudar a criar as configurações do job, utilize o comando &lt;code&gt;londiste3 \-\-ini&lt;/code&gt; para gerar um arquivo de exemplo sanar as possíveis dúvidas ou ver as configurações disponíveis.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Após o ajuste das configurações é necessário criar o nó do londiste dentro do banco a ser replicado, assim, execute o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/teste_replica_root.ini create-root node1 &amp;quot;dbname=teste_replica host=192.168.152.149 user=postgres&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inicie o daemon para o nó criado:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 -d /etc/londiste/teste_replica_root.ini worker
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;É importante lembrar que para cada novo job é necessário criar um novo arquivo de configuração e a inicialização do job no banco replicado, conforme detalhado acima.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;configure-o-daemon-do-pgq&#34;&gt;Configure o daemon do PgQ&lt;/h4&gt;
+
+&lt;p&gt;Crie o arquivo &lt;code&gt;/etc/londiste/pgqd.ini&lt;/code&gt;, com o conteúdo abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[pgqd]
+base_connstr = host=192.168.152.149 user=postgres
+logfile = /var/log/londiste/pgqd.log
+pidfile = /var/run/londiste/pgqd.pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Caso seja necessário um arquivo de exemplo para ajudar a criar as configurações do daemon, utilize o comando &lt;code&gt;pgqd \-\-ini&lt;/code&gt; para gerar um arquivo de exemplo sanar as possíveis dúvidas ou ver as configurações disponíveis.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Inicie o daemon do PgQ:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pgqd /etc/londiste/pgqd.ini -d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;servidor-slave&#34;&gt;Servidor slave&lt;/h3&gt;
+
+&lt;p&gt;Crie o arquivo &lt;code&gt;/etc/londiste/teste_replica_leaf.ini&lt;/code&gt;, com o conteúdo abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[londiste3]
+job_name = teste_replica_leaf
+db = dbname=teste_replica host=192.168.152.150 user=postgres
+queue_name = q_teste_replica
+logfile = /var/log/londiste/teste_replica_leaf.log
+pidfile = /var/run/londiste/teste_replica_leaf.pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie o nó do londiste:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/teste_replica_leaf.ini create-leaf node2 &amp;quot;dbname=teste_replica host=192.168.152.150 user=postgres&amp;quot; --provider=&amp;quot;dbname=teste_replica host=192.168.152.149 user=postgres&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inicie o worker:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 -d /etc/londiste/teste_replica_leaf.ini worker
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;criando-a-carga-de-dados-no-servidor-master&#34;&gt;Criando a carga de dados no servidor master&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note que não é necessário que as tabelas tenham os mesmos dados para iniciar a replicação, apenas a mesma estrutura.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Copiando os arquivos necessários para o servidor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;scp /Users/seba/Desktop/28337_1323532011934_4739236_n.jpg root@192.168.152.149:/tmp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ajustando as permissões:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;chown postgres:postgres /tmp/28337_1323532011934_4739236_n.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a carga inicial:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;psql -U postgres -d teste_replica -f carga_inicial_londiste.sql 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;
+\c teste_replica
+
+-- carga de dados
+INSERT INTO pessoa (nome, data_nascimento, foto, biografia)
+WITH config AS (
+    SELECT 
+      1000 AS max_size
+)
+SELECT
+  &#39;Pessoa &#39; || new_id::text as nome,
+  (&#39;1987-04-16&#39;::DATE + (round(CAST (random()*config.max_size AS NUMERIC),0)::TEXT || &#39; days&#39;)::INTERVAL)::DATE as data_nascimento,
+  bytea_import(&#39;/tmp/28337_1323532011934_4739236_n.jpg&#39;) as foto,
+  &#39;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique quam erat, in pellentesque diam feugiat in. In hac habitasse platea dictumst. Mauris malesuada faucibus diam, in tristique arcu dapibus at. Phasellus commodo nulla et orci adipiscing, quis iaculis turpis tincidunt. Proin placerat nisl non molestie porttitor. Curabitur scelerisque libero in lorem consequat consectetur ac a massa. Cras volutpat est ac lacinia ultricies. Donec quis faucibus ligula. Morbi luctus cursus lacus, a fermentum odio dignissim non. Mauris a tellus adipiscing, sodales magna sed, vehicula justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla facilisi. Etiam eu augue nec lectus tristique bibendum vitae nec elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.&#39; as biografia
+FROM
+  config,
+  generate_series(1,config.max_size) as new_id;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;adicione-as-tabelas-a-serem-replicadas&#34;&gt;Adicione as tabelas a serem replicadas&lt;/h2&gt;
+
+&lt;h3 id=&#34;no-servidor-master&#34;&gt;No servidor master&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/teste_replica_root.ini add-table pessoa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;no-servidor-slave&#34;&gt;No servidor slave&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/teste_replica_leaf.ini add-table pessoa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;testando-a-replicação&#34;&gt;Testando a replicação&lt;/h2&gt;
+
+&lt;p&gt;Apartir desse ponto, em alguns segundos, ambos os bancos têm os mesmos registros na tabela pessoa, veja:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@pg-slave ~]# psql -U postgres -d teste_replica -c &#39;SELECT COUNT(1) FROM pessoa;&#39; -h 192.168.152.149
+ count 
+-------
+  1000
+(1 row)
+
+[root@pg-slave ~]# psql -U postgres -d teste_replica -c &#39;SELECT COUNT(1) FROM pessoa;&#39; -h 192.168.152.150
+ count 
+-------
+  1000
+(1 row)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Também, não é possível fazer alterações nos registros do servidor slave:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@pg-slave ~]# psql -U postgres -d teste_replica -h 192.168.152.150
+psql (9.3.4)
+Type &amp;quot;help&amp;quot; for help.
+
+teste_replica=# delete from pessoa;
+ERROR:  Table &#39;public.pessoa&#39; to queue &#39;q_teste_replica&#39;: change not allowed (D)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Daqui pra frente, qualquer alteração será replicada (desde que a estrutura da tabela seja a mesma).&lt;/p&gt;
+
+&lt;p&gt;Referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/markokr/skytools&#34;&gt;https://github.com/markokr/skytools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://dba.stackexchange.com/questions/1742/how-to-insert-file-data-into-a-postgresql-bytea-column&#34;&gt;http://dba.stackexchange.com/questions/1742/how-to-insert-file-data-into-a-postgresql-bytea-column&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

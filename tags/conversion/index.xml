@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/conversion/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/conversion/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Convertendo maquinas virtuais do VMWare Fusion para o VMware ESXI 5.X</title>
+      <link>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</link>
+      <pubDate>Wed, 22 Oct 2014 22:13:48 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</guid>
+      <description>
+
+&lt;p&gt;Para converter os arquivos do VMWare Fusion, é necessário utilizar o utilitário &lt;a href=&#34;https://www.vmware.com/support/developer/ovf/&#34;&gt;ovftool&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Para migrar a vm, utilize o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/Applications/VMware\ OVF\ Tool/ovftool -ds=datastore1 --network=&#39;VM Network&#39; --lax -n=nomevm /caminho/para/a/vm/nomevm.vmwarevm/nomevm.vmx &amp;quot;vi://[[user][:supersenhado]]@ip_do_servidor&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANTE:&lt;/strong&gt; lembre de substituir o nome do datastore e a rede para os nomes corretos configurados na sua infra estrutura. Caso queira, também informe o usuário e senha do servidor.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;h3 id=&#34;unsupported-hardware-family-vmx-10&#34;&gt;Unsupported hardware family &amp;lsquo;vmx-10&amp;rsquo;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Opening VI target: vi://root@ip_do_servidor:443/
+Error: OVF Package is not supported by target:
+ - Line 25: Unsupported hardware family &#39;vmx-10&#39;.
+Completed with errors
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Edite as propriedades da vm, vá em Compatibility, abra &lt;em&gt;Advanced Options&lt;/em&gt; e mude a opção &lt;strong&gt;Use Hardware Version&lt;/strong&gt; para &lt;strong&gt;8&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;no-support-for-the-virtual-hardware-device-type-20&#34;&gt;No support for the virtual hardware device type &amp;lsquo;20&amp;rsquo;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Opening VI target: vi://root@ip_do_servidor:443/
+Error: OVF Package is not supported by target:
+ - Line 49: OVF hardware element &#39;ResourceType&#39; with instance ID &#39;3&#39;: No support for the virtual hardware device type &#39;20&#39;.
+Completed with errors
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Edite as propriedades da vm, vá em Compatibility, abra &lt;em&gt;Advanced Options&lt;/em&gt; e mude a opção &lt;strong&gt;Use Hardware Version&lt;/strong&gt; para &lt;strong&gt;7&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;referencias&#34;&gt;Referencias&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wikis.uit.tufts.edu/confluence/display/exchange2010/Convert+VMware+Fusion+VM+to+ESXi+VM&#34;&gt;https://wikis.uit.tufts.edu/confluence/display/exchange2010/Convert+VMware+Fusion+VM+to+ESXi+VM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.virtuallyghetto.com/2012/05/how-to-deploy-ovfova-in-esxi-shell.html&#34;&gt;http://www.virtuallyghetto.com/2012/05/how-to-deploy-ovfova-in-esxi-shell.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://theitcrownd.blogspot.com.br/2011/02/importing-virtual-appliances.html&#34;&gt;http://theitcrownd.blogspot.com.br/2011/02/importing-virtual-appliances.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=2012352&#34;&gt;http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=2012352&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

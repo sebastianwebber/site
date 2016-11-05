@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/">Corrigindo o problema de ordenação do PostgreSQL no RHEL 6 </a> </h1>
+		<h2 class="subtitle is-4">May 16, 2013
+		</h2>
+ 
+
+<h5> 400 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/tips"><span class="tag is-medium">Tips</span></a> 
+    <a href="http://swebber.me//tags/encoding"><span class="tag is-medium">Encoding</span></a> 
+    <a href="http://swebber.me//tags/locale"><span class="tag is-medium">Locale</span></a> 
+    <a href="http://swebber.me//tags/charset"><span class="tag is-medium">Charset</span></a> 
+    <a href="http://swebber.me//tags/sorting"><span class="tag is-medium">Sorting</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		<p>Sobre o ambiente:</p>
+
+<blockquote>
+<p>Red Hat Enterprise Linux Server release 6.4 (Santiago)</p>
+
+<p>PostgreSQL 9.2.4</p>
+
+<p>LANG=pt_BR.UTF-8</p>
+
+<p>Banco de dados <code>teste</code>, utilizando o encoding <code>UTF-8</code> e o <code>LC_TYPES</code> e <code>COLLATE</code> como <code>pt_BR.UTF-8</code>`</p>
+</blockquote>
+
+<p>Para exemplificar melhor o problema de ordenação, criei a tabela abaixo:</p>
+
+<pre><code class="language-bash">teste=# create table foo (id serial primary key, nome text);
+NOTICE:  CREATE TABLE will create implicit sequence &quot;foo_id_seq&quot; for serial column &quot;foo.id&quot;
+NOTICE:  CREATE TABLE / PRIMARY KEY will create implicit index &quot;foo_pkey&quot; for table &quot;foo&quot;
+CREATE TABLE
+teste=# \d foo
+                             Tabela &quot;public.foo&quot;
+ Coluna |  Tipo   |                      Modificadores
+--------+---------+----------------------------------------------------------
+ id     | integer | não nulo valor padrão de nextval('foo_id_seq'::regclass)
+ nome   | text    |
+Índices:
+    &quot;foo_pkey&quot; PRIMARY KEY, btree (id)
+</code></pre>
+
+<p>E inseri uns dados de teste:</p>
+
+<pre><code class="language-bash">teste=# insert into foo (nome) values ('CRIANSCA'), ('CRIANSCA'), ('CRIANÇA'), ('DANIEL ALDROVANO'), ('DANIELA LAZARUS'), ('DANIELA LEITE');
+INSERT 0 6
+</code></pre>
+
+<p>Ao listar os dados, a primeira surpresa:</p>
+
+<pre><code class="language-bash">teste=# select * from foo order by nome ;
+ id |              nome
+----+--------------------------------
+  2 | CRIANCA
+  3 | CRIANÇA
+  1 | CRIANSCA
+  5 | DANIELA LAZARUS
+  4 | DANIEL ALDROVANO
+  6 | DANIELA LEITE
+(6 registros)
+</code></pre>
+
+<p>Notem que o problema em sí está na ordem dada aos IDs 5, 4 e 6. Esse problema é esperado, devido ao fato que (nesse collate especificamente) a operação de ordenação é realizada sem os espaços, assim, <code>DANIELALAZARUS</code> vem antes de <code>DANIELALDROVANO</code> e assim por diante.</p>
+
+<p>Para sanar o problema, pensei em mudar o collate para C por que o mesmo não ignora os espaços na operação de ordenação, porém surgiu um novo problema: os acentos não são ordenados corretamente.</p>
+
+<pre><code class="language-bash">teste=# create collation teste (locale='C');
+CREATE COLLATION
+teste=# select * from foo order by nome collate teste;
+ id |              nome
+----+--------------------------------
+  2 | CRIANCA
+  1 | CRIANSCA
+  3 | CRIANÇA
+  4 | DANIEL ALDROVANO
+  5 | DANIELA LAZARUS
+  6 | DANIELA LEITE
+(6 registros)
+</code></pre>
+
+<p>Para sanar o problema, edite o arquivo <code>/usr/share/i18n/locales/pt_BR</code>, e adicione antes de <code>END LC_COLLATE</code>:</p>
+
+<pre><code class="language-bash">reorder-after &lt;U00A0&gt;
+&lt;U0020&gt;&lt;CAP&gt;;&lt;CAP&gt;;&lt;CAP&gt;;&lt;U0020&gt;
+reorder-end
+</code></pre>
+
+<p>Aplique as modificações, rodando o comando abaixo:</p>
+
+<pre><code>localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR
+</code></pre>
+
+<p>Após configurar o locale, reinicie o banco de dados.</p>
+
+<p>Assim os dados são ordenados corretamente:</p>
+
+<pre><code class="language-bash">teste=# select * from foo order by nome;
+ id |              nome
+----+--------------------------------
+  2 | CRIANCA
+  3 | CRIANÇA
+  1 | CRIANSCA
+  4 | DANIEL ALDROVANO
+  5 | DANIELA LAZARUS
+  6 | DANIELA LEITE
+(6 registros)
+</code></pre>
+
+<p>Em especial, um obrigado ao <a href="http://fabriziomello.github.io/">@fabriziomello</a> pela dica.</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

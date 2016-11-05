@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/">Checklist mensal do PostgreSQL </a> </h1>
+		<h2 class="subtitle is-4">Feb 15, 2016
+		</h2>
+ 
+
+<h5> 900 Words. Read in about 4 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/database"><span class="tag is-medium">Database</span></a> 
+    <a href="http://swebber.me//tags/checklist"><span class="tag is-medium">Checklist</span></a> 
+    <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> 
+    <a href="http://swebber.me//tags/backup"><span class="tag is-medium">Backup</span></a> 
+    <a href="http://swebber.me//tags/ha"><span class="tag is-medium">HA</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		
+
+<p>Este post é uma humilde adaptação de um <a href="http://www.jasonstrate.com/monthly-sql-server-checklist/">ótimo artigo sobre o SQL Server</a>. Sim, você leu certo: Peguei umas idéias do checklist do SQL Server.</p>
+
+<h2 id="1-atualize-o-so-do-seu-servidor">1. Atualize o SO do seu servidor</h2>
+
+<p>Eu sei. Você não faz isso. Acha que não precisa, que o problema não é seu, mas nos últimos anos tivemos tantos problemas de segurança recentes (<a href="http://heartbleed.com">HeartBleead</a>, <a href="https://access.redhat.com/articles/1200223">Shellshock</a>, etc), que sabe-se lá o que pode nos assustar no futuro. Quer uma sugestão? Atualiza tudo, sempre [que possível].</p>
+
+<h2 id="2-atualize-seu-servidor-postgresql">2. Atualize seu servidor PostgreSQL</h2>
+
+<p>Por que? por que sim, oras. Precisa de mais motivos? Então pensa que BUGs e falhas de segurança são corrigidos o quanto antes.</p>
+
+<p>Sua versão instalada não tem mais atualizações ou não é mais suportada? Para tudo e bora atualizar. Não só pela segurança, mas toda versão tem muita coisa bacana, aposto que os desenvolvedores implorariam pra você atualizar. Vai lá e mostra o release notes pros caras, depois vem e me agradece. :P</p>
+
+<p>Não acredita? Abre aí então:</p>
+
+<blockquote>
+<p><a href="https://wiki.postgresql.org/wiki/What's_new_in_PostgreSQL_9.5"><code>https://wiki.postgresql.org/wiki/What's_new_in_PostgreSQL_9.5</code></a></p>
+</blockquote>
+
+<p>Pra te dar uma dica de como atualizar, sempre dê uma lida no release notes. Lá tem tudo o que nós, meros mortais (<em>ou não devs</em>), precisavamos saber pra atualizar o banco. Normalmente é bem simples (para o banco, atualiza os binários, sobe o banco), e caso seja mais elaborado, vai estar la no release notes, bem bonitinho.</p>
+
+<p>Quer saber das versões novas e tem preguiça de ver o site toda hora? Então assine o <a href="http://www.postgresql.org/versions.rss">feed RSS</a>.</p>
+
+<p>Ainda assim da muito trabalho? Então utilize os repositórios do PGDG, que tem pra varios sabores (<a href="https://wiki.postgresql.org/wiki/Apt">APT</a> e <a href="https://wiki.postgresql.org/wiki/RPM_Installation">YUM</a>  por exemplo).</p>
+
+<h2 id="3-valide-suas-rotinas-de-backup">3. Valide suas rotinas de backup</h2>
+
+<p>Verifique todo seu processo de backup. Messa os tempos de execução, documente cada etapa do processo e tente deixar ele o mais simples possível. Pontos importantes a validar são: <em>Tamanho ocupado</em>, <em>duração</em>, <em>falhas na execução</em> e <em>monitoramento do mesmo</em>.</p>
+
+<p>Já que estamos falando de backup, faça a lição de casa e avalie as soluções de backup mais populares:</p>
+
+<ul>
+<li><a href="http://www.postgresql.org/docs/current/static/backup.html">DOC Oficial</a></li>
+<li><a href="http://www.pgbarman.org">pgbarman</a></li>
+<li><a href="https://github.com/michaelpq/pg_arman">pg_arman</a></li>
+<li><a href="http://www.depesz.com/2013/09/11/how-to-make-backups-of-postgresql/">scripts customizados do @depesz</a></li>
+</ul>
+
+<p>Já que você faz backup do seu banco, não esqueça de fazer backup das suas configurações. Afinal, nunca se sabe quando vamos precisar fazer um <code>Disaster Recovery</code>. Falando nisso, é uma boa planejar uma solução de <code>HA</code>, não é mesmo?</p>
+
+<blockquote>
+<p>Se você ainda usa o <code>pg_dump</code> como sua principal solução de backup, dá uma olhada nesse <a href="http://savepoint.blog.br/dump-nao-e-backup/">artigo bacana do @telles</a>.</p>
+</blockquote>
+
+<h2 id="4-teste-com-vontade-a-sua-rotina-de-restore">4. Teste, <em>com vontade</em>, a sua rotina de restore</h2>
+
+<blockquote>
+<p>Backup bom é o que restaura.</p>
+</blockquote>
+
+<p>Eu nunca canso de dizer isso!</p>
+
+<p>Já que seu backup está rodando certinho, faça um restore dos dados. Meça os tempos, documente o processo. Se tiver como fazer isso num servidor novo, melhor aínda! O importante é ficar tranquilo e ter tudo sob controle quando a casa cair e ele for realmente necessário.</p>
+
+<h2 id="5-verifique-o-desempenho-e-a-saude-do-seu-banco">5. Verifique o desempenho e a saude do seu banco</h2>
+
+<p>Deixe de sofrer. Há muitas soluções de monitoramento no mercado (<a href="http://www.zabbix.com">zabbix</a>, <a href="https://www.nagios.org/">Nagios</a>, etc). Coloque ele pra funcionar e monitorar detalhes uteis do SO e também do servidor PostgreSQL. Ajuste seu log para um formato de leitura mais eficiente (como o CSV, por exemplo) e gere reports do <a href="http://dalibo.github.io/pgbadger/">pgbadger</a> ou <a href="https://prezi.com/f2dvt6m9tbf9/integrating-postgresql-with-logstash-for-real-time-monitoring/">uma solução mais elaborada</a>.</p>
+
+<p>Caso você use a versão 9.3 ou superior, você <strong>DEVE</strong> dar uma olhada no <a href="http://dalibo.github.io/powa/">PoWA</a>.</p>
+
+<h2 id="6-revise-seu-tuning-no-so-e-no-postgresql-conf">6. Revise seu tuning no SO e no <code>postgresql.conf</code></h2>
+
+<p>Agora que você passou a monitorar o banco, aproveita o embalo e começa a dar uma revisada no tuning do sistema operacional, começando pelo <code>/etc/sysctl.conf</code>. Infelizmente, cada evento pode apontar um arquivo de configuração diferente. O jeito fácil é entender o que está rolando no servidor e ver se isso tu trata num dos <strong>3 pilares</strong>: <em>Hardware</em>, <em>Sistema Operacional</em> e <em>Banco de dados</em>.</p>
+
+<p>SO revisado? Então manda ver e da uma olhada configurações do <code>postgresql.conf</code>. Se você nunca fez isso, eu sugiro que dê uma olhada no <a href="http://pgconfig.org">PGConfig</a>. Lá é um bom lugar pra começar.</p>
+
+<p>Não esqueça do hardware. As vezes não tem jeito, precisamos de um upgrade. :D</p>
+
+<h2 id="7-analise-e-ajuste-o-baseline">7. Analise e ajuste o baseline</h2>
+
+<p>Chegou a conclusão que precisa de algum ajuste no tuning? O que mudou? Aumentou a quantidade de usuários? Nova feature baseado em <a href="http://desciclopedia.org/wiki/Gambi_Design_Patterns">boas praticas do mercado</a>?</p>
+
+<p>Será que é realmente necessário esse ajuste?</p>
+
+<h2 id="8-valide-o-seu-capacity-plan-https-en-wikipedia-org-wiki-capacity-planning">8. Valide o seu <a href="https://en.wikipedia.org/wiki/Capacity_planning">Capacity Plan</a></h2>
+
+<p>Se você tem um em ação, será que o mesmo está adequado? Se você fez algum ajuste sugerido acima, será que o mesmo não precisa de nenhum ajuste? Talvez seja o momento de mudar algumas projeções.</p>
+
+<h2 id="9-sumarize-e-monte-um-plano">9. Sumarize e monte um plano</h2>
+
+<p>Avaliou tudo o que precisa mudar? Agora monte o seu proprio plano de ação, alinhe com a equipe e batalhe pelas janelas de manutenção.</p>
+
+<p>Depois de tudo pronto e configurado, mande o seu próprio release notes pro pessoal do marketing e deixe eles fazerem propaganda da saude do seu banco! :P</p>
+
+<h2 id="faltou-algo">Faltou algo?</h2>
+
+<p>Certamente algo importante pode ter ficado pra trás. Deixa um comentário pra gente ajustar assim que der. :D</p>
+
+<p>[]&rsquo;s</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

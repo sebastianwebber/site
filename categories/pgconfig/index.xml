@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/categories/pgconfig/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/categories/pgconfig/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PGConfig agora tem um dominio próprio!</title>
+      <link>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</link>
+      <pubDate>Mon, 23 Feb 2015 09:31:40 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</guid>
+      <description>&lt;p&gt;Depois de umas noites trabalhando no projeto do &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;, eu decidi registrar um dominio para facilitar o acesso ao mesmo e aí isso acabou mudando a URL de acesso do mesmo. Agora ficou &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pra quem interessar, o mesmo está hospedado na infraestrutura do &lt;a href=&#34;http://openshift.com&#34;&gt;OpenShift&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Sugestões são bem vindas! =)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>pgconfig</title>
+      <link>http://swebber.me/blog/2014/05/30/pgconfig/</link>
+      <pubDate>Fri, 30 May 2014 08:32:53 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/05/30/pgconfig/</guid>
+      <description>&lt;p&gt;Baseado na idéia da &lt;a href=&#34;http://lbconfig.appspot.com/&#34;&gt;ferramenta de configuração de Load Balancers da Redhat&lt;/a&gt;, criei uma página no mesmo formato, mas com a finalidade de fazer o tunning inicial do servidor PostgreSQL. Apesar de conhecer o &lt;a href=&#34;https://github.com/gregs1104/pgtune&#34;&gt;pgtune&lt;/a&gt;, achei que o formato web seria mais atrativo e tive ele como base em alguns parâmetros.&lt;/p&gt;
+
+&lt;p&gt;A versão inicial do mesmo cobre apenas alguns parâmetros básicos de memória, mas vou expandindo isso com o tempo. Pretendo nela cobrir alguns aspectos do SO também.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2014/05/30/pgconfig.png&#34; alt=&#34;PGConfig screenshot&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;Para acessa-lá, utilize a url: &lt;a href=&#34;http://swebber.me/pgconfig/&#34;&gt;http://swebber.me/pgconfig/&lt;/a&gt;&lt;/del&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Novo endereço disponível!&lt;/strong&gt; Acesse: &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Se tiver afim de me ajudar, dá uma olhada no &lt;a href=&#34;https://github.com/sebastianwebber/pgconfig&#34;&gt;repositório do projeto no github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;del&gt;PS: ainda não criei um repositório no github para o projeto, mas logo-logo, eu faço isso.&lt;/del&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

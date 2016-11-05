@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/certification/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/certification/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Guia de estudo para a prova EX248 - Red Hat Certified JBoss Administrator (RHCJA)</title>
+      <link>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</link>
+      <pubDate>Mon, 09 Sep 2013 00:40:10 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</guid>
+      <description>
+
+&lt;p&gt;Mais detalhes podem ser encontrados no site da RedHat&lt;sup&gt;[1]&lt;/sup&gt; e na documentação oficial&lt;sup&gt;[2]&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;install-and-manage-jboss-enterprise-application-platform&#34;&gt;Install and manage JBoss Enterprise Application Platform&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Installation_Guide/index.html#proc-Zip_Installation&#34;&gt;Install JBoss Enterprise Application Platform to a specific location on a system&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Install_the_mod_cluster_Module_Into_Apache_HTTPD_or_Enterprise_Web_Server_HTTPD1&#34;&gt;Install additional, operating system specific native libraries to enhance&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;jboss-enterprise-application-platform-performance&#34;&gt;JBoss Enterprise Application Platform performance&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Security_Guide/index.html#chap-Management_Interface_Security&#34;&gt;Configure minimal security requirements for accessing and managing JBoss Enterprise Application Platform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Management_Interfaces&#34;&gt;Access and manage JBoss Enterprise Application Platform using the provided tools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Configure and start a multi-node, multi-server JBoss Enterprise Application Platform domain spanning at least two hosts with multiple servers per host&lt;/li&gt;
+&lt;li&gt;Configure JBoss Enterprise Application Platform domains, hosts and servers&lt;/li&gt;
+&lt;li&gt;Create and remove JBoss Enterprise Application Platform domains, hosts and servers&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Start_JBoss_EAP_6&#34;&gt;Start, monitor and stop individual JBoss Enterprise Application Platform domains, hosts and servers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-About_JVM&#34;&gt;Configure Java™ memory usage at the host, server group and server level&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configure-jboss-enterprise-application-platform-to-support-clustered-and-ha-operation&#34;&gt;Configure JBoss Enterprise Application Platform to support clustered and HA operation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Network_and_Port_Configuration&#34;&gt;Configure persistent network bindings for JBoss Enterprise Application Platform services (both addresses and ports)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Use_TCP_Communication_for_the_Clustering_Subsystem1&#34;&gt;Configure high-availability clustering using either TCP unicast or UDP multicast networking&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secure the communications channels between clustered nodes&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Web_HTTP_Connectors_and_HTTP_Clustering&#34;&gt;Configure an Apache based load balancer for handling HTTP session fail over in a HA environment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;monitoring-and-managing-jboss-enterprise-application-platform&#34;&gt;Monitoring and managing JBoss Enterprise Application Platform&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configuration_File_History&#34;&gt;Create and restore configuration snap shots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Introduction-3&#34;&gt;Configure JBoss Enterprise Application Platform logging&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Disable_Remote_Access_to_the_JMX_Subsystem1&#34;&gt;Configure and secure JBoss Enterprise Application Platform JMX interface for external monitoring&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configuring-java-messaging-service&#34;&gt;Configuring Java Messaging Service&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configure_the_JMS_Server1&#34;&gt;Create and configure JMS topics and queues&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secure access to JMS destinations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;manage-applications&#34;&gt;Manage applications&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Select appropriate JBoss Enterprise Application Platform server profiles based on application requirements&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;profiles&#34;&gt;Profiles&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;default:&lt;/strong&gt; os subsistemas mais comuns: logging, security, datasources, infinispan, weld, webservices,ee e ejb3&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ha&lt;/strong&gt;: &lt;em&gt;default&lt;/em&gt; + jgroups + modcluster&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;full:&lt;/strong&gt; default + messaging (HornetQ) + cmp + jacord + jaxr&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;full-ha:&lt;/strong&gt; full + jgroups + modcluster&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Datasource_Management&#34;&gt;Configure DataSources (both XA and non-XA compliant)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Application_Deployment&#34;&gt;Deploy and undeploy applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Configuring_Modules&#34;&gt;Deploy and undeploy additional libraries and drivers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Replace_the_Default_Welcome_Web_Application1&#34;&gt;Deploy a web application to the root context&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configure-jboss-web-connectors&#34;&gt;Configure JBoss Web Connectors&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tune and configure JBoss Enterprise Application Platform web connector properties as requested&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-HTTPD_Configuration&#34;&gt;Configure Apache integration with JBoss Enterprise Application Platform&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-SSL_Encryption&#34;&gt;Configure an SSL encrypted connection&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;configure-jboss-enterprise-application-platform-security&#34;&gt;Configure JBoss Enterprise Application Platform security&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Use_a_Security_Domain_in_Your_Application&#34;&gt;Create, modify and use security domains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Use_LDAP_to_Authenticate_to_the_Management_Interfaces1&#34;&gt;Connect JBoss Enterprise Application Platform to specified external security sources such as LDAP and DBMS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Secure access to JBoss Enterprise Application Platform services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Referências:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.redhat.com/training/courses/ex248/&#34;&gt;https://www.redhat.com/training/courses/ex248/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/&#34;&gt;https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

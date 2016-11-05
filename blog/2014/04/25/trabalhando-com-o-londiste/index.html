@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/">Trabalhando com o londiste </a> </h1>
+		<h2 class="subtitle is-4">Apr 25, 2014
+		</h2>
+ 
+
+<h5> 300 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/londiste">Londiste</a> 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> </h5>
+<h5>Tags: </h5>
+
+<hr/>
+			<div class="content is-medium">
+		
+
+<p>Este post é um complemento para o post que cita a instalação e configuração do Londiste. Vou atualizar este post conforme possível.</p>
+
+<blockquote>
+<p>É importante lembrar que a citação <code>[CON_STR]</code> quer dizer a string de conexão utilizada, seguindo o padrão utilizado pela libpq.</p>
+
+<p>Para simplificar a configuração, ao citar o arquivo de configuração, vou sempre utilizar o arquivo <code>/etc/londiste/config.ini</code>, mas lembre é necessário criar um arquivo separado para cada job.</p>
+</blockquote>
+
+<h2 id="string-de-conexão">String de conexão</h2>
+
+<p>A string de conexão é detalhada na documentação oficial, conforme abaixo:</p>
+
+<ul>
+<li><strong>Sintaxe:</strong> <a href="http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-CONNSTRING">http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-CONNSTRING</a></li>
+<li><strong>Opções:</strong> <a href="http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS</a></li>
+</ul>
+
+<p>Exemplo:</p>
+
+<pre><code class="language-bash">host=localhost port=5432 dbname=mydb connect_timeout=10
+</code></pre>
+
+<h2 id="manutenção-dos-nós">Manutenção dos nós</h2>
+
+<h3 id="adicionando-e-removendo-nós">Adicionando e removendo nós</h3>
+
+<p>Para adicionar o nó tipo <code>root</code> (master da replicação):</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini create-root nome_node &quot;[CON_STR]&quot;
+</code></pre>
+
+<p>Para adicionar nós tipo <code>branch</code> ou <code>leaf</code>:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini create-XXXXX nome_node &quot;[CON_STR_DESTINO]&quot; --provider=&quot;[CON_STR_ROOT]&quot;
+</code></pre>
+
+<blockquote>
+<p>Aonde <code>XXXXX</code> é o tipo de nó (branch ou leaf)</p>
+
+<p><code>[CON_STR_DESTINO]</code> é a string de conexão do servidor que será o nó (slave)</p>
+
+<p><code>[CON_STR_ROOT]</code> é a string de conexão do servidor que será o root (master)</p>
+</blockquote>
+
+<p>Para remover o nó:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini drop-node nome_node
+</code></pre>
+
+<h3 id="iniciando-e-parando-o-daemon">Iniciando e parando o daemon</h3>
+
+<p>Para iniciar:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini -d worker
+</code></pre>
+
+<p>Para parar:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini --stop
+</code></pre>
+
+<blockquote>
+<p>Para forçar a parada do mesmo, substitua o <code>\-\-stop</code> por <code>\-\-kill</code></p>
+</blockquote>
+
+<h2 id="trabalhando-com-tabelas">Trabalhando com tabelas</h2>
+
+<p>Cada operação é específica para cada nó.</p>
+
+<h3 id="adicionando-e-removendo-tabelas">Adicionando e removendo tabelas</h3>
+
+<blockquote>
+<p>a opção <code>\-\-all</code> pode ser utilizada para aplicar a operação em todos os objetos</p>
+</blockquote>
+
+<p>Para adicionar:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini add-table nome_tabela
+</code></pre>
+
+<p>Para remover:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini remove-table nome_tabela
+</code></pre>
+
+<h3 id="listando-objetos-replicadas">Listando objetos replicadas</h3>
+
+<p>Para listar as tabelas:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini tables
+</code></pre>
+
+<p>Para listar as sequências:</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini seqs
+</code></pre>
+
+<h3 id="listando-objetos-disponíveis-para-replicação">Listando objetos disponíveis para replicação</h3>
+
+<p>O comando a baixo necessáriamente precisa ser executado em um nó slave (leaf ou branch).</p>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini missing
+</code></pre>
+
+<h2 id="listando-status-da-replicação">Listando status da replicação</h2>
+
+<pre><code class="language-bash">londiste3 /etc/londiste/config.ini status
+</code></pre>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

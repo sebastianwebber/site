@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/rhel/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/rhel/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Criando o ambiente inicial para a instalação do Oracle 11gR2 no RHEL 5</title>
+      <link>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</link>
+      <pubDate>Sat, 21 Apr 2012 16:18:57 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</guid>
+      <description>&lt;p&gt;Após a instalação do RHEL e os devidos updates, crie os respectivos usuários e grupos:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;groupadd oinstall
+groupadd dba
+groupadd oper
+useradd -g oinstall -G dba,oper oracle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, identifique seu kernel:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# uname -r
+2.6.18-308.4.1.el5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe, &lt;a href=&#34;http://www.oracle.com/technetwork/server-storage/linux/downloads/rhel5-084877.html&#34;&gt;do site da oracle&lt;/a&gt;, os pacotes necessários:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;oracleasm-support-2.1.7-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;oracleasmlib-2.0.4-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;oracleasm-2.6.18-308.4.1.el5-2.0.5-1.el5.x86_64.rpm&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Estou baixando o pacote do oracleasm de acordo a minha versão do kernel, caso a sua não seja a mesma, baixa a respectiva.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Instale os pacotes no baixados:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rpm -Uvh oracleasm-support-2.1.7-1.el5.x86_64.rpm
+rpm -Uvh oracleasmlib-2.0.4-1.el5.x86_64.rpm
+rpm -Uvh oracleasm-2.6.18-308.4.1.el5-2.0.5-1.el5.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure o ASM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm configure
+Configuring the Oracle ASM library driver.
+
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets (&#39;[]&#39;).  Hitting  without typing an
+answer will keep that current value.  Ctrl-C will abort.
+
+Default user to own the driver interface []: oracle
+Default group to own the driver interface []: oinstall
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+Writing Oracle ASM library driver configuration: done
+Initializing the Oracle ASMLib driver:                     [  OK  ]
+Scanning the system for Oracle ASMLib disks:               [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Nesse ponto, particione os discos de acordo com a necessidade.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;No exemplo, a instalação está no disco 1 (sda) e o ASM está nos discos 2 (sdb) e 3 (sdc) e os particionei em 8 partes de 5gb cada um.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# fdisk -l
+
+Disk /dev/sda: 21.4 GB, 21474836480 bytes
+255 heads, 63 sectors/track, 2610 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          13      104391   83  Linux
+/dev/sda2              14        2610    20860402+  8e  Linux LVM
+
+Disk /dev/sdb: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1        5221    41937651    5  Extended
+/dev/sdb5               1         609     4891729+  83  Linux
+/dev/sdb6             610        1218     4891761   83  Linux
+/dev/sdb7            1219        1827     4891761   83  Linux
+/dev/sdb8            1828        2436     4891761   83  Linux
+/dev/sdb9            2437        3045     4891761   83  Linux
+/dev/sdb10           3046        3654     4891761   83  Linux
+/dev/sdb11           3655        4263     4891761   83  Linux
+/dev/sdb12           4264        5221     7695103+  83  Linux
+
+Disk /dev/sdc: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1        5221    41937651    5  Extended
+/dev/sdc5               1         609     4891729+  83  Linux
+/dev/sdc6             610        1218     4891761   83  Linux
+/dev/sdc7            1219        1827     4891761   83  Linux
+/dev/sdc8            1828        2436     4891761   83  Linux
+/dev/sdc9            2437        3045     4891761   83  Linux
+/dev/sdc10           3046        3654     4891761   83  Linux
+/dev/sdc11           3655        4263     4891761   83  Linux
+/dev/sdc12           4264        5221     7695103+  83  Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora marque os discos como disponíveis para a ASM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm createdisk ASMDISK01 /dev/sdb5
+Marking disk &amp;quot;ASMDISK01&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK02 /dev/sdb6
+Marking disk &amp;quot;ASMDISK02&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK03 /dev/sdb7
+Marking disk &amp;quot;ASMDISK03&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK04 /dev/sdb8
+Marking disk &amp;quot;ASMDISK04&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK05 /dev/sdb9
+Marking disk &amp;quot;ASMDISK05&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK06 /dev/sdb10
+Marking disk &amp;quot;ASMDISK06&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK07 /dev/sdb11
+Marking disk &amp;quot;ASMDISK07&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK08 /dev/sdb12
+Marking disk &amp;quot;ASMDISK08&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK09 /dev/sdc5
+Marking disk &amp;quot;ASMDISK09&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK10 /dev/sdc6
+Marking disk &amp;quot;ASMDISK10&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK11 /dev/sdc7
+Marking disk &amp;quot;ASMDISK11&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK12 /dev/sdc8
+Marking disk &amp;quot;ASMDISK12&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK13 /dev/sdc9
+Marking disk &amp;quot;ASMDISK13&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK14 /dev/sdc10
+Marking disk &amp;quot;ASMDISK14&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK15 /dev/sdc11
+Marking disk &amp;quot;ASMDISK15&amp;quot; as an ASM disk:                   [  OK  ]
+# /etc/init.d/oracleasm createdisk ASMDISK16 /dev/sdc12
+Marking disk &amp;quot;ASMDISK16&amp;quot; as an ASM disk:                   [  OK  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora veja a relação discos disponíveis:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# /etc/init.d/oracleasm listdisks
+ASMDISK01
+ASMDISK02
+ASMDISK03
+ASMDISK04
+ASMDISK05
+ASMDISK06
+ASMDISK07
+ASMDISK08
+ASMDISK09
+ASMDISK10
+ASMDISK11
+ASMDISK12
+ASMDISK13
+ASMDISK14
+ASMDISK15
+ASMDISK16
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;ASMDISKXX é o label que dei para o disco e é como você irá identificar o mesmo na configuração da ASM&amp;hellip; Ajuste o nome conforme achar necessário.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Agora instale os pacotes necessários:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# yum install gcc elfutils-libelf-devel glibc-devel glibc-headers gcc-c++ libaio-devel libstdc++-devel sysstat unixODBC unixODBC-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;UPDATE: Após o reboot do servidor a ASM não iniciou, logo, deixei a correção &lt;a href=&#34;http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/&#34;&gt;em outro post&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Expandindo o volume de uma partição no Grupo do LVM</title>
+      <link>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</link>
+      <pubDate>Wed, 15 Feb 2012 18:53:16 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;No exemplo desse post, o servidor foi instalado com um disco de 15gb, porém o disco foi expandido para 60gb.  O disco utilizado é o ‘/dev/xvda’.  É possível que adicionando o disco a operação seja semelhante.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;crie-a-partição-disponível&#34;&gt;Crie a partição disponível&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cfdisk /dev/xvda
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie a nova partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select o tipo de partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image1.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Informe o tamanho da partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image2.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Altere o tipo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image3.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Selecione o tipo “8E – Linux LVM”:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image4.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Grave as partições no disco:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image5.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Confirme a gravação das mudanças no disco e saia. Após isso, reinicie a máquina.&lt;/p&gt;
+
+&lt;h3 id=&#34;crie-o-novo-volume&#34;&gt;Crie o novo volume&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# pvcreate /dev/xvda3
+Writing physical volume data to disk &amp;quot;/dev/xvda3&amp;quot;
+Physical volume &amp;quot;/dev/xvda3&amp;quot; successfully created
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;adicione-o-novo-volume-no-grupo-existente&#34;&gt;Adicione o novo volume no grupo existente&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server&amp;rsquo; é o nome do volume&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# vgextend /dev/vg_server /dev/xvda3
+Volume group &amp;quot;vg_server&amp;quot; successfully extended
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;redimensione-o-grupo-existente&#34;&gt;Redimensione o grupo existente&lt;/h2&gt;
+
+&lt;h3 id=&#34;liste-o-grupo-atual&#34;&gt;Liste o grupo atual&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# vgdisplay --units m
+--- Volume group ---
+VG Name               vg_server
+System ID
+Format                lvm2
+Metadata Areas        2
+Metadata Sequence No  4
+VG Access             read/write
+VG Status             resizable
+MAX LV                0
+Cur LV                2
+Open LV               2
+Max PV                0
+Cur PV                2
+Act PV                2
+VG Size               60932.00 MiB
+PE Size               4.00 MiB
+Total PE              15233
+Alloc PE / Size       3714 / 14856.00 MiB
+Free  PE / Size       11519 / 46076.00 MiB
+VG UUID               PHTPKa-f1vQ-Ge3q-wc2l-uAn6-gcmP-WlE495
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;O campo &lt;strong&gt;&amp;lsquo;Free PE / Size&amp;rsquo;&lt;/strong&gt; mostra o espaço disponível (&lt;strong&gt;46076.00 MiB&lt;/strong&gt; no exemplo).&lt;/p&gt;
+
+&lt;h3 id=&#34;aumente-o-volume&#34;&gt;Aumente o volume&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server/lv_root&amp;rsquo; é a partição utilizada&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# lvextend -l +100%FREE /dev/vg_server/lv_root
+Extending logical volume lv_root to 51.50 GiB
+Logical volume lv_root successfully resized
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;aumente-a-partição-no-sistema-de-arquivos&#34;&gt;Aumente a partição no sistema de arquivos&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server/lv_root&amp;rsquo; é a partição utilizada&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# resize2fs /dev/vg_server/lv_root
+resize2fs 1.41.12 (17-May-2010)
+Filesystem at /dev/vg_server/lv_root is mounted on /; on-line resizing required
+old desc_blocks = 1, new_desc_blocks = 4
+Performing an on-line resize of /dev/vg_server/lv_root to 13501440 (4k) blocks.
+The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Fontes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group&#34;&gt;http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Compilando o PostgreSQL no RHEL 5</title>
+      <link>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</link>
+      <pubDate>Wed, 14 Jul 2010 02:13:35 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</guid>
+      <description>&lt;p&gt;Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:&lt;/p&gt;
+
+&lt;p&gt;Instale as bibliotecas necessárias:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install bison flex zlib zlib-devel readline readline-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe o postgresql (no exemplo estou usando uma versão antiga e tenho que baixar ela do ftp-archive):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget -c ftp://ftp-archives.postgresql.org/pub/source/v8.2.4/postgresql-8.2.4.tar.bz2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Descompacte e instale:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xvjf postgresql-8.2.4.tar.bz2
+cd postgresql-8.2.4
+./configure --bindir=/usr/bin
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora crie o usuário postgres e inicialize o cluster*:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adduser postgres
+mkdir /usr/local/pgsql/data
+chown -R postgres /usr/local/pgsql
+su - postgres
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+logout
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;*OBS: para fins didaticos, criei o cluster no diretório aonde o postgres foi instalado. O ideal é que o diretório do cluster fique em discos e/ou partições separadas. O &lt;a href=&#34;http://savepoint.blog.br&#34;&gt;blog do telles&lt;/a&gt; tem um &lt;a href=&#34;http://savepoint.blog.br/postgresql-discos-cia/&#34;&gt;artigo muito interessante a respeito dos discos e partições&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Crie o script de inicialização, inicie o banco e habilite a inicialização automática:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp contrib/start-scripts/linux /etc/init.d/postgresql
+chmod +x /etc/init.d/postgresql
+service postgresql start
+chkconfig postgresql on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Um abraço!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

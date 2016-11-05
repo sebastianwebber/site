@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/metaframe/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/metaframe/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Instalando o client do XenApp no fedora 16</title>
+      <link>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</link>
+      <pubDate>Mon, 24 Oct 2011 17:22:40 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</guid>
+      <description>
+
+&lt;p&gt;Faça download do pacote .rpm no site abaixo:
+&lt;a href=&#34;http://www.citrix.com/English/ss/downloads/details.asp?downloadId=2316611&amp;amp;productId=1689163#top&#34;&gt; http://www.citrix.com/English/ss/downloads/details.asp?downloadId=2316611&amp;amp;productId=1689163#top&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Instale o pacote:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum localinstall ICAClient-12.0.0-0.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie o link simbólico para o plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln -s /opt/Citrix/ICAClient/npica.so /usr/lib64/mozilla/plugins/npica.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para abrir o arquivo automáticamente, selecione o script abaixo para o &amp;ldquo;programa padrão&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/Citrix/ICAClient/wfica.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h3&gt;
+
+&lt;h4 id=&#34;problema&#34;&gt;Problema&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/Citrix/ICAClient/wfica: error while loading shared libraries: libasound.so.2: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;solução&#34;&gt;Solução&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum install alsa-lib.i686
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;problema-1&#34;&gt;Problema&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;SSL Error
+Contact your help desk with the following information:
+You have not chosen to trust &amp;ldquo;MEU CERTIFICADO&amp;rdquo;, the issuer of ther servers&amp;rsquo;s security certicate (SSL error 61).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;solução-1&#34;&gt;Solução&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# copie seus certificados para a pasta de instalação do cliente
+sudo cp *cer /opt/Citrix/ICAClient/keystore/cacerts/
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

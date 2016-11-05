@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+
+	<meta property="og:url" content="http://swebber.me/">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="SWebber IT Services">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:description" content="">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@jgthms">
+	<meta name="twitter:creator" content="@jgthms">
+	<meta name="twitter:title" content="SWebber IT Services">
+	<meta name="twitter:description" content="">
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			
+			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			
+			<a href="/" class="nav-item is-tab ">Home</a>
+			
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab ">Palestras</a>
+			
+			
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/">Expandindo o volume de uma partição no Grupo do LVM </a> </h1>
+		<h2 class="subtitle is-4">Feb 15, 2012
+		</h2>
+ 
+
+<h5> 400 Words. Read in about 2 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/linux">Linux</a> 
+    <a href="http://swebber.me//categories/rhel">RHEL</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/linux"><span class="tag is-medium">Linux</span></a> 
+    <a href="http://swebber.me//tags/lvm"><span class="tag is-medium">LVM</span></a> 
+    <a href="http://swebber.me//tags/rhel"><span class="tag is-medium">rhel</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		
+
+<blockquote>
+<p>No exemplo desse post, o servidor foi instalado com um disco de 15gb, porém o disco foi expandido para 60gb.  O disco utilizado é o ‘/dev/xvda’.  É possível que adicionando o disco a operação seja semelhante.</p>
+</blockquote>
+
+<h3 id="crie-a-partição-disponível">Crie a partição disponível</h3>
+
+<pre><code class="language-bash">cfdisk /dev/xvda
+</code></pre>
+
+<p>Crie a nova partição:</p>
+
+<p><img src="/wp-content/uploads/2012/02/image.png" alt="photo" /></p>
+
+<p>Select o tipo de partição:</p>
+
+<p><img src="/wp-content/uploads/2012/02/image1.png" alt="photo" /></p>
+
+<p>Informe o tamanho da partição:</p>
+
+<p><img src="/wp-content/uploads/2012/02/image2.png" alt="photo" /></p>
+
+<p>Altere o tipo:</p>
+
+<p><img src="/wp-content/uploads/2012/02/image3.png" alt="photo" /></p>
+
+<p>Selecione o tipo “8E – Linux LVM”:</p>
+
+<p><img src="/wp-content/uploads/2012/02/image4.png" alt="photo" /></p>
+
+<p>Grave as partições no disco:</p>
+
+<p><img src="/wp-content/uploads/2012/02/image5.png" alt="photo" /></p>
+
+<p>Confirme a gravação das mudanças no disco e saia. Após isso, reinicie a máquina.</p>
+
+<h3 id="crie-o-novo-volume">Crie o novo volume</h3>
+
+<pre><code class="language-bash">[root@server ~]# pvcreate /dev/xvda3
+Writing physical volume data to disk &quot;/dev/xvda3&quot;
+Physical volume &quot;/dev/xvda3&quot; successfully created
+</code></pre>
+
+<h3 id="adicione-o-novo-volume-no-grupo-existente">Adicione o novo volume no grupo existente</h3>
+
+<blockquote>
+<p>&rsquo;/dev/vg_server&rsquo; é o nome do volume</p>
+</blockquote>
+
+<pre><code class="language-bash">[root@server ~]# vgextend /dev/vg_server /dev/xvda3
+Volume group &quot;vg_server&quot; successfully extended
+</code></pre>
+
+<h2 id="redimensione-o-grupo-existente">Redimensione o grupo existente</h2>
+
+<h3 id="liste-o-grupo-atual">Liste o grupo atual</h3>
+
+<pre><code class="language-bash">[root@server ~]# vgdisplay --units m
+--- Volume group ---
+VG Name               vg_server
+System ID
+Format                lvm2
+Metadata Areas        2
+Metadata Sequence No  4
+VG Access             read/write
+VG Status             resizable
+MAX LV                0
+Cur LV                2
+Open LV               2
+Max PV                0
+Cur PV                2
+Act PV                2
+VG Size               60932.00 MiB
+PE Size               4.00 MiB
+Total PE              15233
+Alloc PE / Size       3714 / 14856.00 MiB
+Free  PE / Size       11519 / 46076.00 MiB
+VG UUID               PHTPKa-f1vQ-Ge3q-wc2l-uAn6-gcmP-WlE495
+</code></pre>
+
+<p>O campo <strong>&lsquo;Free PE / Size&rsquo;</strong> mostra o espaço disponível (<strong>46076.00 MiB</strong> no exemplo).</p>
+
+<h3 id="aumente-o-volume">Aumente o volume</h3>
+
+<blockquote>
+<p>&rsquo;/dev/vg_server/lv_root&rsquo; é a partição utilizada</p>
+</blockquote>
+
+<pre><code class="language-bash">[root@server ~]# lvextend -l +100%FREE /dev/vg_server/lv_root
+Extending logical volume lv_root to 51.50 GiB
+Logical volume lv_root successfully resized
+</code></pre>
+
+<h3 id="aumente-a-partição-no-sistema-de-arquivos">Aumente a partição no sistema de arquivos</h3>
+
+<blockquote>
+<p>&rsquo;/dev/vg_server/lv_root&rsquo; é a partição utilizada</p>
+</blockquote>
+
+<pre><code class="language-bash">[root@server ~]# resize2fs /dev/vg_server/lv_root
+resize2fs 1.41.12 (17-May-2010)
+Filesystem at /dev/vg_server/lv_root is mounted on /; on-line resizing required
+old desc_blocks = 1, new_desc_blocks = 4
+Performing an on-line resize of /dev/vg_server/lv_root to 13501440 (4k) blocks.
+The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
+</code></pre>
+
+<p>Fontes:</p>
+
+<ul>
+<li><a href="http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group">http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group</a></li>
+</ul>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>

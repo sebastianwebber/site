@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/compilar/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/compilar/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Compilando o PostgreSQL no RHEL 5</title>
+      <link>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</link>
+      <pubDate>Wed, 14 Jul 2010 02:13:35 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</guid>
+      <description>&lt;p&gt;Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:&lt;/p&gt;
+
+&lt;p&gt;Instale as bibliotecas necessárias:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install bison flex zlib zlib-devel readline readline-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Baixe o postgresql (no exemplo estou usando uma versão antiga e tenho que baixar ela do ftp-archive):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget -c ftp://ftp-archives.postgresql.org/pub/source/v8.2.4/postgresql-8.2.4.tar.bz2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Descompacte e instale:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tar xvjf postgresql-8.2.4.tar.bz2
+cd postgresql-8.2.4
+./configure --bindir=/usr/bin
+make
+make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora crie o usuário postgres e inicialize o cluster*:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adduser postgres
+mkdir /usr/local/pgsql/data
+chown -R postgres /usr/local/pgsql
+su - postgres
+/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+logout
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;*OBS: para fins didaticos, criei o cluster no diretório aonde o postgres foi instalado. O ideal é que o diretório do cluster fique em discos e/ou partições separadas. O &lt;a href=&#34;http://savepoint.blog.br&#34;&gt;blog do telles&lt;/a&gt; tem um &lt;a href=&#34;http://savepoint.blog.br/postgresql-discos-cia/&#34;&gt;artigo muito interessante a respeito dos discos e partições&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Crie o script de inicialização, inicie o banco e habilite a inicialização automática:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cp contrib/start-scripts/linux /etc/init.d/postgresql
+chmod +x /etc/init.d/postgresql
+service postgresql start
+chkconfig postgresql on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Um abraço!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

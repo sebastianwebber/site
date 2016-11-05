@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/tags/linux/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Um rascunho sobre banco de dados e containers</title>
+      <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
+      <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
+      <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
+
+&lt;p&gt;Usar o docker e criar um container é relativamente fácil, se você der uma olhada no google, vai achar uma dezena de tutoriais e dicas infalíveis pra deixar tudo rodando como deve. Vou deixar uns links abaixo pra tentar fazer a minha parte.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/engine/installation/centos/&#34;&gt;Documentação oficial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;O docker tem uma limitação simples: &lt;em&gt;até o momento, ele só roda no linux&lt;/em&gt;. Temos artificios pra usar o docker no Windows e ou Mac, mas a verdade é que mesmo &amp;ldquo;com jeitinho&amp;rdquo;, vai ter uma vm linux rodando o docker por debaixo dos panos. Não sei da Apple, mas &lt;a href=&#34;https://blog.docker.com/2015/08/tp-docker-engine-windows-server-2016/&#34;&gt;a Microsoft ta dando um jeitinho pra rodar ele no Windows Server 2016&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;O que isso quer dizer?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Quer dizer que, no atual momento, docker só funciona no linux.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Se você ficou curioso sobre como usar ele no windows ou mac, dá uma olhada no &lt;a href=&#34;https://kitematic.com/&#34;&gt;Kitematic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Bom, depois de discurso todo eu quero dizer uma coisa bem simples: Se sua aplicação precisa do Windows pra rodar (seja pelo SQL Server, IIS, etc) acho que esse post não é bem pra você.&lt;/p&gt;
+
+&lt;p&gt;É comum usarmos docker para rodar nossa aplicação web, seja ela como for: ERP rodando em java, blog em php, etc. A idéia é simples: a gente sobe um container com o mínimo pra ela rodar e gentilmente manda o docker rodar muitas instancias dessa mesma imagem simultaneamente. Pensando assim você indaga: Se precisar um balanceador de carga, o que fazemos? Subimos ele num container também. Fácil assim.&lt;/p&gt;
+
+&lt;p&gt;Quer um exemplo? Suponha que tenhamos que publicar um blog feito no wordpress. Wordpress precisa do php e um banco MySQL pra funcionar. Dessa forma, precisamos, &lt;strong&gt;necessariamente&lt;/strong&gt; de 2 containers: 1 de MySQL e outro de apache+php (ou qualquer outro webserver que rode php e te deixe feliz).&lt;/p&gt;
+
+&lt;p&gt;Assim que nosso servidor estiver rodando esses containers e nosso blog imaginario começa a receber muitos acessos, nosso container de apache e php começa a ter dificuldade de responder a todas as requisições e assim, temos a grande idéia de colocar mais um container rodando apache com minha aplicação (wordpress) e assim, ganhamos um problema novo: tenho 2 apaches e nimguém pra balancear o mesmo.&lt;/p&gt;
+
+&lt;p&gt;O que fazer nesse caso? você pode subir um &lt;a href=&#34;https://hub.docker.com/_/haproxy/&#34;&gt;container com o haproxy&lt;/a&gt; e passar a apontar tuas requisições pra ele e ele passar a balancear as conexões entre os apaches. Até que é facil não é? agora, se o site ficar lento denovo, o que a gente faz? aumenta os apaches! Quantos? Quantos forem necessários!!! :D&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agora, quando baixou a demanda, o que eu faço?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Diminuo a quantidade de containers em execução, fazendo manualmente um &lt;a href=&#34;https://en.wikipedia.org/wiki/Autoscaling&#34;&gt;autoscaling&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Talvez aqui tenhamos um furo no conceito: a aplicação do wordpress vai eventualmente criar uns arquivos no disco com dados da aplicação (imagens, css, js, etc) e isso a gente pode contornar com uma area de disco compartilhada entre os containers.&lt;/p&gt;
+
+&lt;p&gt;A analogia é simples nesse caso: cada imagem docker tem tudo que eu preciso pra rodar o php+wordpress+coisas+do+blog e o MySQL é quem guarda os dados dinamicos.&lt;/p&gt;
+
+&lt;p&gt;Então vai chegar o temido dia: meu banco rodando no container não dá conta do recado. Você tenta todo tipo de mandinga necessária: tunning, hardware e não tem jeito. Aí, depois de pensar em todos os planos pra aumentar os recursos passa pra pensar em algum tipo de processamento horizontal e nota que vai precisar distribuir a carga e balancear os acessos entre esses nós. Assim, você que já foi doutrinado vai dizer: &amp;ldquo;ótimo! vou colocar a rodar mais um haproxy e vou subir outro container MySQL!&amp;rdquo;. Não, isso não vai funcionar.&lt;/p&gt;
+
+&lt;p&gt;Por que? basicamente por causa da integridade dos dados. Precisamos de algum mecanismo (seja nativo ou não) que garanta que ambas os containers rodando MySQL tenham a mesma informação. Isso não é tão simples: cada fabricante de banco de dados implementa do seu jeito e cada solução de replicação tem seus prós e contras.&lt;/p&gt;
+
+&lt;p&gt;Tá, mas o MySQL não tem replicação? eu não posso usar pra resolver meu problema? Pode. E posso fazer igual como fiz com os apaches+php, apagando os containers conforme ele não for usado? Provavelmente não.&lt;/p&gt;
+
+&lt;p&gt;Aqui é o ponto em questão: bancos de dados não apenas arquivos no disco. Precisamos pensar uma forma diferente de tratar ele pra que funcione bem como de costume.&lt;/p&gt;
+
+&lt;p&gt;Quanto ao armazenamento, tem alguns links que valem a pena dar uma olhada:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker&#34;&gt;http://stackoverflow.com/questions/18496940/how-to-deal-with-persistent-storage-e-g-databases-in-docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/&#34;&gt;http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/engine/userguide/dockervolumes/&#34;&gt;https://docs.docker.com/engine/userguide/dockervolumes/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://container42.com/2014/11/18/data-only-container-madness/&#34;&gt;http://container42.com/2014/11/18/data-only-container-madness/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Continua&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly</title>
+      <link>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</link>
+      <pubDate>Thu, 17 Jul 2014 14:14:52 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</guid>
+      <description>&lt;p&gt;Execute o script abaixo, substituindo o diretório &lt;code&gt;/var/log/jbossas&lt;/code&gt; pelo diretório de logs do seu servidor JBoss/Wildfly:
+&amp;gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find /var/log/jbossas/ -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10
+   1864 [org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver]
+    716 [grails.app.controllers.ar.com.site.app.acesso.LoginController]
+    475 [stderr]
+    254 [org.grails.plugin.resource.ResourceMeta]
+     88 [grails.app.services.ar.com.site.app.banner.BannerService]
+     84 [StackTrace]
+     46 [org.hibernate.util.JDBCExceptionReporter]
+     27 [grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao]
+     26 [grails.app.taglib.ar.com.site.app.banner.BannerTagLib]
+     15 [org.hibernate.transaction.JDBCTransaction]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora, podemos jogar tudo num script, dando uma ajustada na apresentação:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+search_dir=&amp;quot;${1}&amp;quot;
+
+if [ &amp;quot;${search_dir}x&amp;quot; = &#39;x&#39; ]; then
+    echo &#39;Informe o diretório de busca!&#39;
+    exit 2
+fi
+
+error_list=$(egrep --color=auto &#39;ERROR \[[a-zA-Z\.]{1,}\]&#39; $(find -L &amp;quot;${1}&amp;quot; -ctime -7 | grep server) -o  | awk &#39;{print $2}&#39; |  sort | uniq -c | sort -r | head -n 10)
+
+seq=1
+echo
+printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;#&amp;quot; &amp;quot;COUNT&amp;quot; &amp;quot;LOGGER NAME&amp;quot;
+echo &amp;quot;---|------------|------------------------------------------------------------------------------------------------------|&amp;quot;
+
+IFS=&#39;
+&#39;
+for error in ${error_list}; do
+    count=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $1}&#39;)
+    logger_name=$(echo &amp;quot;${error}&amp;quot; | awk &#39;{print $2}&#39; | tr -d &#39;[]&#39;)
+
+    printf &#39;%-2s | %-10s | %-100s | \n&#39; &amp;quot;${seq}&amp;quot; &amp;quot;${count}&amp;quot; &amp;quot;${logger_name}&amp;quot;
+
+    seq=$(($seq + 1))
+done
+echo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@servidor ~]# ./procura_erros.sh /var/log/jbossas/
+
+#  | COUNT      | LOGGER NAME                                                                       |
+---|------------|-----------------------------------------------------------------------------------|
+1  | 1926       | org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver                     |
+2  | 759        | grails.app.controllers.ar.com.site.app.acesso.LoginController                     |
+3  | 475        | stderr                                                                            |
+4  | 265        | org.grails.plugin.resource.ResourceMeta                                           |
+5  | 90         | grails.app.services.ar.com.site.app.banner.BannerService                          |
+6  | 84         | StackTrace                                                                        |
+7  | 46         | org.hibernate.util.JDBCExceptionReporter                                          |
+8  | 27         | grails.app.taglib.ar.com.site.app.banner.BannerTagLib                             |
+9  | 27         | grails.app.daos.ar.com.site.app.ecommerce.PedidoOracleDao                         |
+10 | 15         | org.hibernate.transaction.JDBCTransaction                                         |
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Caso precisem de um exemplo do erro em questão, utilize o comando abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pcregrep -Mi &#39;.*ERROR \[NOME_DO_PACKAGE.*(\n.*(\n\s*at.*)+)?&#39; $(find /var/log/jbossas/ -ctime -7 | grep server)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Lembre de substituir o &lt;code&gt;NOME_DO_PACKAGE&lt;/code&gt; pelo package que você está procurando.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Acho que é isso por hoje.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ORA-00439: feature not enabled: Deferred Segment Creation</title>
+      <link>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</link>
+      <pubDate>Sun, 06 May 2012 16:34:38 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</guid>
+      <description>&lt;p&gt;Durante a migração de um banco, me deparei com a seguinte saida do impdp:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;CREATE TABLE &amp;quot;MYUSER&amp;quot;.&amp;quot;MYTABLE&amp;quot; (&amp;quot;COL1&amp;quot; NUMBER(11,0) NOT NULL ENABLE, &amp;quot;COL2&amp;quot; NUMBER(11,0) NOT NULL ENABLE...) SEGMENT CREATION DEFERRED ..
+ORA-39083: Tipo de objeto TABLE:&amp;quot;MYUSER&amp;quot;.&amp;quot;MYTABLE&amp;quot; falhou ao ser criado com o erro:
+ORA-00439: recurso não ativado: Deferred Segment Creation
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após isso, fui confirmar o valor do parametro:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SQL&amp;gt; column type format a7
+SQL&amp;gt; show parameter deferred_segment_creation
+
+NAME                                 TYPE    VALUE
+------------------------------------ ------- ------------------------------
+deferred_segment_creation            boolean TRUE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ao confirmar que o parametro estava habilitado tive que alterar a compatibilidade do dump, adicionando o parametro &amp;lsquo;version=10.2&amp;rsquo; na chamada do expdp e do impdp. Como no exemplo:&lt;/p&gt;
+
+&lt;p&gt;Para exportar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;EXPDP usuario/senha dumpfile=arquivo_dump.dmp directory=DATA_DUMP_DIR version=10.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;No outro server, para importar o dump criado&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;IMPDP usuario/senha dumpfile=arquivo_dump.dmp directory=DATA_DUMP_DIR version=10.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Referência:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://oraclequirks.blogspot.com.br/2011/02/ora-00439-feature-not-enabled-deferred.html&#34;&gt;http://oraclequirks.blogspot.com.br/2011/02/ora-00439-feature-not-enabled-deferred.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Após reboot o ASM não iniciou (ORA-27154, ORA-27300, ORA-27301 e ORA-27302)</title>
+      <link>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</link>
+      <pubDate>Sat, 28 Apr 2012 15:12:19 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</guid>
+      <description>&lt;p&gt;Após reboot, a ASM não iniciou. Ao tentar iniciar manualmente, ocorre o erro abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlplus / as sysasm
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Apr 28 11:30:13 2012
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL&amp;gt; startup
+ORA-27154: post/wait create failed
+ORA-27300: OS system dependent operation:semget failed with status: 28
+ORA-27301: OS failure message: No space left on device
+ORA-27302: failure occurred at: sskgpsemsper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após analizar os &amp;ldquo;ORA-&amp;rdquo;, descobri que o parametro kernel.sem estava com o valor padrão, dessa forma, altere-o:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim /etc/sysctl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alter o valor de:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250  100
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+kernel.sem = 250 32000 100 256
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Após alterar o arquivo, aplique as alterações:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Agora inicie a ASM novamente (não é necessário reiniciar).&lt;/p&gt;
+
+&lt;p&gt;Referencias:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&#34;&gt;http://blog.ronnyegner-consulting.de/2011/04/11/ora-27154-postwait-create-failed-ora-27301-os-failure-message-no-space-left-on-device-when-starting-asm-or-database-instance/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Expandindo o volume de uma partição no Grupo do LVM</title>
+      <link>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</link>
+      <pubDate>Wed, 15 Feb 2012 18:53:16 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;No exemplo desse post, o servidor foi instalado com um disco de 15gb, porém o disco foi expandido para 60gb.  O disco utilizado é o ‘/dev/xvda’.  É possível que adicionando o disco a operação seja semelhante.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;crie-a-partição-disponível&#34;&gt;Crie a partição disponível&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cfdisk /dev/xvda
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie a nova partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select o tipo de partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image1.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Informe o tamanho da partição:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image2.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Altere o tipo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image3.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Selecione o tipo “8E – Linux LVM”:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image4.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Grave as partições no disco:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://swebber.me/wp-content/uploads/2012/02/image5.png&#34; alt=&#34;photo&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Confirme a gravação das mudanças no disco e saia. Após isso, reinicie a máquina.&lt;/p&gt;
+
+&lt;h3 id=&#34;crie-o-novo-volume&#34;&gt;Crie o novo volume&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# pvcreate /dev/xvda3
+Writing physical volume data to disk &amp;quot;/dev/xvda3&amp;quot;
+Physical volume &amp;quot;/dev/xvda3&amp;quot; successfully created
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;adicione-o-novo-volume-no-grupo-existente&#34;&gt;Adicione o novo volume no grupo existente&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server&amp;rsquo; é o nome do volume&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# vgextend /dev/vg_server /dev/xvda3
+Volume group &amp;quot;vg_server&amp;quot; successfully extended
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;redimensione-o-grupo-existente&#34;&gt;Redimensione o grupo existente&lt;/h2&gt;
+
+&lt;h3 id=&#34;liste-o-grupo-atual&#34;&gt;Liste o grupo atual&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# vgdisplay --units m
+--- Volume group ---
+VG Name               vg_server
+System ID
+Format                lvm2
+Metadata Areas        2
+Metadata Sequence No  4
+VG Access             read/write
+VG Status             resizable
+MAX LV                0
+Cur LV                2
+Open LV               2
+Max PV                0
+Cur PV                2
+Act PV                2
+VG Size               60932.00 MiB
+PE Size               4.00 MiB
+Total PE              15233
+Alloc PE / Size       3714 / 14856.00 MiB
+Free  PE / Size       11519 / 46076.00 MiB
+VG UUID               PHTPKa-f1vQ-Ge3q-wc2l-uAn6-gcmP-WlE495
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;O campo &lt;strong&gt;&amp;lsquo;Free PE / Size&amp;rsquo;&lt;/strong&gt; mostra o espaço disponível (&lt;strong&gt;46076.00 MiB&lt;/strong&gt; no exemplo).&lt;/p&gt;
+
+&lt;h3 id=&#34;aumente-o-volume&#34;&gt;Aumente o volume&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server/lv_root&amp;rsquo; é a partição utilizada&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# lvextend -l +100%FREE /dev/vg_server/lv_root
+Extending logical volume lv_root to 51.50 GiB
+Logical volume lv_root successfully resized
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;aumente-a-partição-no-sistema-de-arquivos&#34;&gt;Aumente a partição no sistema de arquivos&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;rsquo;/dev/vg_server/lv_root&amp;rsquo; é a partição utilizada&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[root@server ~]# resize2fs /dev/vg_server/lv_root
+resize2fs 1.41.12 (17-May-2010)
+Filesystem at /dev/vg_server/lv_root is mounted on /; on-line resizing required
+old desc_blocks = 1, new_desc_blocks = 4
+Performing an on-line resize of /dev/vg_server/lv_root to 13501440 (4k) blocks.
+The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Fontes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group&#34;&gt;http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Instalando o client do XenApp no fedora 16</title>
+      <link>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</link>
+      <pubDate>Mon, 24 Oct 2011 17:22:40 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</guid>
+      <description>
+
+&lt;p&gt;Faça download do pacote .rpm no site abaixo:
+&lt;a href=&#34;http://www.citrix.com/English/ss/downloads/details.asp?downloadId=2316611&amp;amp;productId=1689163#top&#34;&gt; http://www.citrix.com/English/ss/downloads/details.asp?downloadId=2316611&amp;amp;productId=1689163#top&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Instale o pacote:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum localinstall ICAClient-12.0.0-0.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Crie o link simbólico para o plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo ln -s /opt/Citrix/ICAClient/npica.so /usr/lib64/mozilla/plugins/npica.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Para abrir o arquivo automáticamente, selecione o script abaixo para o &amp;ldquo;programa padrão&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/Citrix/ICAClient/wfica.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h3&gt;
+
+&lt;h4 id=&#34;problema&#34;&gt;Problema&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/opt/Citrix/ICAClient/wfica: error while loading shared libraries: libasound.so.2: cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;solução&#34;&gt;Solução&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum install alsa-lib.i686
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;problema-1&#34;&gt;Problema&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;SSL Error
+Contact your help desk with the following information:
+You have not chosen to trust &amp;ldquo;MEU CERTIFICADO&amp;rdquo;, the issuer of ther servers&amp;rsquo;s security certicate (SSL error 61).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;solução-1&#34;&gt;Solução&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# copie seus certificados para a pasta de instalação do cliente
+sudo cp *cer /opt/Citrix/ICAClient/keystore/cacerts/
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

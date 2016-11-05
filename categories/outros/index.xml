@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SWebber IT Services</title>
+    <link>http://swebber.me/categories/outros/index.xml</link>
+    <description>Recent content on SWebber IT Services</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://swebber.me/categories/outros/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Deu trabalho! mas agora o blog usa o octopress 3.0</title>
+      <link>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</link>
+      <pubDate>Fri, 28 Aug 2015 03:28:48 -0300</pubDate>
+      
+      <guid>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</guid>
+      <description>&lt;p&gt;Depois de apanhar, desistir, insistir e jogar tudo pra cima. Blog está sendo migrado pra usar o octopress 3.0.&lt;/p&gt;
+
+&lt;p&gt;Já que meti a mão na massa, aproveitei e mudei o tema para baseado no Pooler chamado Lanyon.&lt;/p&gt;
+
+&lt;p&gt;Falta pouco, mas acho que agora vai.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;PS:&lt;/strong&gt; No fim a unica coisa que estou usando do octopress 3 é o deploy. Conforme eu for pegando a manha eu ajeito essa bagunça que eu fiz.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Casa nova</title>
+      <link>http://swebber.me/blog/2014/04/18/casa-nova/</link>
+      <pubDate>Fri, 18 Apr 2014 17:06:58 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2014/04/18/casa-nova/</guid>
+      <description>&lt;p&gt;Cansei do wordpress e além de migrar esse blog pra o octopress, estou migrando este blog para o githubpages.&lt;/p&gt;
+
+&lt;p&gt;Aos poucos vamos ajustando a casa!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
