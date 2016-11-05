@@ -1,11 +1,9 @@
  {{ $baseurl := .Site.BaseURL }}
-<section class="section">
-    <div class="container content is-medium">
-        <h5> {{ .FuzzyWordCount }} Words. Read in about {{ .ReadingTime }} Min.</h5>
-        <h5>Categories: {{ range .Params.categories }}
-            <a href="{{ $baseurl }}/categories/{{ . | urlize }}">{{ . }}</a> {{ end }}</h5>
-        <h5>Tags: {{ range .Params.tags }}
-                    <a href="{{ $baseurl }}/tags/{{ . | urlize }}"><span class="tag is-medium">{{ . }}</span></a>
-                    {{ end }}</h5>
-    </div>
-</section>
+
+<h5> {{ .FuzzyWordCount }} Words. Read in about {{ .ReadingTime }} Min.</h5>
+<h5>Categories: {{ range .Params.categories }}
+    <a href="{{ $baseurl }}/categories/{{ . | urlize }}">{{ . }}</a> {{ end }}</h5>
+<h5>Tags: {{ range .Params.tags }}
+    <a href="{{ $baseurl }}/tags/{{ . | urlize }}"><span class="tag is-medium">{{ . }}</span></a> {{ end }}</h5>
+
+<hr/>

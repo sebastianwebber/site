@@ -34,4 +34,6 @@ h1, h2, h3, h4, h5, h6 {
 body {
     font-weight: 200;
     font-family: 'Open Sans',sans-serif;
+        font-size: 1.1875em;
+    line-height: 1.89474em;
 }
