@@ -9,9 +9,6 @@
   },
   "author": "PGBR Team",
   "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/sebastianwebber/sebastianwebber.github.io/issues"
-  },
   "homepage": "http://swebber.me",
   "devDependencies": {
     "del": "^2.2.2",
