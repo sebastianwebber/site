@@ -19,3 +19,19 @@
     width: 25%;
     /*float:right;*/
 }
+
+
+h3, h4, h5, h6 {
+    text-shadow: 1px 1px 0px #FFF;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50;
+    font-family: 'Fjalla One',serif;
+    text-transform: capitalize;
+    font-weight: 400!important;
+}
+
+body {
+    font-weight: 200;
+    font-family: 'Open Sans',sans-serif;
+}
