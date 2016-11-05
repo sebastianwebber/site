@@ -17,6 +17,7 @@ params:
     blog_description: "**DBA**, Consultor, Instrutor, [aprendiz de] **Ninja** e **metido a Chef** nas horas vagas!"
     blog_title: "Blog do Seba"
     blog_author: "Sebastian Webber"
+    github_user: "sebastianwebber"
 
 taxonomies:
   tag: "tags"
