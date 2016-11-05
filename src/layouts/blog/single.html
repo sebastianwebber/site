@@ -4,10 +4,12 @@
 		<h1 class="title is-2"><a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a> </h1>
 		<h2 class="subtitle is-4">{{ .Date.Format "Jan 2, 2006" }}
 		</h2>
+{{ partial "details.html" . }}
 			<div class="content is-medium">
 		{{ .Content }}
 		</div>
 	</div>
+
 </section>
 <footer class="footer">
 	<div class="container">
