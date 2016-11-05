@@ -2,12 +2,9 @@
 <nav class="nav has-shadow">
 	<div class="container">
 		<div class="nav-left">
-			{{ range .Site.Menus.main }}
-			<a href="{{ .URL }}" class="nav-item is-tab {{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }}is-active {{end}}">{{ .Name }}</a>
-			{{ end }}
-			<!--<a href="/blog" class="nav-item is-tab">Blog do Seba</a>
-			<a href="/presentations" class="nav-item is-tab">Palestras</a>
-			<a href="/contact" class="nav-item is-tab">Contato</a>-->
+			<a href="/" class="nav-item is-tab {{ if eq $currentNode.URL "/" }}is-active{{end}}">Home</a>
+			<a href="/blog" class="nav-item is-tab {{ if hasPrefix $currentNode.URL "/blog" }}is-active{{end}}">Blog do Seba</a>
+			<a href="https://speakerdeck.com/sebastianwebber" class="nav-item is-tab">Palestras</a>
 		</div>
 	</div>
 </nav>

@@ -23,23 +23,3 @@ taxonomies:
   tag: "tags"
   category: "categories"
   series: "series"
-
-
-
-menu:
-  main:
-    - name: "Home"
-      identifier: "Home"
-      url: "/"
-
-    - name: "Blog do Seba"
-      identifier: "Blog"
-      url: "/blog"
-
-    - name: "Palestras"
-      identifier: "Palestras"
-      url: "https://speakerdeck.com/sebastianwebber"
-
-    # - name: "Contato"
-    #   identifier: "Contato"
-    #   url: "/contato"
