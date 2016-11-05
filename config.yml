@@ -18,6 +18,13 @@ params:
     blog_title: "Blog do Seba"
     blog_author: "Sebastian Webber"
 
+taxonomies:
+  tag: "tags"
+  category: "categories"
+  series: "series"
+
+
+
 menu:
   main:
     - name: "Home"
