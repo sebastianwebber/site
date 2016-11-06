@@ -18,6 +18,8 @@ params:
     blog_title: "Blog do Seba"
     blog_author: "Sebastian Webber"
     github_user: "sebastianwebber"
+    twitter_user: "sebastian_swc"
+    instagram_user: "_sebastianwebber"
 
 taxonomies:
   tag: "tags"
