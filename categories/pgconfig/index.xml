@@ -9,6 +9,432 @@
     <atom:link href="http://swebber.me/categories/pgconfig/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Utilizando API do pgconfig.org</title>
+      <link>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</link>
+      <pubDate>Sat, 05 Nov 2016 16:37:32 -0200</pubDate>
+      
+      <guid>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</guid>
+      <description>
+
+&lt;p&gt;Já falei do &lt;a href=&#34;http://pgconfig.org&#34;&gt;pgconfig.org&lt;/a&gt; antes. Ele, até o momento, é uma ferramenta que faz sugestões de tuning do PostgreSQL. Acesse o site e mata a curiosidade de como funciona. Eu espero, fique tranquilo.&lt;/p&gt;
+
+&lt;p&gt;Hoje eu quero comentar um pouco mais sobre como ele funciona, e explicar como você pode usar sua API nos seus projetos/scripts/coisas divertidas sem depender mais da interface web.&lt;/p&gt;
+
+&lt;h3 id=&#34;como-funciona&#34;&gt;Como funciona&lt;/h3&gt;
+
+&lt;p&gt;Na prática, a interface web (que agora vou chamar de &lt;code&gt;UI&lt;/code&gt;), acessa a api no endereço &lt;a href=&#34;https://api.pgconfig.org/v1/tuning/get-config&#34;&gt;&lt;code&gt;https://api.pgconfig.org/v1/tuning/get-config&lt;/code&gt;&lt;/a&gt;. Caso você queira simular a chamada, é só clicar no link que eu citei, mas já que o foco é automatizar as coisas, faça o mesmo teste como &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl &#39;https://api.pgconfig.org/v1/tuning/get-config&#39;
+{&amp;quot;data&amp;quot;: [{&amp;quot;category&amp;quot;: &amp;quot;memory_related&amp;quot;,&amp;quot;description&amp;quot;: &amp;quot;Memory Configuration&amp;quot;,&amp;quot;parameters&amp;quot;: [{&amp;quot;config_value&amp;quot;: &amp;quot;512MB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;shared_buffers&amp;quot;},{&amp;quot;config_value&amp;quot;: &amp;quot;2GB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;effective_cache_size&amp;quot;},{&amp;quot;config_value&amp;quot;: &amp;quot;20MB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;work_mem&amp;quot;},{&amp;quot;config_value&amp;quot;: &amp;quot;128MB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;maintenance_work_mem&amp;quot;}]},{&amp;quot;category&amp;quot;: &amp;quot;checkpoint_related&amp;quot;,&amp;quot;description&amp;quot;: &amp;quot;Checkpoint Related Configuration&amp;quot;,&amp;quot;parameters&amp;quot;: [{&amp;quot;config_value&amp;quot;: &amp;quot;512MB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;min_wal_size&amp;quot;},{&amp;quot;config_value&amp;quot;: &amp;quot;2GB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;max_wal_size&amp;quot;},{&amp;quot;config_value&amp;quot;: 0.7,&amp;quot;format&amp;quot;: &amp;quot;Float&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;checkpoint_completion_target&amp;quot;},{&amp;quot;config_value&amp;quot;: &amp;quot;15MB&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;wal_buffers&amp;quot;}]},{&amp;quot;category&amp;quot;: &amp;quot;network_related&amp;quot;,&amp;quot;description&amp;quot;: &amp;quot;Network Related Configuration&amp;quot;,&amp;quot;parameters&amp;quot;: [{&amp;quot;config_value&amp;quot;: &amp;quot;*&amp;quot;,&amp;quot;format&amp;quot;: &amp;quot;String&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;listen_addresses&amp;quot;},{&amp;quot;config_value&amp;quot;: 100,&amp;quot;format&amp;quot;: &amp;quot;Decimal&amp;quot;,&amp;quot;name&amp;quot;: &amp;quot;max_connections&amp;quot;}]}],&amp;quot;jsonapi&amp;quot;: {&amp;quot;version&amp;quot;: &amp;quot;1.0&amp;quot;},&amp;quot;links&amp;quot;: {&amp;quot;self&amp;quot;: &amp;quot;http://api.pgconfig.org/v1/tuning/get-config&amp;quot;},&amp;quot;meta&amp;quot;: {&amp;quot;arguments&amp;quot;: {},&amp;quot;copyright&amp;quot;: &amp;quot;PGConfig API&amp;quot;,&amp;quot;version&amp;quot;: &amp;quot;2.0 beta&amp;quot;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ok, já que o &lt;code&gt;JSON+API&lt;/code&gt; que a URL retona fica um pouco dificil de ler, eu vou formatar ele pra você:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{  
+   &amp;quot;data&amp;quot;:[  
+      {  
+         &amp;quot;category&amp;quot;:&amp;quot;memory_related&amp;quot;,
+         &amp;quot;description&amp;quot;:&amp;quot;Memory Configuration&amp;quot;,
+         &amp;quot;parameters&amp;quot;:[  
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;512MB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;shared_buffers&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;2GB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;effective_cache_size&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;20MB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;work_mem&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;128MB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;maintenance_work_mem&amp;quot;
+            }
+         ]
+      },
+      {  
+         &amp;quot;category&amp;quot;:&amp;quot;checkpoint_related&amp;quot;,
+         &amp;quot;description&amp;quot;:&amp;quot;Checkpoint Related Configuration&amp;quot;,
+         &amp;quot;parameters&amp;quot;:[  
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;512MB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;min_wal_size&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;2GB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;max_wal_size&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:0.7,
+               &amp;quot;format&amp;quot;:&amp;quot;Float&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;checkpoint_completion_target&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;15MB&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;Bytes&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;wal_buffers&amp;quot;
+            }
+         ]
+      },
+      {  
+         &amp;quot;category&amp;quot;:&amp;quot;network_related&amp;quot;,
+         &amp;quot;description&amp;quot;:&amp;quot;Network Related Configuration&amp;quot;,
+         &amp;quot;parameters&amp;quot;:[  
+            {  
+               &amp;quot;config_value&amp;quot;:&amp;quot;*&amp;quot;,
+               &amp;quot;format&amp;quot;:&amp;quot;String&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;listen_addresses&amp;quot;
+            },
+            {  
+               &amp;quot;config_value&amp;quot;:100,
+               &amp;quot;format&amp;quot;:&amp;quot;Decimal&amp;quot;,
+               &amp;quot;name&amp;quot;:&amp;quot;max_connections&amp;quot;
+            }
+         ]
+      }
+   ],
+   &amp;quot;jsonapi&amp;quot;:{  
+      &amp;quot;version&amp;quot;:&amp;quot;1.0&amp;quot;
+   },
+   &amp;quot;links&amp;quot;:{  
+      &amp;quot;self&amp;quot;:&amp;quot;http://api.pgconfig.org/v1/tuning/get-config&amp;quot;
+   },
+   &amp;quot;meta&amp;quot;:{  
+      &amp;quot;arguments&amp;quot;:{  
+
+      },
+      &amp;quot;copyright&amp;quot;:&amp;quot;PGConfig API&amp;quot;,
+      &amp;quot;version&amp;quot;:&amp;quot;2.0 beta&amp;quot;
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Basicamente, os dados importantes estão dentro de &lt;code&gt;&amp;quot;data&amp;quot;&lt;/code&gt;, aonde são agrupados por categoria, igualzinho no site. ;)&lt;/p&gt;
+
+&lt;p&gt;Uma coisa importante sobre isso é que você pode formatar a saida apresentada de forma mais conveniente, apenas informando o parâmetro &lt;code&gt;format=conf&lt;/code&gt;, conforme o exemplo abaixo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl &#39;https://api.pgconfig.org/v1/tuning/get-config?format=conf&#39;
+# Generated by PGConfig 2.0 beta
+## http://pgconfig.org
+
+# Memory Configuration
+shared_buffers = 512MB
+effective_cache_size = 2GB
+work_mem = 20MB
+maintenance_work_mem = 128MB
+
+# Checkpoint Related Configuration
+min_wal_size = 512MB
+max_wal_size = 2GB
+checkpoint_completion_target = 0.7
+wal_buffers = 15MB
+
+# Network Related Configuration
+listen_addresses = &#39;*&#39;
+max_connections = 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Outras opções para o &lt;code&gt;format&lt;/code&gt; são &lt;code&gt;json&lt;/code&gt;(que é a default) e &lt;code&gt;alter_system&lt;/code&gt;, veja:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl &#39;https://api.pgconfig.org/v1/tuning/get-config?format=alter_system&#39;
+-- Generated by PGConfig 2.0 beta
+---- http://pgconfig.org
+
+-- Memory Configuration
+ALTER SYSTEM SET shared_buffers TO &#39;512MB&#39;;
+ALTER SYSTEM SET effective_cache_size TO &#39;2GB&#39;;
+ALTER SYSTEM SET work_mem TO &#39;20MB&#39;;
+ALTER SYSTEM SET maintenance_work_mem TO &#39;128MB&#39;;
+
+-- Checkpoint Related Configuration
+ALTER SYSTEM SET min_wal_size TO &#39;512MB&#39;;
+ALTER SYSTEM SET max_wal_size TO &#39;2GB&#39;;
+ALTER SYSTEM SET checkpoint_completion_target TO &#39;0.7&#39;;
+ALTER SYSTEM SET wal_buffers TO &#39;15MB&#39;;
+
+-- Network Related Configuration
+ALTER SYSTEM SET listen_addresses TO &#39;*&#39;;
+ALTER SYSTEM SET max_connections TO &#39;100&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Pegou a idéia aqui? pra mudar a saida, tudo o que você precisa é ir informando os parâmetros na URL.&lt;/p&gt;
+
+&lt;h3 id=&#34;parâmetros-disponíveis&#34;&gt;Parâmetros disponíveis&lt;/h3&gt;
+
+&lt;p&gt;A relação abaixo lista os parâmetros disponíveis:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered&#34;&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Parâmetro&lt;/th&gt;
+                &lt;th&gt;Possíveis valores&lt;/th&gt;
+                &lt;th&gt;Valor padrão&lt;/th&gt;
+                &lt;th&gt;Descrição&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;pg_version&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;da versão &lt;code&gt;9.0&lt;/code&gt; até a &lt;code&gt;9.6&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;9.6&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Informa a versão do PostgreSQL&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;total_ram&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;qualquer valor acima de &lt;code&gt;1GB&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;2GB&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Quantidade de memória &lt;strong&gt;dedicada&lt;/strong&gt; ao PostgreSQL.&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;max_connections&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;qualquer valor acima de &lt;code&gt;1&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;100&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Quantidade &lt;strong&gt;esperada&lt;/strong&gt; de conexões&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;env_name&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;WEB&lt;/code&gt;, &lt;code&gt;OLTP&lt;/code&gt;, &lt;code&gt;DW&lt;/code&gt;, &lt;code&gt;Mixed&lt;/code&gt; e &lt;code&gt;Desktop&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;WEB&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Define o ambiente que o servidor vai rodar (mais detalhes abaixo)&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;os_type&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;Linux&lt;/code&gt;, &lt;code&gt;Windows&lt;/code&gt; e &lt;code&gt;Unix&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;Linux&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Define o tipo do sistema operacional utilizado&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;arch&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;x86-64&lt;/code&gt; e &lt;code&gt;i686&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;x86-64&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Define a arquitetura do servidor&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;format&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;json&lt;/code&gt;, &lt;code&gt;conf&lt;/code&gt; e &lt;code&gt;alter_system&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;json&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Muda o formato de saída&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;show_doc&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;true&lt;/code&gt; e &lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Mostra a documentação (valido apenas pro formato &lt;code&gt;json&lt;/code&gt;)&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;code&gt;include_pgbadger&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;true&lt;/code&gt; e &lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+                &lt;td&gt;Adiciona as configurações para habilitar o pgbadger&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Importante&lt;/strong&gt; Não esqueça de, ao informar o parâmetro &lt;code&gt;total_ram&lt;/code&gt;, passar o valor formatado conforme a expressão &lt;code&gt;[0-9]{1,}GB&lt;/code&gt;, por exemplo: &lt;code&gt;4GB&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;sobre-o-ambiente&#34;&gt;Sobre o ambiente&lt;/h4&gt;
+
+&lt;p&gt;A relação abaixo explica um pouco mais sobre os ambientes:&lt;/p&gt;
+
+&lt;table class=&#34;table table-bordered&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Nome&lt;/th&gt;
+            &lt;th&gt;Descrição&lt;/th&gt;
+            &lt;th&gt;Exemplos de uso&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;code&gt;WEB&lt;/code&gt;&lt;/td&gt;
+            &lt;td&gt;Aplicações web geral&lt;/td&gt;
+            &lt;td&gt;Aplicações com perfil web, como um portal ou aplicativo corporativo&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;code&gt;OLTP&lt;/code&gt;&lt;/td&gt;
+            &lt;td&gt;Aplicações com grande volume de transações&lt;/td&gt;
+            &lt;td&gt;Sistemas do tipo ERP ou grandes sistemas corporativos com muitas transações simultâneas&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;code&gt;DW&lt;/code&gt;&lt;/td&gt;
+            &lt;td&gt;Aplicações de DataWare House&lt;/td&gt;
+            &lt;td&gt;Sistemas de BI em geral&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;code&gt;Mixed&lt;/code&gt;&lt;/td&gt;
+            &lt;td&gt;Ambientes que compartilham o banco e a aplicação no mesmo servidor&lt;/td&gt;
+            &lt;td&gt;Pequenos sistemas, normalmente rodando na web&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;code&gt;Desktop&lt;/code&gt;&lt;/td&gt;
+            &lt;td&gt;Ambiente de desenvolvimento&lt;/td&gt;
+            &lt;td&gt;Máquina de desenvolvimento, suporte ou pré-vendas&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;exemplo-completo&#34;&gt;Exemplo completo&lt;/h4&gt;
+
+&lt;p&gt;Segue abaixo um exemplo completo, igualzinho ao utilizado pela &lt;code&gt;UI&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl &#39;https://api.pgconfig.org/v1/tuning/get-config?env_name=WEB&amp;amp;format=alter_system&amp;amp;include_pgbadger=true&amp;amp;log_format=stderr&amp;amp;max_connections=100&amp;amp;pg_version=9.6&amp;amp;total_ram=2GB&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;como-são-calculadas-os-valores&#34;&gt;Como são calculadas os valores?&lt;/h3&gt;
+
+&lt;p&gt;A fim de deixar o processo mais claro, eu criei uma entrada na API pra listar as regras. Ele pode ser acessado na URL abaixo:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://api.pgconfig.org/v1/tuning/get-rules&#34;&gt;/v1/tuning/get-rules&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Importante:&lt;/strong&gt; A chamada pra esse contexto permite filtrar &lt;code&gt;os_type&lt;/code&gt;, &lt;code&gt;arch&lt;/code&gt; e &lt;code&gt;env_name&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Os dados que contem detalhes de como cada parâmetro é caculado são &lt;code&gt;formula&lt;/code&gt; e &lt;code&gt;max_value&lt;/code&gt;, por exemplo:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;...
+&amp;quot;format&amp;quot;: &amp;quot;Bytes&amp;quot;,
+&amp;quot;formula&amp;quot;: &amp;quot;TOTAL_RAM / 4&amp;quot;,
+&amp;quot;max_value&amp;quot;: &amp;quot;2047MB&amp;quot;,
+&amp;quot;name&amp;quot;: &amp;quot;shared_buffers&amp;quot;
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Note que os valores são influenciados pelos filtros citados acima.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;exemplo-de-chamada&#34;&gt;Exemplo de chamada&lt;/h4&gt;
+
+&lt;p&gt;Recomendo que você abra a URL no navegador pra facilitar a visualização (ou &lt;a href=&#34;https://jsonformatter.curiousconcept.com/&#34;&gt;formate o json&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl &#39;https://api.pgconfig.org/v1/tuning/get-rules?os_type=Windows&amp;amp;arch=i686&amp;amp;env_name=OLTP&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;outras-opções-da-api&#34;&gt;Outras opções da API&lt;/h3&gt;
+
+&lt;table class=&#34;table table-striped table-bordered&#34;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Endereço&lt;/th&gt;
+            &lt;th&gt;Descrição&lt;/th&gt;
+            &lt;th&gt;exemplo de saída&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;https://api.pgconfig.org/v1/tuning/get-config-all-environments&#34;&gt;&lt;code&gt;/v1/tuning/get-config-all-environments&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Lista as regras pra todos os ambientes&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&lt;/code&gt;...
+&#34;data&#34;: [
+    {
+    &#34;configuration&#34;: [..],
+    &#34;environment&#34;: &#34;WEB&#34;
+    },
+    {
+    &#34;configuration&#34;: [..],
+    &#34;environment&#34;: &#34;OLTP&#34;
+    },
+    {
+    &#34;configuration&#34;: [..],
+    &#34;environment&#34;: &#34;DW&#34;
+    },
+    {
+    &#34;configuration&#34;: [..],
+    &#34;environment&#34;: &#34;Mixed&#34;
+    },
+    {
+    &#34;configuration&#34;: [..],
+    &#34;environment&#34;: &#34;Desktop&#34;
+    }
+]
+...&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;https://api.pgconfig.org/v1/tuning/list-enviroments&#34;&gt;&lt;code&gt;/v1/tuning/list-enviroments&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Lista todos os ambientes&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&lt;/code&gt;...
+&#34;data&#34;: [
+    &#34;WEB&#34;,
+    &#34;OLTP&#34;,
+    &#34;DW&#34;,
+    &#34;Mixed&#34;,
+    &#34;Desktop&#34;
+],
+...&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;https://api.pgconfig.org/v1/generators/pgbadger/get-config&#34;&gt;&lt;code&gt;/v1/generators/pgbadger/get-config&lt;/code&gt;&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;Lista as configurações do pgbadger (aceita o parametro &lt;code&gt;format&lt;/code&gt;)&lt;/td&gt;
+            &lt;td&gt;&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&lt;/code&gt;...
+&#34;data&#34;: [
+    {
+    &#34;category&#34;: &#34;log_config&#34;,
+    &#34;description&#34;: &#34;Logging configuration for pgbadger&#34;,
+    &#34;parameters&#34;: [
+        {
+        &#34;config_value&#34;: &#34;on&#34;,
+        &#34;name&#34;: &#34;logging_collector&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;on&#34;,
+        &#34;name&#34;: &#34;log_checkpoints&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;on&#34;,
+        &#34;name&#34;: &#34;log_connections&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;on&#34;,
+        &#34;name&#34;: &#34;log_disconnections&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;on&#34;,
+        &#34;name&#34;: &#34;log_lock_waits&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;0&#34;,
+        &#34;name&#34;: &#34;log_temp_files&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;C&#34;,
+        &#34;format&#34;: &#34;String&#34;,
+        &#34;name&#34;: &#34;lc_messages&#34;
+        },
+        {
+        &#34;comment&#34;: &#34;Adjust the minimum time to collect data&#34;,
+        &#34;config_value&#34;: &#34;10s&#34;,
+        &#34;format&#34;: &#34;Time&#34;,
+        &#34;name&#34;: &#34;log_min_duration_statement&#34;
+        },
+        {
+        &#34;config_value&#34;: &#34;0&#34;,
+        &#34;name&#34;: &#34;log_autovacuum_min_duration&#34;
+        }
+    ]
+},
+...&lt;/pre&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Outras opções estão sendo desenvolvidas e em breve vou postar mais detalhes.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>PGConfig agora tem um dominio próprio!</title>
       <link>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</link>
       <pubDate>Mon, 23 Feb 2015 09:31:40 -0300</pubDate>

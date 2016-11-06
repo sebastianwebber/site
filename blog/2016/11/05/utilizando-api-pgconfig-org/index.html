@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	
+	<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="keywords" content="curl, rest, API, tips, ">
+
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:description" content=""/>
+<meta property="og:title" content="swebber.me: Utilizando API do pgconfig.org"/>
+<meta property="og:site_name" content="SWebber IT Services"/>
+<meta property="og:image" content="" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="" />
+<meta property="og:image:height" content="" />
+<meta property="og:url" content="http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-11-05"/>
+<meta property="article:modified_time" content="2016-11-05"/>
+
+
+
+<meta property="article:tag" content="curl">
+<meta property="article:tag" content="rest">
+<meta property="article:tag" content="API">
+<meta property="article:tag" content="tips">
+
+
+
+
+<meta name="twitter:card" content="summary">
+
+<meta name="twitter:site" content="@sebastian_swc">
+<meta name="twitter:title" content="swebber.me: Utilizando API do pgconfig.org">
+<meta name="twitter:creator" content="@sebastian_swc">
+<meta name="twitter:description" content="">
+<meta name="twitter:image:src" content="">
+<meta name="twitter:domain" content="swebber.me">
+
+
+
+	<title>Blog do Seba</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.min.css">
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+	<link href='//fonts.googleapis.com/css?family=Fjalla+One|Open+Sans:300' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="/css/site.css">
+	
+
+
+	<link rel="icon " type="image/png " href="images/favicon.png ">
+</head>
+
+<body class="page-layout "> <section class="hero is-info is-bold">
+		
+<nav class="nav has-shadow">
+	<div class="container">
+		<div class="nav-left">
+			<a href="/" class="nav-item is-tab ">Home</a>
+			<a href="/blog" class="nav-item is-tab is-active">Blog do Seba</a>
+			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
+		</div>
+	</div>
+</nav>
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title is-1">
+				Blog do Seba
+			</h1>
+			<h2 class="subtitle">
+				<strong>DBA</strong>, Consultor, Instrutor, [aprendiz de] <strong>Ninja</strong> e <strong>metido a Chef</strong> nas horas vagas!
+			</h2>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h1 class="title is-2"><a href="http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/">Utilizando API do pgconfig.org </a> </h1>
+		<h2 class="subtitle is-4">Nov 5, 2016
+		</h2>
+ 
+
+<h5> 1100 Words. Read in about 5 Min.</h5>
+<h5>Categories: 
+    <a href="http://swebber.me//categories/postgresql">PostgreSQL</a> 
+    <a href="http://swebber.me//categories/pgconfig">PGCOnfig</a> </h5>
+<h5>Tags: 
+    <a href="http://swebber.me//tags/curl"><span class="tag is-medium">curl</span></a> 
+    <a href="http://swebber.me//tags/rest"><span class="tag is-medium">rest</span></a> 
+    <a href="http://swebber.me//tags/api"><span class="tag is-medium">API</span></a> 
+    <a href="http://swebber.me//tags/tips"><span class="tag is-medium">tips</span></a> </h5>
+
+<hr/>
+			<div class="content is-medium">
+		
+
+<p>Já falei do <a href="http://pgconfig.org">pgconfig.org</a> antes. Ele, até o momento, é uma ferramenta que faz sugestões de tuning do PostgreSQL. Acesse o site e mata a curiosidade de como funciona. Eu espero, fique tranquilo.</p>
+
+<p>Hoje eu quero comentar um pouco mais sobre como ele funciona, e explicar como você pode usar sua API nos seus projetos/scripts/coisas divertidas sem depender mais da interface web.</p>
+
+<h3 id="como-funciona">Como funciona</h3>
+
+<p>Na prática, a interface web (que agora vou chamar de <code>UI</code>), acessa a api no endereço <a href="https://api.pgconfig.org/v1/tuning/get-config"><code>https://api.pgconfig.org/v1/tuning/get-config</code></a>. Caso você queira simular a chamada, é só clicar no link que eu citei, mas já que o foco é automatizar as coisas, faça o mesmo teste como <code>curl</code>:</p>
+
+<pre><code class="language-bash">$ curl 'https://api.pgconfig.org/v1/tuning/get-config'
+{&quot;data&quot;: [{&quot;category&quot;: &quot;memory_related&quot;,&quot;description&quot;: &quot;Memory Configuration&quot;,&quot;parameters&quot;: [{&quot;config_value&quot;: &quot;512MB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;shared_buffers&quot;},{&quot;config_value&quot;: &quot;2GB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;effective_cache_size&quot;},{&quot;config_value&quot;: &quot;20MB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;work_mem&quot;},{&quot;config_value&quot;: &quot;128MB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;maintenance_work_mem&quot;}]},{&quot;category&quot;: &quot;checkpoint_related&quot;,&quot;description&quot;: &quot;Checkpoint Related Configuration&quot;,&quot;parameters&quot;: [{&quot;config_value&quot;: &quot;512MB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;min_wal_size&quot;},{&quot;config_value&quot;: &quot;2GB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;max_wal_size&quot;},{&quot;config_value&quot;: 0.7,&quot;format&quot;: &quot;Float&quot;,&quot;name&quot;: &quot;checkpoint_completion_target&quot;},{&quot;config_value&quot;: &quot;15MB&quot;,&quot;format&quot;: &quot;Bytes&quot;,&quot;name&quot;: &quot;wal_buffers&quot;}]},{&quot;category&quot;: &quot;network_related&quot;,&quot;description&quot;: &quot;Network Related Configuration&quot;,&quot;parameters&quot;: [{&quot;config_value&quot;: &quot;*&quot;,&quot;format&quot;: &quot;String&quot;,&quot;name&quot;: &quot;listen_addresses&quot;},{&quot;config_value&quot;: 100,&quot;format&quot;: &quot;Decimal&quot;,&quot;name&quot;: &quot;max_connections&quot;}]}],&quot;jsonapi&quot;: {&quot;version&quot;: &quot;1.0&quot;},&quot;links&quot;: {&quot;self&quot;: &quot;http://api.pgconfig.org/v1/tuning/get-config&quot;},&quot;meta&quot;: {&quot;arguments&quot;: {},&quot;copyright&quot;: &quot;PGConfig API&quot;,&quot;version&quot;: &quot;2.0 beta&quot;}}
+</code></pre>
+
+<p>Ok, já que o <code>JSON+API</code> que a URL retona fica um pouco dificil de ler, eu vou formatar ele pra você:</p>
+
+<pre><code class="language-json">{  
+   &quot;data&quot;:[  
+      {  
+         &quot;category&quot;:&quot;memory_related&quot;,
+         &quot;description&quot;:&quot;Memory Configuration&quot;,
+         &quot;parameters&quot;:[  
+            {  
+               &quot;config_value&quot;:&quot;512MB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;shared_buffers&quot;
+            },
+            {  
+               &quot;config_value&quot;:&quot;2GB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;effective_cache_size&quot;
+            },
+            {  
+               &quot;config_value&quot;:&quot;20MB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;work_mem&quot;
+            },
+            {  
+               &quot;config_value&quot;:&quot;128MB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;maintenance_work_mem&quot;
+            }
+         ]
+      },
+      {  
+         &quot;category&quot;:&quot;checkpoint_related&quot;,
+         &quot;description&quot;:&quot;Checkpoint Related Configuration&quot;,
+         &quot;parameters&quot;:[  
+            {  
+               &quot;config_value&quot;:&quot;512MB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;min_wal_size&quot;
+            },
+            {  
+               &quot;config_value&quot;:&quot;2GB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;max_wal_size&quot;
+            },
+            {  
+               &quot;config_value&quot;:0.7,
+               &quot;format&quot;:&quot;Float&quot;,
+               &quot;name&quot;:&quot;checkpoint_completion_target&quot;
+            },
+            {  
+               &quot;config_value&quot;:&quot;15MB&quot;,
+               &quot;format&quot;:&quot;Bytes&quot;,
+               &quot;name&quot;:&quot;wal_buffers&quot;
+            }
+         ]
+      },
+      {  
+         &quot;category&quot;:&quot;network_related&quot;,
+         &quot;description&quot;:&quot;Network Related Configuration&quot;,
+         &quot;parameters&quot;:[  
+            {  
+               &quot;config_value&quot;:&quot;*&quot;,
+               &quot;format&quot;:&quot;String&quot;,
+               &quot;name&quot;:&quot;listen_addresses&quot;
+            },
+            {  
+               &quot;config_value&quot;:100,
+               &quot;format&quot;:&quot;Decimal&quot;,
+               &quot;name&quot;:&quot;max_connections&quot;
+            }
+         ]
+      }
+   ],
+   &quot;jsonapi&quot;:{  
+      &quot;version&quot;:&quot;1.0&quot;
+   },
+   &quot;links&quot;:{  
+      &quot;self&quot;:&quot;http://api.pgconfig.org/v1/tuning/get-config&quot;
+   },
+   &quot;meta&quot;:{  
+      &quot;arguments&quot;:{  
+
+      },
+      &quot;copyright&quot;:&quot;PGConfig API&quot;,
+      &quot;version&quot;:&quot;2.0 beta&quot;
+   }
+}
+</code></pre>
+
+<p>Basicamente, os dados importantes estão dentro de <code>&quot;data&quot;</code>, aonde são agrupados por categoria, igualzinho no site. ;)</p>
+
+<p>Uma coisa importante sobre isso é que você pode formatar a saida apresentada de forma mais conveniente, apenas informando o parâmetro <code>format=conf</code>, conforme o exemplo abaixo:</p>
+
+<pre><code class="language-bash">$ curl 'https://api.pgconfig.org/v1/tuning/get-config?format=conf'
+# Generated by PGConfig 2.0 beta
+## http://pgconfig.org
+
+# Memory Configuration
+shared_buffers = 512MB
+effective_cache_size = 2GB
+work_mem = 20MB
+maintenance_work_mem = 128MB
+
+# Checkpoint Related Configuration
+min_wal_size = 512MB
+max_wal_size = 2GB
+checkpoint_completion_target = 0.7
+wal_buffers = 15MB
+
+# Network Related Configuration
+listen_addresses = '*'
+max_connections = 100
+</code></pre>
+
+<p>Outras opções para o <code>format</code> são <code>json</code>(que é a default) e <code>alter_system</code>, veja:</p>
+
+<pre><code class="language-bash">$ curl 'https://api.pgconfig.org/v1/tuning/get-config?format=alter_system'
+-- Generated by PGConfig 2.0 beta
+---- http://pgconfig.org
+
+-- Memory Configuration
+ALTER SYSTEM SET shared_buffers TO '512MB';
+ALTER SYSTEM SET effective_cache_size TO '2GB';
+ALTER SYSTEM SET work_mem TO '20MB';
+ALTER SYSTEM SET maintenance_work_mem TO '128MB';
+
+-- Checkpoint Related Configuration
+ALTER SYSTEM SET min_wal_size TO '512MB';
+ALTER SYSTEM SET max_wal_size TO '2GB';
+ALTER SYSTEM SET checkpoint_completion_target TO '0.7';
+ALTER SYSTEM SET wal_buffers TO '15MB';
+
+-- Network Related Configuration
+ALTER SYSTEM SET listen_addresses TO '*';
+ALTER SYSTEM SET max_connections TO '100';
+</code></pre>
+
+<p>Pegou a idéia aqui? pra mudar a saida, tudo o que você precisa é ir informando os parâmetros na URL.</p>
+
+<h3 id="parâmetros-disponíveis">Parâmetros disponíveis</h3>
+
+<p>A relação abaixo lista os parâmetros disponíveis:</p>
+
+<table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Parâmetro</th>
+                <th>Possíveis valores</th>
+                <th>Valor padrão</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>pg_version</code></td>
+                <td>da versão <code>9.0</code> até a <code>9.6</code></td>
+                <td><code>9.6</code></td>
+                <td>Informa a versão do PostgreSQL</td>
+            </tr>
+            <tr>
+                <td><code>total_ram</code></td>
+                <td>qualquer valor acima de <code>1GB</code></td>
+                <td><code>2GB</code></td>
+                <td>Quantidade de memória <strong>dedicada</strong> ao PostgreSQL.</td>
+            </tr>
+            <tr>
+                <td><code>max_connections</code></td>
+                <td>qualquer valor acima de <code>1</code></td>
+                <td><code>100</code></td>
+                <td>Quantidade <strong>esperada</strong> de conexões</td>
+            </tr>
+            <tr>
+                <td><code>env_name</code></td>
+                <td><code>WEB</code>, <code>OLTP</code>, <code>DW</code>, <code>Mixed</code> e <code>Desktop</code></td>
+                <td><code>WEB</code></td>
+                <td>Define o ambiente que o servidor vai rodar (mais detalhes abaixo)</td>
+            </tr>
+            <tr>
+                <td><code>os_type</code></td>
+                <td><code>Linux</code>, <code>Windows</code> e <code>Unix</code></td>
+                <td><code>Linux</code></td>
+                <td>Define o tipo do sistema operacional utilizado</td>
+            </tr>
+            <tr>
+                <td><code>arch</code></td>
+                <td><code>x86-64</code> e <code>i686</code></td>
+                <td><code>x86-64</code></td>
+                <td>Define a arquitetura do servidor</td>
+            </tr>
+            <tr>
+                <td><code>format</code></td>
+                <td><code>json</code>, <code>conf</code> e <code>alter_system</code></td>
+                <td><code>json</code></td>
+                <td>Muda o formato de saída</td>
+            </tr>
+            <tr>
+                <td><code>show_doc</code></td>
+                <td><code>true</code> e <code>false</code></td>
+                <td><code>false</code></td>
+                <td>Mostra a documentação (valido apenas pro formato <code>json</code>)</td>
+            </tr>
+            <tr>
+                <td><code>include_pgbadger</code></td>
+                <td><code>true</code> e <code>false</code></td>
+                <td><code>false</code></td>
+                <td>Adiciona as configurações para habilitar o pgbadger</td>
+            </tr>
+        </tbody>
+    </table>
+
+<blockquote>
+<p><strong>Importante</strong> Não esqueça de, ao informar o parâmetro <code>total_ram</code>, passar o valor formatado conforme a expressão <code>[0-9]{1,}GB</code>, por exemplo: <code>4GB</code>.</p>
+</blockquote>
+
+<h4 id="sobre-o-ambiente">Sobre o ambiente</h4>
+
+<p>A relação abaixo explica um pouco mais sobre os ambientes:</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Exemplos de uso</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>WEB</code></td>
+            <td>Aplicações web geral</td>
+            <td>Aplicações com perfil web, como um portal ou aplicativo corporativo</td>
+        </tr>
+        <tr>
+            <td><code>OLTP</code></td>
+            <td>Aplicações com grande volume de transações</td>
+            <td>Sistemas do tipo ERP ou grandes sistemas corporativos com muitas transações simultâneas</td>
+        </tr>
+        <tr>
+            <td><code>DW</code></td>
+            <td>Aplicações de DataWare House</td>
+            <td>Sistemas de BI em geral</td>
+        </tr>
+        <tr>
+            <td><code>Mixed</code></td>
+            <td>Ambientes que compartilham o banco e a aplicação no mesmo servidor</td>
+            <td>Pequenos sistemas, normalmente rodando na web</td>
+        </tr>
+        <tr>
+            <td><code>Desktop</code></td>
+            <td>Ambiente de desenvolvimento</td>
+            <td>Máquina de desenvolvimento, suporte ou pré-vendas</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4 id="exemplo-completo">Exemplo completo</h4>
+
+<p>Segue abaixo um exemplo completo, igualzinho ao utilizado pela <code>UI</code>:</p>
+
+<pre><code class="language-bash">$ curl 'https://api.pgconfig.org/v1/tuning/get-config?env_name=WEB&amp;format=alter_system&amp;include_pgbadger=true&amp;log_format=stderr&amp;max_connections=100&amp;pg_version=9.6&amp;total_ram=2GB'
+</code></pre>
+
+<h3 id="como-são-calculadas-os-valores">Como são calculadas os valores?</h3>
+
+<p>A fim de deixar o processo mais claro, eu criei uma entrada na API pra listar as regras. Ele pode ser acessado na URL abaixo:</p>
+
+<ul>
+<li><a href="https://api.pgconfig.org/v1/tuning/get-rules">/v1/tuning/get-rules</a></li>
+</ul>
+
+<blockquote>
+<p><strong>Importante:</strong> A chamada pra esse contexto permite filtrar <code>os_type</code>, <code>arch</code> e <code>env_name</code>.</p>
+</blockquote>
+
+<p>Os dados que contem detalhes de como cada parâmetro é caculado são <code>formula</code> e <code>max_value</code>, por exemplo:</p>
+
+<pre><code class="language-json">...
+&quot;format&quot;: &quot;Bytes&quot;,
+&quot;formula&quot;: &quot;TOTAL_RAM / 4&quot;,
+&quot;max_value&quot;: &quot;2047MB&quot;,
+&quot;name&quot;: &quot;shared_buffers&quot;
+...
+</code></pre>
+
+<blockquote>
+<p>Note que os valores são influenciados pelos filtros citados acima.</p>
+</blockquote>
+
+<h4 id="exemplo-de-chamada">Exemplo de chamada</h4>
+
+<p>Recomendo que você abra a URL no navegador pra facilitar a visualização (ou <a href="https://jsonformatter.curiousconcept.com/">formate o json</a>):</p>
+
+<pre><code class="language-bash">curl 'https://api.pgconfig.org/v1/tuning/get-rules?os_type=Windows&amp;arch=i686&amp;env_name=OLTP'
+</code></pre>
+
+<h3 id="outras-opções-da-api">Outras opções da API</h3>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Endereço</th>
+            <th>Descrição</th>
+            <th>exemplo de saída</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://api.pgconfig.org/v1/tuning/get-config-all-environments"><code>/v1/tuning/get-config-all-environments</code></a></td>
+            <td>Lista as regras pra todos os ambientes</td>
+            <td><pre><code class="language-json"></code>...
+"data": [
+    {
+    "configuration": [..],
+    "environment": "WEB"
+    },
+    {
+    "configuration": [..],
+    "environment": "OLTP"
+    },
+    {
+    "configuration": [..],
+    "environment": "DW"
+    },
+    {
+    "configuration": [..],
+    "environment": "Mixed"
+    },
+    {
+    "configuration": [..],
+    "environment": "Desktop"
+    }
+]
+...</pre></td>
+        </tr>
+        <tr>
+            <td><a href="https://api.pgconfig.org/v1/tuning/list-enviroments"><code>/v1/tuning/list-enviroments</code></a></td>
+            <td>Lista todos os ambientes</td>
+            <td><pre><code class="language-json"></code>...
+"data": [
+    "WEB",
+    "OLTP",
+    "DW",
+    "Mixed",
+    "Desktop"
+],
+...</pre></td>
+        </tr>
+        <tr>
+            <td><a href="https://api.pgconfig.org/v1/generators/pgbadger/get-config"><code>/v1/generators/pgbadger/get-config</code></a></td>
+            <td>Lista as configurações do pgbadger (aceita o parametro <code>format</code>)</td>
+            <td><pre><code class="language-json"></code>...
+"data": [
+    {
+    "category": "log_config",
+    "description": "Logging configuration for pgbadger",
+    "parameters": [
+        {
+        "config_value": "on",
+        "name": "logging_collector"
+        },
+        {
+        "config_value": "on",
+        "name": "log_checkpoints"
+        },
+        {
+        "config_value": "on",
+        "name": "log_connections"
+        },
+        {
+        "config_value": "on",
+        "name": "log_disconnections"
+        },
+        {
+        "config_value": "on",
+        "name": "log_lock_waits"
+        },
+        {
+        "config_value": "0",
+        "name": "log_temp_files"
+        },
+        {
+        "config_value": "C",
+        "format": "String",
+        "name": "lc_messages"
+        },
+        {
+        "comment": "Adjust the minimum time to collect data",
+        "config_value": "10s",
+        "format": "Time",
+        "name": "log_min_duration_statement"
+        },
+        {
+        "config_value": "0",
+        "name": "log_autovacuum_min_duration"
+        }
+    ]
+},
+...</pre></td>
+        </tr>
+    </tbody>
+</table>
+
+<p>Outras opções estão sendo desenvolvidas e em breve vou postar mais detalhes.</p>
+
+		</div>
+	</div>
+
+</section>
+<footer class="footer">
+	<div class="container">
+		<div class="content has-text-centered">
+			<p>
+				<strong>Blog do Seba</strong> by <a href="http://swebber.me/">Sebastian Webber</a>.
+			</p>
+			<p>
+				<a class="icon" href="https://github.com/sebastianwebber">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</div>
+</footer>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>
