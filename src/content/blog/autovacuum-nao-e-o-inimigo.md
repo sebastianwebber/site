@@ -24,7 +24,7 @@ Tags:
 
 É um equívoco comum que workloads com grandes volumes de leituras e escritas no PostgreSQL inevitavelmente causam ineficiencia no banco de dados. Nós ouvimos casos aonde os usuários encontram lentidões fazendo apenas algumas centenas de gravações por segundo e recorrem a sistemas como Dynamo ou Cassandra por frustração. No entanto, o PostgreSQL pode lidar com essas cargas de trabalho sem nenhum problema, desde que ele esteja configurado corretamente.
 
-O problema deriva do que é conhecido como "inchaço", um fenômeno do PostgreSQL e de outros bancos de dados MVCC que causa o aumento do espaço em disco e uma baixa no desempenho. Vamos ver como o AutoVACUUM, uma ferramenta que combate o inchaço, é tipicamente incompreendida e mal configurada. Ao falar num baixo nível sobre os componentes internos do PostgreSQL vamos chegar numa melhor configuração para o AutoVACUUM. Finalmente vamos considerar como distribuir os dados sob um cluster PostgreSQL como o Citus também pode combater o inchaço. 
+O problema deriva do que é conhecido como "inchaço", um fenômeno do PostgreSQL e de outros bancos de dados MVCC que causa o aumento do espaço em disco e uma baixa no desempenho. Vamos ver como o `Autovacuum`, uma ferramenta que combate o inchaço, é tipicamente incompreendida e mal configurada. Ao falar num baixo nível sobre os componentes internos do PostgreSQL vamos chegar numa melhor configuração para o `Autovacuum`. Finalmente vamos considerar como distribuir os dados sob um cluster PostgreSQL como o Citus também pode combater o inchaço. 
 
 
 ## Problemas no paraíso do MVCC
@@ -37,11 +37,11 @@ O PostgreSQL e outros bancos de dados relacionais usam uma técnica chamada Mult
 
 Por razões que vamos ver mais tarde, tabelas e índices inchados não somente disperdiçam espaço mas também deixam as consultas mais lentas. Então isso não é só uma questão de conseguir um disco rigido maior e esquecer sobre o inchaço. Onde há atualizações nos dados há inchaço e é com você executar o `VACUUM`.
 
-Não é tão ruim quanto costumava ser. Num passado distante (antes do PostgreSQL 8), os DBAs tinham que executar o `VACUUM` manualmente. Eles tinham que balancear o consumo de recursos contra a carga (load average) do banco de dados existente para decidir quando executa-lo e potencialmente quando interrompe-lo. Hoje em dia podemos configurar o daemon do `AutoVACUUM` para executar essas limpezas nos momentos mais oportunos.
+Não é tão ruim quanto costumava ser. Num passado distante (antes do PostgreSQL 8), os DBAs tinham que executar o `VACUUM` manualmente. Eles tinham que balancear o consumo de recursos contra a carga (load average) do banco de dados existente para decidir quando executa-lo e potencialmente quando interrompe-lo. Hoje em dia podemos configurar o daemon do `Autovacuum` para executar essas limpezas nos momentos mais oportunos.
 
-O `AutoVACUUM` funciona bem quando configurado corretamente. Entretando, suas configurações padrão são apropriadas para bancos de dados com algumas centenas de mega bytes de tamanho e não é agressivo o bastante para grandes bancos de dados. Em ambientes de produção ele começa a ficar pra trás.
+O `Autovacuum` funciona bem quando configurado corretamente. Entretando, suas configurações padrão são apropriadas para bancos de dados com algumas centenas de mega bytes de tamanho e não é agressivo o bastante para grandes bancos de dados. Em ambientes de produção ele começa a ficar pra trás.
 
-Quando o `VACUUM` ficar pra trás ele vai consumir mais recursos quando ele é executado e isso vai interferir na operação normal das consultas. Isso pode levar à um circulo vicioso aonde os administradores de bancos de dados reconfiguram erroniamente o " devorador de recursos `AutoVACUUM`" pra rodar com menos frequência ou não rodar mais. O `AutoVACUUM` não é o ínimigo e **desabilitá-lo é desastroso**. 
+Quando o `VACUUM` ficar pra trás ele vai consumir mais recursos quando ele é executado e isso vai interferir na operação normal das consultas. Isso pode levar à um circulo vicioso aonde os administradores de bancos de dados reconfiguram erroniamente o " devorador de recursos `Autovacuum`" pra rodar com menos frequência ou não rodar mais. O `Autovacuum` não é o ínimigo e **desabilitá-lo é desastroso**. 
 
 ## A magreza no inchaço
 
@@ -127,11 +127,11 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page('foo', 0));
 └────────┴────────┘
 ```
 
-Nesse ponto você pode ver um jeito de gerar o inchaço: é só continuamente atualizar muitos registros de uma tabela. Se o `AutoVACUUM` foi desabilitado, o tamanho da tabela vai continuar a aumentar mesmo que o número de registros visiveis continue o mesmo. Um outro jeito de causar o inchaço é inserir uma grande quantidade de registros dentro de uma transação mas executar o `ROLLBACK` ao invés do `COMMIT`.
+Nesse ponto você pode ver um jeito de gerar o inchaço: é só continuamente atualizar muitos registros de uma tabela. Se o `Autovacuum` foi desabilitado, o tamanho da tabela vai continuar a aumentar mesmo que o número de registros visiveis continue o mesmo. Um outro jeito de causar o inchaço é inserir uma grande quantidade de registros dentro de uma transação mas executar o `ROLLBACK` ao invés do `COMMIT`.
 
-Se o `AutoVACUUM` está rodando, ele pode limpar esses registros mortos _a menos que..._ os registros apagados são impedidos de morrer! Nesse cenário de filmes de terror uma transação está rodando por muito tempo (como uma consulta analítica) e seus `txid` previnem registros como de serem marcados como mortos, mesmo quando apagados por outro comando. A consulta que está rodando a muito tempo nem precisa consultar os registros apagados, a presença dos registros quando a consulta iniciou garante que elas não podem ser removidas. Combinar OLTP e consultas analíticas que rodam por muito tempo é um cocktail perigoso.
+Se o `Autovacuum` está rodando, ele pode limpar esses registros mortos _a menos que..._ os registros apagados são impedidos de morrer! Nesse cenário de filmes de terror uma transação está rodando por muito tempo (como uma consulta analítica) e seus `txid` previnem registros como de serem marcados como mortos, mesmo quando apagados por outro comando. A consulta que está rodando a muito tempo nem precisa consultar os registros apagados, a presença dos registros quando a consulta iniciou garante que elas não podem ser removidas. Combinar OLTP e consultas analíticas que rodam por muito tempo é um cocktail perigoso.
 
-Fora o intratável apocalipse zumbi acíma, o `AutoVACUUM` pode deixar as coisas sob controler com a configuração adequada. Vamos ver algumas consenquências do inchaço antes de considerar o `AutoVACUUM`.
+Fora o intratável apocalipse zumbi acíma, o `Autovacuum` pode deixar as coisas sob controler com a configuração adequada. Vamos ver algumas consenquências do inchaço antes de considerar o `Autovacuum`.
 
 ## O inchaço e a velocidade das consultas
 
@@ -154,30 +154,30 @@ Para verificar se um índice btree é eficiente usando suas páginas você pode 
 SELECT avg_leaf_density FROM pgstatindex('btree_index_name');
 ```
 
-## Ajustando o AutoVACUUM
+## Ajustando o Autovacuum
 
-O AutoVACUUM deixa o banco de dados rápido e em bom estado. Ele começa a trabalhar quando certas condições configuráveis são atingidas e faz uma pausa quando ele detecta que está sendo muito intrusivo para as consultas.
+O Autovacuum deixa o banco de dados rápido e em bom estado. Ele começa a trabalhar quando certas condições configuráveis são atingidas e faz uma pausa quando ele detecta que está sendo muito intrusivo para as consultas.
 
-Para todo banco de dados no cluster, o AutoVACUUM tenta iniciar um worker a cada `autovacuum_naptime` (a cada minuto por padrão). Ele vai rodar no máximo `autovacuum_max_workers` (3 por padrão) a cada vez.
+Para todo banco de dados no cluster, o Autovacuum tenta iniciar um worker a cada `autovacuum_naptime` (a cada minuto por padrão). Ele vai rodar no máximo `autovacuum_max_workers` (3 por padrão) a cada vez.
 
 Cada worker procura por uma tabela que precisa de ajuda. O worker procura por tabelas aonde as estatíticas do PostgreSQL indicam um número grande o bastante de registros alterados ao tamanho da tabela. Cada worker em particular procura por uma tabela que filtra `[ESTIMATIVA DE REGISTROS INVALIDADOS] ≥ autovacuum_vacuum_scale_factor * [TAMANHO ESTIMADO DA TABELA] + autovacuum_vacuum_threshold`.
 
-O worker começa removendo os registros mortos da tabela e compactando as páginas. Conforme cada worker avança, ele faz uma contagem de "I/O credits" que eles estão consumindo. Diferentes tipos de ações contam para créditos variáveis (os valores são configuráveis). Quando os créditos usados excedem o `autovacuum_vacuum_cost_limit`, o AutoVACUUM pausa todos os workers em `autovacuum_vacuum_cost_delay` milissegundos.
+O worker começa removendo os registros mortos da tabela e compactando as páginas. Conforme cada worker avança, ele faz uma contagem de "I/O credits" que eles estão consumindo. Diferentes tipos de ações contam para créditos variáveis (os valores são configuráveis). Quando os créditos usados excedem o `autovacuum_vacuum_cost_limit`, o Autovacuum pausa todos os workers em `autovacuum_vacuum_cost_delay` milissegundos.
 
 Executar o vacuum é uma corrida contra o tempo. Quando compacta as páginas, o vacuum worker escaneia o `heap` procurando por registros mortos e adiciona-os numa lista. Ele usa essa lista para primeiro apagar as entradas de ponteiro no índice para essas linhas e então, remove a linha do `heap`. Se há muitos registros para limpar e `maintenance_work_mem` é limitada, o worker não vai conseguir processar muitos registros mortos a cada execução e vai perder tempo repetindo esse processo com mais frequência.
 
-Isso explica uma maneira que o AutoVACUUM fica pra trás: quando há muitos registros mortos acumulados e o AutoVACUUM não possui `maintenance_work_mem` o suficiente para removê-los rapidamente e além disso fica limitado ao `vacuum_cost_limit`. Isso fica nítido em grandes tabelas no banco de dados. Os valores padrão no banco de dados para `autovacuum_vacuum_scale_factor = 0.2` podem ser apropriados para pequenas tabelas, mas é muito grande para tabelas maiores. Você pode configurar o parâmetro por tabela:
+Isso explica uma maneira que o Autovacuum fica pra trás: quando há muitos registros mortos acumulados e o Autovacuum não possui `maintenance_work_mem` o suficiente para removê-los rapidamente e além disso fica limitado ao `vacuum_cost_limit`. Isso fica nítido em grandes tabelas no banco de dados. Os valores padrão no banco de dados para `autovacuum_vacuum_scale_factor = 0.2` podem ser apropriados para pequenas tabelas, mas é muito grande para tabelas maiores. Você pode configurar o parâmetro por tabela:
 
 ```sql
 ALTER TABLE <tablename>
   SET autovacuum_vacuum_scale_factor = 0.01;
 ```  
 
-Isso quer dizer que, para tabelas com milhões de registros, o AutoVACUUM deve iniciar depois de 10 mil registros serem invalidados ao invés de dozentos mil. Isso ajuda a deixar o inchaço sob controle.
+Isso quer dizer que, para tabelas com milhões de registros, o Autovacuum deve iniciar depois de 10 mil registros serem invalidados ao invés de dozentos mil. Isso ajuda a deixar o inchaço sob controle.
 
-AutoVACUUM também pode ficar pra trás quando há mais tabelas inchadas do que que `autovacuum_max_workers` e todas as tabelas continuam a inchar. Workers não coneseguem chegar em todas as tabelas.
+Autovacuum também pode ficar pra trás quando há mais tabelas inchadas do que que `autovacuum_max_workers` e todas as tabelas continuam a inchar. Workers não conseguem chegar em todas as tabelas.
 
-Aqui há ajustes sensíveis ao AutoVACUUM. Eles não vão funcionar para todos os bancos de dados, é claro, mas vão te levar pra direção correta.
+Aqui há ajustes sensíveis ao Autovacuum. Eles não vão funcionar para todos os bancos de dados, é claro, mas vão te levar pra direção correta.
 
 <table class="table">
 	<thead>
@@ -224,15 +224,15 @@ Aqui há ajustes sensíveis ao AutoVACUUM. Eles não vão funcionar para todos o
 
 ## Fique de olho
 
-Após ajustar as configurações do AutoVACUUM, você deve esperar e observar como o banco de dados responde. De fato, você pode querer observar o banco de dados durante um tempo _antes_ de ajustar as configurações pra evitar qualquer otimização prematura. Você deve procurar pela taxa de variação ou pela porcentagem de inchaço nas tabelas e índices.
+Após ajustar as configurações do Autovacuum, você deve esperar e observar como o banco de dados responde. De fato, você pode querer observar o banco de dados durante um tempo _antes_ de ajustar as configurações pra evitar qualquer otimização prematura. Você deve procurar pela taxa de variação ou pela porcentagem de inchaço nas tabelas e índices.
 
 Utilize esses scripts pra coletar métricas: [pgexperts/pgx_scripts](https://github.com/pgexperts/pgx_scripts/tree/master/bloat). Execute-os na cron job para acompanhar seu progresso semana à semana.
 
 
 ## Divida o trabalho
 
-Tabelas imensas tem um grande potencial para inchaço, tanto da baixa sensibilidade do fator de escala do VACUUM e geralmente devido a extensas rotatividades de registros. Divindido horizontalmente grandes tabelas em pequenas tabelas pode ser útil, especialmente se há um grande numero de workers do AutoVACUUM uma vez que cada workers pode executar uma tabela por vez. Mesmo assim, executar mais workers exigem maiores usos do `maintenance_work_mem`. Uma solução  que, divide grandes tabelas e aumenta a capacidade de executar workers do AutoVACUUM é utilizar um banco de dados distrubuido composto por multiplos servidores PostgreSQL físicos  e tabelas fragmentadas.
+Tabelas imensas tem um grande potencial para inchaço, tanto da baixa sensibilidade do fator de escala do VACUUM e geralmente devido a extensas rotatividades de registros. Divindido horizontalmente grandes tabelas em pequenas tabelas pode ser útil, especialmente se há um grande numero de workers do Autovacuum uma vez que cada workers pode executar uma tabela por vez. Mesmo assim, executar mais workers exigem maiores usos do `maintenance_work_mem`. Uma solução  que, divide grandes tabelas e aumenta a capacidade de executar workers do Autovacuum é utilizar um banco de dados distrubuido composto por multiplos servidores PostgreSQL físicos  e tabelas fragmentadas.
 
 Não são apenas consultas de usuário que podem escalar num banco de dados distribuido, o VACUUM também. Pra ser justo, se as consultas estão escalando normalmente numa simples instância PostgreSQL e o único problema é o inchaço, mudar para um sistema distribuído é um exagero; Há outras maneiras de corrigir agressivamente o inchaço agúdo. No entanto, ter mais poder pra executar o VACUUM é um efeito colateral agradável em distribuir o banco de dados. É ainda mais fácil do que nunca distribuir um banco de dados PostgreSQL utilizando ferramentas de código aberto como a [Citus Community Edition](https://github.com/citusdata/citus).
 
-Outra alternativa é dar um passo a frente e esquecer das configurações do AutoVACUUM e utilizar um cluster PostgreSQL gerenciado como o [Citus Cloud](https://www.citusdata.com/product/cloud).
+Outra alternativa é dar um passo a frente e esquecer das configurações do Autovacuum e utilizar um cluster PostgreSQL gerenciado como o [Citus Cloud](https://www.citusdata.com/product/cloud).
