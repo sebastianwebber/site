@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "O Autovacuum do PostgreSQL não é o inimigo!"
-date: "2016-11-07T00:10:41-02:00"
+date: "2016-11-14T14:10:41-02:00"
 
 Categories:
  - PostgreSQL
@@ -22,9 +22,9 @@ Tags:
 >
 > Fique a vontade para comentar quaisquer problemas na tradução.
 
-É um equívoco comum que workloads com grandes volumes de leituras e escritas no PostgreSQL inevitavelmente causam ineficiencia no banco de dados. Nós ouvimos casos aonde os usuários encontram lentidões fazendo apenas algumas centenas de gravações por segundo e recorrem a sistemas como Dynamo ou Cassandra por frustração. No entanto, o PostgreSQL pode lidar com essas cargas de trabalho sem um problema, desde que esteja configurado corretamente.
+É um equívoco comum que workloads com grandes volumes de leituras e escritas no PostgreSQL inevitavelmente causam ineficiencia no banco de dados. Nós ouvimos casos aonde os usuários encontram lentidões fazendo apenas algumas centenas de gravações por segundo e recorrem a sistemas como Dynamo ou Cassandra por frustração. No entanto, o PostgreSQL pode lidar com essas cargas de trabalho sem nenhum problema, desde que ele esteja configurado corretamente.
 
-O problema deriva do que é conhecido como "inchaço", um fenômeno do PostgreSQL e de outros bancos de dados MVCC que causa o aumento do espaço em disco e uma baixa no desempenho. Vamos ver como o autovacuum, uma ferramenta que combate o inchaço, é tipicamente incompreendida e mal configurada. Ao falar num baixo nível sobre os componentes internos do PostgreSQL vamos chegar numa melhor configuração para o autovacuum. Finalmente vamos considerar como distribuir os dados sob um cluster PostgreSQL como o Citus também pode combater o inchaço. 
+O problema deriva do que é conhecido como "inchaço", um fenômeno do PostgreSQL e de outros bancos de dados MVCC que causa o aumento do espaço em disco e uma baixa no desempenho. Vamos ver como o AutoVACUUM, uma ferramenta que combate o inchaço, é tipicamente incompreendida e mal configurada. Ao falar num baixo nível sobre os componentes internos do PostgreSQL vamos chegar numa melhor configuração para o AutoVACUUM. Finalmente vamos considerar como distribuir os dados sob um cluster PostgreSQL como o Citus também pode combater o inchaço. 
 
 
 ## Problemas no paraíso do MVCC
@@ -220,3 +220,19 @@ Aqui há ajustes sensíveis ao AutoVACUUM. Eles não vão funcionar para todos o
         </tr>
 	</tbody>
 </table>
+
+
+## Fique de olho
+
+Após ajustar as configurações do AutoVACUUM, você deve esperar e observar como o banco de dados responde. De fato, você pode querer observar o banco de dados durante um tempo _antes_ de ajustar as configurações pra evitar qualquer otimização prematura. Você deve procurar pela taxa de variação ou pela porcentagem de inchaço nas tabelas e índices.
+
+Utilize esses scripts pra coletar métricas: [pgexperts/pgx_scripts](https://github.com/pgexperts/pgx_scripts/tree/master/bloat). Execute-os na cron job para acompanhar seu progresso semana à semana.
+
+
+## Divida o trabalho
+
+Tabelas imensas tem um grande potencial para inchaço, tanto da baixa sensibilidade do fator de escala do VACUUM e geralmente devido a extensas rotatividades de registros. Divindido horizontalmente grandes tabelas em pequenas tabelas pode ser útil, especialmente se há um grande numero de workers do AutoVACUUM uma vez que cada workers pode executar uma tabela por vez. Mesmo assim, executar mais workers exigem maiores usos do `maintenance_work_mem`. Uma solução  que, divide grandes tabelas e aumenta a capacidade de executar workers do AutoVACUUM é utilizar um banco de dados distrubuido composto por multiplos servidores PostgreSQL físicos  e tabelas fragmentadas.
+
+Não são apenas consultas de usuário que podem escalar num banco de dados distribuido, o VACUUM também. Pra ser justo, se as consultas estão escalando normalmente numa simples instância PostgreSQL e o único problema é o inchaço, mudar para um sistema distribuído é um exagero; Há outras maneiras de corrigir agressivamente o inchaço agúdo. No entanto, ter mais poder pra executar o VACUUM é um efeito colateral agradável em distribuir o banco de dados. É ainda mais fácil do que nunca distribuir um banco de dados PostgreSQL utilizando ferramentas de código aberto como a [Citus Community Edition](https://github.com/citusdata/citus).
+
+Outra alternativa é dar um passo a frente e esquecer das configurações do AutoVACUUM e utilizar um cluster PostgreSQL gerenciado como o [Citus Cloud](https://www.citusdata.com/product/cloud).
