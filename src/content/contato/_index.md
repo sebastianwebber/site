@@ -5,4 +5,6 @@
 
 # Contato comercial
 
-Contatos comerciais podem ser feitos através da timbira, no endereço [http://timbira.com.br](http://timbira.com.br).
+Precisando duma ajuda pra fazer andar aquele projeto importante? Me chama pra trocarmos uma idéia!
+
+Contatos comerciais podem ser feitos através da timbira, no endereço [http://timbira.com.br](http://timbira.com.br) ou pelo email [sebastian@timbira.com.br](mailto:sebastian@timbira.com.br).
