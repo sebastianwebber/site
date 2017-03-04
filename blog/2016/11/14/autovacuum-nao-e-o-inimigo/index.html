@@ -71,12 +71,14 @@
 	<div class="container">
 		<div class="nav-left">
 			<a href="/" class="nav-item is-tab ">Home</a>
-			<a href="/blog" class="nav-item is-tab is-active">Blog do Seba</a>
+			<a href="/blog" class="nav-item is-tab is-active">Blog</a>
 			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="https://www.youtube.com/channel/UCUDrutZQt_e4o5i5PC5h2HQ" target="_blank" class="nav-item is-tab">PGCasts</a>
 			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
 		</div>
 	</div>
 </nav>
+
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title is-1">
@@ -88,12 +90,13 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
-	<div class="container">
-		<h1 class="title is-2"><a href="http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/">O Autovacuum do PostgreSQL não é o inimigo! </a> </h1>
-		<h2 class="subtitle is-4">Nov 14, 2016
-		</h2>
- 
+    <div class="container">
+        <h1 class="title is-2"><a href="http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/">O Autovacuum do PostgreSQL não é o inimigo! </a> </h1>
+        <h2 class="subtitle is-4">Nov 14, 2016
+        </h2>
+         
 
 <h5> 2500 Words. Read in about 12 Min.</h5>
 <h5>Categories: 
@@ -107,8 +110,23 @@
     <a href="http://swebber.me//tags/bloat"><span class="tag is-medium">Bloat</span></a> </h5>
 
 <hr/>
-			<div class="content is-medium">
-		
+        <div class="content is-medium">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#problemas-no-paraíso-do-mvcc">Problemas no paraíso do MVCC</a></li>
+<li><a href="#a-magreza-no-inchaço">A magreza no inchaço</a></li>
+<li><a href="#o-inchaço-e-a-velocidade-das-consultas">O inchaço e a velocidade das consultas</a></li>
+<li><a href="#ajustando-o-autovacuum">Ajustando o Autovacuum</a></li>
+<li><a href="#fique-de-olho">Fique de olho</a></li>
+<li><a href="#divida-o-trabalho">Divida o trabalho</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div class="content is-medium">
+            
 
 <blockquote>
 <p><strong>ATENÇÃO!</strong> Este post é uma tradução para Português do Brasil do <a href="https://www.citusdata.com">blog da citusdata</a>, escrito pelo Sr. Joe Nelson. O post original pode ser encontrado na URL abaixo:</p>
@@ -321,8 +339,8 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page('foo', 0));
 
 <p>Outra alternativa é dar um passo a frente e esquecer das configurações do Autovacuum e utilizar um cluster PostgreSQL gerenciado como o <a href="https://www.citusdata.com/product/cloud">Citus Cloud</a>.</p>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
 </section>
 <footer class="footer">
@@ -344,8 +362,7 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page('foo', 0));
 			</p>
 		</div>
 	</div>
-</footer>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+</footer> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 </body>

@@ -69,12 +69,14 @@
 	<div class="container">
 		<div class="nav-left">
 			<a href="/" class="nav-item is-tab ">Home</a>
-			<a href="/blog" class="nav-item is-tab is-active">Blog do Seba</a>
+			<a href="/blog" class="nav-item is-tab is-active">Blog</a>
 			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="https://www.youtube.com/channel/UCUDrutZQt_e4o5i5PC5h2HQ" target="_blank" class="nav-item is-tab">PGCasts</a>
 			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
 		</div>
 	</div>
 </nav>
+
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title is-1">
@@ -86,12 +88,13 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
-	<div class="container">
-		<h1 class="title is-2"><a href="http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/">Primeiras impressões do xDB Replication Server </a> </h1>
-		<h2 class="subtitle is-4">Jan 8, 2013
-		</h2>
- 
+    <div class="container">
+        <h1 class="title is-2"><a href="http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/">Primeiras impressões do xDB Replication Server </a> </h1>
+        <h2 class="subtitle is-4">Jan 8, 2013
+        </h2>
+         
 
 <h5> 1000 Words. Read in about 5 Min.</h5>
 <h5>Categories: 
@@ -103,8 +106,34 @@
     <a href="http://swebber.me//tags/xdb-replication-server"><span class="tag is-medium">xDB Replication Server</span></a> </h5>
 
 <hr/>
-			<div class="content is-medium">
-		
+        <div class="content is-medium">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ambiente-de-testes">Ambiente de testes</a>
+<ul>
+<li><a href="#banco-master-oracle">Banco Master – Oracle</a></li>
+<li><a href="#banco-slave-postgresql">Banco Slave – PostgreSQL</a></li>
+</ul></li>
+<li><a href="#observações">Observações</a></li>
+<li><a href="#na-prática">Na prática</a></li>
+<li><a href="#conclusões">Conclusões</a>
+<ul>
+<li><a href="#o-que-ele-faz">O que ele faz</a></li>
+<li><a href="#o-que-ele-não-faz">O que ele não faz</a></li>
+<li><a href="#pontos-positivos">Pontos positivos</a></li>
+<li><a href="#pontos-negativos">Pontos negativos</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div class="content is-medium">
+            
 
 <p>O <a href="http://www.enterprisedb.com/products-services-training/products-overview/xdb-replication-server-multi-master">xDB Replication Server</a> é o produto da <a href="http://www.enterprisedb.com">EnterpriseDB</a> que permite replicação assincrona tanto Single-Master (ou Master/Slave) quanto Multi-Master para banco de dados PostgreSQL/PostgreSQL Plus. O produto tem um funcionamento bem similar a replicação através de <a href="http://msdn.microsoft.com/en-us/library/ms152567.aspx">publicação do SQL Server</a>.</p>
 
@@ -237,8 +266,8 @@ ORA-06512: em “HR.RRPI_HR_TABELA_TESTE”, line 2
 
 <p>Em especial, obrigado ao <a href="http://helkmut.blogspot.com.br">Gabriel</a>, pela ajuda com a integração com o Oracle.</p>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
 </section>
 <footer class="footer">
@@ -260,8 +289,7 @@ ORA-06512: em “HR.RRPI_HR_TABELA_TESTE”, line 2
 			</p>
 		</div>
 	</div>
-</footer>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+</footer> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 </body>

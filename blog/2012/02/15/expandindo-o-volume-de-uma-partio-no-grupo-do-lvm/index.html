@@ -69,12 +69,14 @@
 	<div class="container">
 		<div class="nav-left">
 			<a href="/" class="nav-item is-tab ">Home</a>
-			<a href="/blog" class="nav-item is-tab is-active">Blog do Seba</a>
+			<a href="/blog" class="nav-item is-tab is-active">Blog</a>
 			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="https://www.youtube.com/channel/UCUDrutZQt_e4o5i5PC5h2HQ" target="_blank" class="nav-item is-tab">PGCasts</a>
 			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
 		</div>
 	</div>
 </nav>
+
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title is-1">
@@ -86,12 +88,13 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
-	<div class="container">
-		<h1 class="title is-2"><a href="http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/">Expandindo o volume de uma partição no Grupo do LVM </a> </h1>
-		<h2 class="subtitle is-4">Feb 15, 2012
-		</h2>
- 
+    <div class="container">
+        <h1 class="title is-2"><a href="http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/">Expandindo o volume de uma partição no Grupo do LVM </a> </h1>
+        <h2 class="subtitle is-4">Feb 15, 2012
+        </h2>
+         
 
 <h5> 400 Words. Read in about 2 Min.</h5>
 <h5>Categories: 
@@ -103,8 +106,29 @@
     <a href="http://swebber.me//tags/rhel"><span class="tag is-medium">rhel</span></a> </h5>
 
 <hr/>
-			<div class="content is-medium">
-		
+        <div class="content is-medium">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#crie-a-partição-disponível">Crie a partição disponível</a></li>
+<li><a href="#crie-o-novo-volume">Crie o novo volume</a></li>
+<li><a href="#adicione-o-novo-volume-no-grupo-existente">Adicione o novo volume no grupo existente</a></li>
+</ul></li>
+<li><a href="#redimensione-o-grupo-existente">Redimensione o grupo existente</a>
+<ul>
+<li><a href="#liste-o-grupo-atual">Liste o grupo atual</a></li>
+<li><a href="#aumente-o-volume">Aumente o volume</a></li>
+<li><a href="#aumente-a-partição-no-sistema-de-arquivos">Aumente a partição no sistema de arquivos</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div class="content is-medium">
+            
 
 <blockquote>
 <p>No exemplo desse post, o servidor foi instalado com um disco de 15gb, porém o disco foi expandido para 60gb.  O disco utilizado é o ‘/dev/xvda’.  É possível que adicionando o disco a operação seja semelhante.</p>
@@ -218,8 +242,8 @@ The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
 <li><a href="http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group">http://www.howtoforge.com/logical-volume-manager-how-can-i-extend-a-volume-group</a></li>
 </ul>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
 </section>
 <footer class="footer">
@@ -241,8 +265,7 @@ The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
 			</p>
 		</div>
 	</div>
-</footer>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+</footer> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 </body>

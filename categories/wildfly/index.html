@@ -64,12 +64,14 @@
 	<div class="container">
 		<div class="nav-left">
 			<a href="/" class="nav-item is-tab ">Home</a>
-			<a href="/blog" class="nav-item is-tab ">Blog do Seba</a>
+			<a href="/blog" class="nav-item is-tab ">Blog</a>
 			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="https://www.youtube.com/channel/UCUDrutZQt_e4o5i5PC5h2HQ" target="_blank" class="nav-item is-tab">PGCasts</a>
 			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
 		</div>
 	</div>
 </nav>
+
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title is-1">
@@ -81,6 +83,7 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
 	<div class="container">
 		<div class="content is-medium">

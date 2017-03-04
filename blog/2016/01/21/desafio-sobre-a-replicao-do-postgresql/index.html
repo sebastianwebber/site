@@ -69,12 +69,14 @@
 	<div class="container">
 		<div class="nav-left">
 			<a href="/" class="nav-item is-tab ">Home</a>
-			<a href="/blog" class="nav-item is-tab is-active">Blog do Seba</a>
+			<a href="/blog" class="nav-item is-tab is-active">Blog</a>
 			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="https://www.youtube.com/channel/UCUDrutZQt_e4o5i5PC5h2HQ" target="_blank" class="nav-item is-tab">PGCasts</a>
 			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
 		</div>
 	</div>
 </nav>
+
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title is-1">
@@ -86,12 +88,13 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
-	<div class="container">
-		<h1 class="title is-2"><a href="http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/">Desafio sobre a replicação do PostgreSQL! </a> </h1>
-		<h2 class="subtitle is-4">Jan 21, 2016
-		</h2>
- 
+    <div class="container">
+        <h1 class="title is-2"><a href="http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/">Desafio sobre a replicação do PostgreSQL! </a> </h1>
+        <h2 class="subtitle is-4">Jan 21, 2016
+        </h2>
+         
 
 <h5> 300 Words. Read in about 2 Min.</h5>
 <h5>Categories: 
@@ -102,8 +105,23 @@
     <a href="http://swebber.me//tags/postgresql"><span class="tag is-medium">PostgreSQL</span></a> </h5>
 
 <hr/>
-			<div class="content is-medium">
-		
+        <div class="content is-medium">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#a-proposta">A proposta</a></li>
+<li><a href="#sobre-o-ambiente-de-testes">Sobre o ambiente de testes</a>
+<ul>
+<li><a href="#quanto-a-máquina-virtual-dos-testes">Quanto a máquina virtual dos testes</a></li>
+<li><a href="#quanto-a-base-de-dados">Quanto a base de dados</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div class="content is-medium">
+            
 
 <p>Esse ano, <a href="http://savepoint.blog.br/10-anos-de-pgbr/">segundo fontes confiáveis</a>, é aniversário da Comunidade Brasileira de PostgreSQL. E pra fazer a minha parte (e tirar a poeira do blog) eu lanço um desafio público: falar sobre a replicação do PostgreSQL. E isso não é pouca coisa!</p>
 
@@ -194,8 +212,8 @@ vacuumdb -U postgres -d imdb -z
 
 <p>E aí, vai encarar?</p>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
 </section>
 <footer class="footer">
@@ -217,8 +235,7 @@ vacuumdb -U postgres -d imdb -z
 			</p>
 		</div>
 	</div>
-</footer>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+</footer> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 </body>

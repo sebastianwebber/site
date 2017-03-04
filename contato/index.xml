@@ -1,33 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Contato-rsses on SWebber IT Services</title>
+    <title>SWebber IT Services</title>
     <link>http://swebber.me/contato/index.xml</link>
-    <description>Recent content in Contato-rsses on SWebber IT Services</description>
+    <description>Recent content on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="http://swebber.me/contato/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title></title>
-      <link>http://swebber.me/contato/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://swebber.me/contato/</guid>
-      <description>
-
-&lt;h1 id=&#34;mídias-sociais&#34;&gt;Mídias sociais&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Twitter: &lt;a href=&#34;https://twitter.com/sebastian_swc&#34;&gt;@sebastian_swc&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Instagram: &lt;a href=&#34;https://www.instagram.com/_sebastianwebber/&#34;&gt;_sebastianwebber&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;contato-comercial&#34;&gt;Contato comercial&lt;/h1&gt;
-
-&lt;p&gt;Contatos comerciais podem ser feitos através do email &lt;a href=&#34;mailto:sebastian@swebber.me&#34;&gt;sebastian@swebber.me&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
     
   </channel>
 </rss>

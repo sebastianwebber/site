@@ -64,12 +64,14 @@
 	<div class="container">
 		<div class="nav-left">
 			<a href="/" class="nav-item is-tab ">Home</a>
-			<a href="/blog" class="nav-item is-tab is-active">Blog do Seba</a>
+			<a href="/blog" class="nav-item is-tab is-active">Blog</a>
 			<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
+			<a href="https://www.youtube.com/channel/UCUDrutZQt_e4o5i5PC5h2HQ" target="_blank" class="nav-item is-tab">PGCasts</a>
 			<a href="/contato" class="nav-item is-tab ">Entre em contato</a>
 		</div>
 	</div>
 </nav>
+
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title is-1">
@@ -81,12 +83,13 @@
 		</div>
 	</div>
 </section>
+
 <section class="section">
-	<div class="container">
-		<h1 class="title is-2"><a href="http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/">Replicação lógica com o Londiste </a> </h1>
-		<h2 class="subtitle is-4">Apr 18, 2014
-		</h2>
- 
+    <div class="container">
+        <h1 class="title is-2"><a href="http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/">Replicação lógica com o Londiste </a> </h1>
+        <h2 class="subtitle is-4">Apr 18, 2014
+        </h2>
+         
 
 <h5> 1300 Words. Read in about 6 Min.</h5>
 <h5>Categories: 
@@ -95,8 +98,41 @@
 <h5>Tags: </h5>
 
 <hr/>
-			<div class="content is-medium">
-		
+        <div class="content is-medium">
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#sobre-o-ambiente-de-testes">Sobre o ambiente de testes</a></li>
+<li><a href="#instalação-do-postgresql">Instalação do PostgreSQL</a>
+<ul>
+<li><a href="#ajustes-no-firewall">Ajustes no firewall</a></li>
+<li><a href="#ajustes-no-postgresql-conf">Ajustes no postgresql.conf</a></li>
+<li><a href="#ajustes-na-configuração-do-pg-hba-conf">Ajustes na configuração do pg_hba.conf</a></li>
+</ul></li>
+<li><a href="#sobre-o-londiste">Sobre o Londiste</a></li>
+<li><a href="#instalação-do-londiste">Instalação do Londiste</a></li>
+<li><a href="#configuração-do-londiste">Configuração do londiste</a>
+<ul>
+<li><a href="#servidor-master">Servidor master</a>
+<ul>
+<li><a href="#configure-o-daemon-do-pgq">Configure o daemon do PgQ</a></li>
+</ul></li>
+<li><a href="#servidor-slave">Servidor slave</a></li>
+</ul></li>
+<li><a href="#criando-a-carga-de-dados-no-servidor-master">Criando a carga de dados no servidor master</a></li>
+<li><a href="#adicione-as-tabelas-a-serem-replicadas">Adicione as tabelas a serem replicadas</a>
+<ul>
+<li><a href="#no-servidor-master">No servidor master</a></li>
+<li><a href="#no-servidor-slave">No servidor slave</a></li>
+</ul></li>
+<li><a href="#testando-a-replicação">Testando a replicação</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        <div class="content is-medium">
+            
 
 <p>O objetivo desse post é implementar o londiste, que é uma ferramenta de replicação assincrona do tipo master/slave e faz parte do pacote de ferramentas SkyTools.</p>
 
@@ -478,8 +514,8 @@ ERROR:  Table 'public.pessoa' to queue 'q_teste_replica': change not allowed (D)
 <li><a href="http://dba.stackexchange.com/questions/1742/how-to-insert-file-data-into-a-postgresql-bytea-column">http://dba.stackexchange.com/questions/1742/how-to-insert-file-data-into-a-postgresql-bytea-column</a></li>
 </ul>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
 </section>
 <footer class="footer">
@@ -501,8 +537,7 @@ ERROR:  Table 'public.pessoa' to queue 'q_teste_replica': change not allowed (D)
 			</p>
 		</div>
 	</div>
-</footer>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+</footer> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 </body>

@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://swebber.me/</loc>
-    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</loc>
     <lastmod>2016-11-14T14:10:41-02:00</lastmod>
   </url>
@@ -178,6 +173,556 @@
   
   <url>
     <loc>http://swebber.me/contato/</loc>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/api/</loc>
+    <lastmod>2016-11-05T16:37:32-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/asm/</loc>
+    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/asm/</loc>
+    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/autovacuum/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/backup/</loc>
+    <lastmod>2016-02-15T16:54:52-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/bash/</loc>
+    <lastmod>2014-07-17T14:14:52-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/basics/</loc>
+    <lastmod>2014-04-24T18:34:52-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/bloat/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/blog/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/certification/</loc>
+    <lastmod>2013-09-09T00:40:10-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/charset/</loc>
+    <lastmod>2013-05-16T19:46:53-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/checklist/</loc>
+    <lastmod>2016-02-15T16:54:52-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/citrix/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/citrix/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/citusdata/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/compilar/</loc>
+    <lastmod>2010-07-14T02:13:35-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/compilation/</loc>
+    <lastmod>2014-04-24T18:34:52-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/conversion/</loc>
+    <lastmod>2014-10-22T22:13:48-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/csv/</loc>
+    <lastmod>2010-08-14T17:32:36-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/curl/</loc>
+    <lastmod>2016-11-05T16:37:32-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/data-pump/</loc>
+    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/database/</loc>
+    <lastmod>2016-02-15T16:54:52-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/docker/</loc>
+    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/docker/</loc>
+    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/encoding/</loc>
+    <lastmod>2013-05-16T19:46:53-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/enterprisedb/</loc>
+    <lastmod>2013-01-08T19:27:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/environment/</loc>
+    <lastmod>2012-04-21T16:18:57-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/erros-oracle/</loc>
+    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/expdp/</loc>
+    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/fedora/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/fedora-16/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/get-started/</loc>
+    <lastmod>2012-04-21T16:18:57-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/gist/</loc>
+    <lastmod>2014-10-30T23:23:08-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/ha/</loc>
+    <lastmod>2016-02-15T16:54:52-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/hugo/</loc>
+    <lastmod>2016-11-03T17:06:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/hugo/</loc>
+    <lastmod>2016-11-03T17:06:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/impdp/</loc>
+    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/init/index.d/</loc>
+    <lastmod>2014-10-30T23:23:08-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/java/</loc>
+    <lastmod>2014-05-05T09:49:11-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/jboss/</loc>
+    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/jboss/</loc>
+    <lastmod>2014-10-30T23:23:08-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/linux/</loc>
+    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/linux/</loc>
+    <lastmod>2014-10-22T22:13:48-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/locale/</loc>
+    <lastmod>2013-05-16T19:46:53-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/log/</loc>
+    <lastmod>2010-08-14T17:32:36-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/logrotate/</loc>
+    <lastmod>2013-11-04T00:58:11-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/londiste/</loc>
+    <lastmod>2014-04-25T14:33:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/lvm/</loc>
+    <lastmod>2012-02-15T18:53:16-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/metaframe/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/migration/</loc>
+    <lastmod>2016-11-03T17:06:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/octopress/</loc>
+    <lastmod>2016-11-03T17:06:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/oracle/</loc>
+    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/oracle/</loc>
+    <lastmod>2013-01-08T19:27:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/oracle-asm/</loc>
+    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/outros/</loc>
+    <lastmod>2015-08-28T03:28:48-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/pgagent/</loc>
+    <lastmod>2012-12-10T19:25:49-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/pgbadger/</loc>
+    <lastmod>2013-11-04T00:58:11-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/pgconfig/</loc>
+    <lastmod>2016-11-05T16:37:32-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/pnscan/</loc>
+    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/postgresql/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/postgresql/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/rapidinhas/</loc>
+    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/receiver/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/redhat/</loc>
+    <lastmod>2013-09-09T00:40:10-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/regex/</loc>
+    <lastmod>2014-07-17T14:14:52-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/replication/</loc>
+    <lastmod>2016-01-21T20:05:03-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/rest/</loc>
+    <lastmod>2016-11-05T16:37:32-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/rhcja/</loc>
+    <lastmod>2013-09-09T00:40:10-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/rhel/</loc>
+    <lastmod>2012-04-21T16:18:57-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/rhel/</loc>
+    <lastmod>2014-05-05T09:49:11-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/script/</loc>
+    <lastmod>2012-07-04T18:00:40-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/sorting/</loc>
+    <lastmod>2013-05-16T19:46:53-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/source/</loc>
+    <lastmod>2010-07-14T02:13:35-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/sql/</loc>
+    <lastmod>2013-01-22T19:43:26-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/startup/</loc>
+    <lastmod>2014-10-30T23:23:08-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/syslog/</loc>
+    <lastmod>2013-11-04T00:58:11-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/system-v/</loc>
+    <lastmod>2014-10-30T23:23:08-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/tips/</loc>
+    <lastmod>2016-11-05T16:37:32-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/translations/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/vacuum/</loc>
+    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/virtual-machine/</loc>
+    <lastmod>2014-10-22T22:13:48-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/vmware/</loc>
+    <lastmod>2014-10-22T22:13:48-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/vmware-fusion/</loc>
+    <lastmod>2014-10-22T22:13:48-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/vulnerabilidade/</loc>
+    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/wildfly/</loc>
+    <lastmod>2014-07-17T14:14:52-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/wildfly/</loc>
+    <lastmod>2012-07-04T18:00:40-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/worm/</loc>
+    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/xdb-replication-server/</loc>
+    <lastmod>2013-01-08T19:27:58-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/xenapp/</loc>
+    <lastmod>2011-10-24T17:22:40-03:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
