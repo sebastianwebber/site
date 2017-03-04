@@ -322,3 +322,7 @@ pre code {
 .css .o + .nt,
 .css .nt + .nt {
   color: #999; }
+
+.all-white {
+  color: #fff;
+}

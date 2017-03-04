@@ -5,12 +5,41 @@
 		{{ partial "top-menu.html" . }}
 		<div class="hero-body">
 			<div class="container">
-				<h1 class="title is-1">
-					{{ .Site.Params.blog_title }}
-				</h1>
-				<h2 class="subtitle">
-					{{ .Site.Params.blog_description | markdownify }}
-				</h2>
+
+				<div class="columns">
+					<div class="column">
+						<div class="box">
+							<figure class="image is-1by1">
+								<img src="/media/eu.jpg">
+							</figure>
+						</div>
+					</div>
+					<div class="column">
+						<h1 class="title is-1">
+								{{ .Site.Params.blog_author }}
+							</h1>
+						<h2 class="subtitle">
+								{{ .Site.Params.blog_description | markdownify }}
+							</h2>
+						<div class="content is-medium all-white">
+							<p>
+								Sou um consultor de TI facinado por tecnologia. Tenho um carinho especial pelo banco de dados PostgreSQL, que trabalho desde 2006. Desse meio tempo pra cá participei de diversos projetos, envolvendo banco de dados e soluções de middleware da RedHat, virtualização
+								e a tão famosa Cloud.
+							</p>
+							<p>
+							</p>
+							Uso esse blog para deixar umas idéias sobre algum projeto que tenha trabalhado ou algum tema que me chamou a atenção.
+							<p>
+							<p>
+								Deixando a tecnologia de lado eu gosto muito de cozinhar. Você pode ver minhas ‘gordices’ no instagram.
+							</p>
+							<p>
+								Já disse que pratico Ninjutsu?
+							</p>
+							<p>Um abraço!</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
