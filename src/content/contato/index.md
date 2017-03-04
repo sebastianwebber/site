@@ -5,4 +5,4 @@
 
 # Contato comercial
 
-Contatos comerciais podem ser feitos através do email [sebastian@swebber.me](mailto:sebastian@swebber.me).
+Contatos comerciais podem ser feitos através da timbira, no endereço [http://timbira.com.br](http://timbira.com.br).

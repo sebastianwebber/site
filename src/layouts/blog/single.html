@@ -1,15 +1,17 @@
 {{ partial "header.html" . }} {{ partial "blog-banner.html" . }}
 <section class="section">
-	<div class="container">
-		<h1 class="title is-2"><a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a> </h1>
-		<h2 class="subtitle is-4">{{ .Date.Format "Jan 2, 2006" }}
-		</h2>
-{{ partial "details.html" . }}
-			<div class="content is-medium">
-		{{ .Content }}
-		</div>
-	</div>
+    <div class="container">
+        <h1 class="title is-2"><a href="{{ .Permalink }}">{{ .Title }} {{ if .Draft }}:: DRAFT{{end}}</a> </h1>
+        <h2 class="subtitle is-4">{{ .Date.Format "Jan 2, 2006" }}
+        </h2>
+        {{ partial "details.html" . }}
+        <div class="content is-medium">
+            {{ .TableOfContents }}
+        </div>
+        <div class="content is-medium">
+            {{ .Content }}
+        </div>
+    </div>
 
 </section>
-{{ partial "blog-footer.html" . }}
-{{ partial "footer.html" . }}
+{{ partial "blog-footer.html" . }} {{ partial "footer.html" . }}
