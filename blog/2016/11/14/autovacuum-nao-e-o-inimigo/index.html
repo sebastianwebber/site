@@ -326,6 +326,22 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page('foo', 0));
 
 <p>Outra alternativa é dar um passo a frente e esquecer das configurações do Autovacuum e utilizar um cluster PostgreSQL gerenciado como o <a href="https://www.citusdata.com/product/cloud">Citus Cloud</a>.</p>
 
+            <h2>Comentários</h2>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'swebber';
+    var disqus_identifier = 'http:\/\/swebber.me\/blog\/2016\/11\/14\/autovacuum-nao-e-o-inimigo\/';
+    var disqus_title = 'O Autovacuum do PostgreSQL não é o inimigo!';
+    var disqus_url = 'http:\/\/swebber.me\/blog\/2016\/11\/14\/autovacuum-nao-e-o-inimigo\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         </div>
     </div>
 
