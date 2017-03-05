@@ -5,11 +5,14 @@
 
 // $primary: $yellow
 //
-// // $family-primary: $family-monospace;
-// // $primary: $blue
+// $headers-family: 'Fjalla One',serif
+$family-primary: 'Open Sans',sans-serif
 $link: $grey-darker
 $link-visited: $link
 $link-hover: $black-bis
+
+// $background: $grey-light
+
 // $link-hover-border: $primary
 // $link-focus-border: $primary
 // $link-active: $primary
@@ -19,4 +22,33 @@ $link-hover: $black-bis
 // $link-focus: $link
 // $link-active: $link
 
+$size-normal: $size-5
+
 @import "bulma"
+
+.content
+  p
+    text-align: justify
+
+#list
+  list-style: none
+
+#list
+  li
+    vertical-align: top
+    border-bottom: 1px solid $grey-lighter
+    margin-bottom: .5em
+    display: table
+    width: 100%
+    padding: 0 0
+
+#list
+  li
+    a
+      display: table-cell
+
+#list
+  li
+    .meta
+      display: table-cell
+      text-align: right
