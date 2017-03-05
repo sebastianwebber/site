@@ -42,7 +42,7 @@ gulp.task('sass', function () {
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./src/static/css/'));
 });
- 
+
 gulp.task('sass:watch', function () {
   gulp.watch('./sass/**/*.scss', ['sass']);
 });
@@ -50,6 +50,7 @@ gulp.task('sass:watch', function () {
 
 gulp.task('deploy', [
     'clean:dist',
+    'sass',
     'hugo',
     'ghpages'
 ]);

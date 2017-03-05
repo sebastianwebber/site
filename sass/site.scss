@@ -188,3 +188,21 @@ pre code {
 .css .o,
 .css .o + .nt,
 .css .nt + .nt { color: #999; }
+
+.all-white {
+  color: #fff;
+}
+.all-white a,
+.all-white a:link,
+.all-white a:visited,
+.all-white a:focus {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+}
+.all-white a:hover,
+.all-white a:visited:hover,
+.all-white a:active {
+  border-bottom: 1px solid #fff;
+}
