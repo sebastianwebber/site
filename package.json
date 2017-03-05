@@ -11,6 +11,7 @@
   "license": "BSD-3-Clause",
   "homepage": "http://swebber.me",
   "devDependencies": {
+    "bulma": "^0.3.2",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-gh-pages": "^0.5.4",
