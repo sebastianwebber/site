@@ -7,6 +7,7 @@ var exec = require('child_process').execSync;
 var path = require('path');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
+var cleanCSS = require('gulp-clean-css');
 
 
 // Based on: https://github.com/jbrodriguez/hugulp/blob/master/gulp/hugo.js
@@ -50,6 +51,7 @@ gulp.task('sass', function () {
       )
       .on('error', sass.logError)
     )
+    .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('./src/static/css/'));
 });
 

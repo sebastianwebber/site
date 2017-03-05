@@ -14,6 +14,7 @@
     "bulma": "^0.3.2",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.3",
     "gulp-gh-pages": "^0.5.4",
     "gulp-sass": "^2.3.2",
     "is-dotfile": "^1.0.2"
