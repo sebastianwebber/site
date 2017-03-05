@@ -12,6 +12,12 @@ canonifyurls: false
 permalinks:
     blog: "/blog/:year/:month/:day/:filename/"
 
+languageCode: "en-us"
+copyright: "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+
+author:
+    name: "Sebastian Webber"
+    email: "sebastian@swebber.me"
 
 params:
     blog_description: "**DBA**, Consultor, Instrutor, [aprendiz de] **Ninja** e **metido a Chef** nas horas vagas!"
