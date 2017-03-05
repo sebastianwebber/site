@@ -13,7 +13,7 @@
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="{{ .Description }}"/>
 <meta property="og:title" content="swebber.me: {{ .Title }}"/>
-<meta property="og:site_name" content="SWebber IT Services"/>
+<meta property="og:site_name" content="{{ .Title }}"/>
 <meta property="og:image" content="" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="" />
@@ -35,10 +35,9 @@
 <!--Twitter Cards-->
 <meta name="twitter:card" content="summary">
 <!--<meta name="twitter:card" content="summary_large_image">-->
-<meta name="twitter:site" content="@sebastian_swc">
+<meta name="twitter:site" content="{{ $.Site.Author.name }}">
 <meta name="twitter:title" content="swebber.me: {{ .Title }}">
-<meta name="twitter:creator" content="@sebastian_swc">
+<meta name="twitter:creator" content="{{ .Site.Params.blog_author }}">
 <meta name="twitter:description" content="{{ .Description }}">
 <meta name="twitter:image:src" content="">
 <meta name="twitter:domain" content="swebber.me">
-

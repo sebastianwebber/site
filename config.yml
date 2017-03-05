@@ -21,8 +21,8 @@ author:
 
 params:
     blog_description: "**DBA**, Consultor, Instrutor, [aprendiz de] **Ninja** e **metido a Chef** nas horas vagas!"
-    blog_title: title
-    blog_author: author.name
+    blog_title: "Blog do Seba"
+    blog_author: "Sebastian Webber"
     github_user: "sebastianwebber"
     twitter_user: "sebastian_swc"
     instagram_user: "_sebastianwebber"
