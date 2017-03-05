@@ -7,6 +7,8 @@
         {{ partial "details.html" . }}
         <div class="content is-medium">
             {{ .Content }}
+            <h2>Comentários</h2>
+            {{ template "_internal/disqus.html" . }}
         </div>
     </div>
 

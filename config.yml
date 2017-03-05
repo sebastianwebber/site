@@ -8,6 +8,7 @@ publishdir: "dist"
 staticdir: "src/static"
 themesdir: "src/themes"
 canonifyurls: false
+disqusShortname: "swebber"
 
 permalinks:
     blog: "/blog/:year/:month/:day/:filename/"
