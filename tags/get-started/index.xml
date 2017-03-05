@@ -6,13 +6,16 @@
     <description>Recent content in Get Started on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/get-started/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Criando o ambiente inicial para a instalação do Oracle 11gR2 no RHEL 5</title>
       <link>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</link>
       <pubDate>Sat, 21 Apr 2012 16:18:57 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</guid>
       <description>&lt;p&gt;Após a instalação do RHEL e os devidos updates, crie os respectivos usuários e grupos:&lt;/p&gt;
 

@@ -6,13 +6,16 @@
     <description>Recent content in Outros on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/outros/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Deu trabalho! mas agora o blog usa o octopress 3.0</title>
       <link>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</link>
       <pubDate>Fri, 28 Aug 2015 03:28:48 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</guid>
       <description>&lt;p&gt;Depois de apanhar, desistir, insistir e jogar tudo pra cima. Blog está sendo migrado pra usar o octopress 3.0.&lt;/p&gt;
 
@@ -30,7 +33,7 @@
       <title>Casa nova</title>
       <link>http://swebber.me/blog/2014/04/18/casa-nova/</link>
       <pubDate>Fri, 18 Apr 2014 17:06:58 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/04/18/casa-nova/</guid>
       <description>&lt;p&gt;Cansei do wordpress e além de migrar esse blog pra o octopress, estou migrando este blog para o githubpages.&lt;/p&gt;
 

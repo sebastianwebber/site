@@ -6,13 +6,16 @@
     <description>Recent content in Docker on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Um rascunho sobre banco de dados e containers</title>
       <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
       <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
       <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
 

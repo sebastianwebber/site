@@ -6,13 +6,16 @@
     <description>Recent content in Jboss on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/jboss/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Como tratar a vulnerabilidade do JBoss ao WORM &#39;pnscan&#39;</title>
       <link>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</link>
       <pubDate>Mon, 24 Oct 2011 12:07:48 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2011/10/24/como-tratar-a-vulnerabilidade-do-jboss-ao-worm-pnscan/</guid>
       <description>&lt;p&gt;Altere o arquivo &lt;code&gt;deploy/jmx-console.war/WEB-INF/web.xml&lt;/code&gt;, removendo as tags abaixo da sessão &lt;code&gt;security-constraint&lt;/code&gt;:&lt;/p&gt;
 

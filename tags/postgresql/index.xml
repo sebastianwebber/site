@@ -6,13 +6,16 @@
     <description>Recent content in Postgresql on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>O Autovacuum do PostgreSQL não é o inimigo!</title>
       <link>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</link>
       <pubDate>Mon, 14 Nov 2016 14:10:41 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</guid>
       <description>
 
@@ -233,7 +236,7 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page(&#39;foo&#39;, 0));
       <title>Checklist mensal do PostgreSQL</title>
       <link>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</link>
       <pubDate>Mon, 15 Feb 2016 16:54:52 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</guid>
       <description>
 
@@ -332,7 +335,7 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page(&#39;foo&#39;, 0));
       <title>Desafio sobre a replicação do PostgreSQL!</title>
       <link>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</link>
       <pubDate>Thu, 21 Jan 2016 20:05:03 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</guid>
       <description>
 
@@ -431,7 +434,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Um rascunho sobre banco de dados e containers</title>
       <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
       <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
       <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
 
@@ -496,7 +499,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Automatizando os reports do PGBadger</title>
       <link>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</link>
       <pubDate>Mon, 04 Nov 2013 00:58:11 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</guid>
       <description>&lt;p&gt;Minha idéia com esse post é &amp;lsquo;despejar&amp;rsquo; uma série de scripts e configurações pra que o &lt;a href=&#34;http://dalibo.github.io/pgbadger/&#34;&gt;pgbadger&lt;/a&gt; gere quase que automaticamente os reports, seguindo a regra de tempo abaixo:&lt;/p&gt;
 
@@ -606,7 +609,7 @@ echo $(date) - Done.
       <title>Utilizando o log CSV do PostgreSQL</title>
       <link>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</link>
       <pubDate>Sat, 14 Aug 2010 17:32:36 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</guid>
       <description>&lt;p&gt;Uma das novidades bacanas da versão 8.3 do PostgreSQL foi a possibilidade de gerar os logs do banco no formato &lt;a href=&#34;http://pt.wikipedia.org/wiki/Comma-separated_values&#34;&gt;CSV&lt;/a&gt;. Quando eu precisei de uma forma mais eficiente de analisar os logs do banco eu assumi o seguinte raciocínio: &amp;ldquo;com o csv eu posso criar minha super aplicação .net para extrair os dados e dai pensei: se fosse só uma tabela, é só dar um select!&amp;ldquo;. Abaixo eu dou mais detalhes de como isso faz sentido.&lt;/p&gt;
 
@@ -717,7 +720,7 @@ WITH
       <title>Compilando o PostgreSQL no RHEL 5</title>
       <link>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</link>
       <pubDate>Wed, 14 Jul 2010 02:13:35 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</guid>
       <description>&lt;p&gt;Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:&lt;/p&gt;
 

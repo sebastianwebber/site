@@ -6,13 +6,16 @@
     <description>Recent content in Ha on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/ha/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Checklist mensal do PostgreSQL</title>
       <link>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</link>
       <pubDate>Mon, 15 Feb 2016 16:54:52 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</guid>
       <description>
 

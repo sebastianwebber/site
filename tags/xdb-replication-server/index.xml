@@ -6,13 +6,16 @@
     <description>Recent content in Xdb Replication Server on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/xdb-replication-server/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Primeiras impressões do xDB Replication Server</title>
       <link>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</link>
       <pubDate>Tue, 08 Jan 2013 19:27:58 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</guid>
       <description>
 

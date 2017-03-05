@@ -6,13 +6,16 @@
     <description>Recent content in Java on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/java/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Instalação do Oracle JDK 6 no EL6</title>
       <link>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</link>
       <pubDate>Mon, 05 May 2014 09:49:11 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</guid>
       <description>&lt;p&gt;Faça o download da versão legada na URL abaixo:&lt;/p&gt;
 

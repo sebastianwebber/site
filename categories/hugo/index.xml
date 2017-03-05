@@ -6,13 +6,16 @@
     <description>Recent content in Hugo on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Olá hugo! Até mais octopress. :)</title>
       <link>http://swebber.me/blog/2016/11/03/ola-hugo/</link>
       <pubDate>Thu, 03 Nov 2016 17:06:58 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/03/ola-hugo/</guid>
       <description>&lt;p&gt;Depois de sofrer com a migração pro octopress 3 eu meio que abandonei este blog.&lt;/p&gt;
 

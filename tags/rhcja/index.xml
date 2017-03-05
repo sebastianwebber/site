@@ -6,13 +6,16 @@
     <description>Recent content in Rhcja on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/rhcja/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Guia de estudo para a prova EX248 - Red Hat Certified JBoss Administrator (RHCJA)</title>
       <link>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</link>
       <pubDate>Mon, 09 Sep 2013 00:40:10 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/09/09/guia-estudo-prova-ex248-redhat-certified-jboss-administrator-rhcja/</guid>
       <description>
 

@@ -6,13 +6,16 @@
     <description>Recent content in Sql on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/sql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Listando as 10 maiores tabelas no PostgreSQL</title>
       <link>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</link>
       <pubDate>Tue, 22 Jan 2013 19:43:26 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</guid>
       <description>&lt;p&gt;Para listar as maiores tabelas do seu banco de dados, utilize a consulta abaixo:&lt;/p&gt;
 
@@ -24,7 +27,7 @@
       <title>Listando os próximos jobs do pgagent</title>
       <link>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</link>
       <pubDate>Mon, 10 Dec 2012 19:25:49 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</guid>
       <description>&lt;p&gt;Para listar os próximos jobs, execute a consulta abaixo no banco postgres (ou o banco que tem o pgagent instalado):&lt;/p&gt;
 
@@ -36,7 +39,7 @@
       <title>Calcular o tamanho da database no oracle 10g/11g</title>
       <link>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</link>
       <pubDate>Mon, 26 Nov 2012 19:22:46 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/11/26/calcular-tamanho-database-oracle-10g-11g/</guid>
       <description>&lt;p&gt;Encontrei essa dica em outro site e resolvi compartilhar.&lt;/p&gt;
 
@@ -50,7 +53,7 @@
       <title>Utilizando o log CSV do PostgreSQL</title>
       <link>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</link>
       <pubDate>Sat, 14 Aug 2010 17:32:36 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</guid>
       <description>&lt;p&gt;Uma das novidades bacanas da versão 8.3 do PostgreSQL foi a possibilidade de gerar os logs do banco no formato &lt;a href=&#34;http://pt.wikipedia.org/wiki/Comma-separated_values&#34;&gt;CSV&lt;/a&gt;. Quando eu precisei de uma forma mais eficiente de analisar os logs do banco eu assumi o seguinte raciocínio: &amp;ldquo;com o csv eu posso criar minha super aplicação .net para extrair os dados e dai pensei: se fosse só uma tabela, é só dar um select!&amp;ldquo;. Abaixo eu dou mais detalhes de como isso faz sentido.&lt;/p&gt;
 

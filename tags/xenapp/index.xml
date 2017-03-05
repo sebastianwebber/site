@@ -6,13 +6,16 @@
     <description>Recent content in Xenapp on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/xenapp/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Instalando o client do XenApp no fedora 16</title>
       <link>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</link>
       <pubDate>Mon, 24 Oct 2011 17:22:40 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</guid>
       <description>
 

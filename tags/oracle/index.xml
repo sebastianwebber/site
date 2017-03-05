@@ -6,13 +6,16 @@
     <description>Recent content in Oracle on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ORA-00439: feature not enabled: Deferred Segment Creation</title>
       <link>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</link>
       <pubDate>Sun, 06 May 2012 16:34:38 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</guid>
       <description>&lt;p&gt;Durante a migração de um banco, me deparei com a seguinte saida do impdp:&lt;/p&gt;
 
@@ -55,7 +58,7 @@ deferred_segment_creation            boolean TRUE
       <title>Após reboot o ASM não iniciou (ORA-27154, ORA-27300, ORA-27301 e ORA-27302)</title>
       <link>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</link>
       <pubDate>Sat, 28 Apr 2012 15:12:19 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</guid>
       <description>&lt;p&gt;Após reboot, a ASM não iniciou. Ao tentar iniciar manualmente, ocorre o erro abaixo:&lt;/p&gt;
 
@@ -112,7 +115,7 @@ kernel.sem = 250 32000 100 256
       <title>Criando o ambiente inicial para a instalação do Oracle 11gR2 no RHEL 5</title>
       <link>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</link>
       <pubDate>Sat, 21 Apr 2012 16:18:57 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/04/21/criando-o-ambiente-inicial-para-a-instalacao-do-oracle-11gr2-no-rhel-5/</guid>
       <description>&lt;p&gt;Após a instalação do RHEL e os devidos updates, crie os respectivos usuários e grupos:&lt;/p&gt;
 

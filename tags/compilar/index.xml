@@ -6,13 +6,16 @@
     <description>Recent content in Compilar on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/compilar/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compilando o PostgreSQL no RHEL 5</title>
       <link>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</link>
       <pubDate>Wed, 14 Jul 2010 02:13:35 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</guid>
       <description>&lt;p&gt;Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:&lt;/p&gt;
 

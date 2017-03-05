@@ -6,13 +6,16 @@
     <description>Recent content in Citusdata on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/citusdata/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>O Autovacuum do PostgreSQL não é o inimigo!</title>
       <link>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</link>
       <pubDate>Mon, 14 Nov 2016 14:10:41 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</guid>
       <description>
 

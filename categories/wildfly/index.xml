@@ -6,13 +6,16 @@
     <description>Recent content in Wildfly on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/wildfly/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Script de inicialização para o JBoss EAP/AS</title>
       <link>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</link>
       <pubDate>Wed, 04 Jul 2012 18:00:40 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</guid>
       <description>&lt;p&gt;&lt;strong&gt;UPDATE Oct/2012&lt;/strong&gt;:&lt;/p&gt;
 

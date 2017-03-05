@@ -6,13 +6,16 @@
     <description>Recent content in Postgresql on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/postgresql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>O Autovacuum do PostgreSQL não é o inimigo!</title>
       <link>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</link>
       <pubDate>Mon, 14 Nov 2016 14:10:41 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</guid>
       <description>
 
@@ -233,7 +236,7 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page(&#39;foo&#39;, 0));
       <title>Utilizando API do pgconfig.org</title>
       <link>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</link>
       <pubDate>Sat, 05 Nov 2016 16:37:32 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</guid>
       <description>
 
@@ -659,7 +662,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>Checklist mensal do PostgreSQL</title>
       <link>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</link>
       <pubDate>Mon, 15 Feb 2016 16:54:52 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</guid>
       <description>
 
@@ -758,7 +761,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>Desafio sobre a replicação do PostgreSQL!</title>
       <link>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</link>
       <pubDate>Thu, 21 Jan 2016 20:05:03 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</guid>
       <description>
 
@@ -857,7 +860,7 @@ vacuumdb -U postgres -d imdb -z
       <title>PGConfig agora tem um dominio próprio!</title>
       <link>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</link>
       <pubDate>Mon, 23 Feb 2015 09:31:40 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</guid>
       <description>&lt;p&gt;Depois de umas noites trabalhando no projeto do &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;, eu decidi registrar um dominio para facilitar o acesso ao mesmo e aí isso acabou mudando a URL de acesso do mesmo. Agora ficou &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;.&lt;/p&gt;
 
@@ -871,7 +874,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Instalando o PL/Debugger no PostgreSQL 9.3 no EL6</title>
       <link>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</link>
       <pubDate>Wed, 18 Jun 2014 11:41:06 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;NOTA:&lt;/strong&gt; Baseado na dica do @FabrizioMello, ajustei este post e ainda deixei o processo ainda mais simples.&lt;/p&gt;
@@ -921,7 +924,7 @@ make install
       <title>pgconfig</title>
       <link>http://swebber.me/blog/2014/05/30/pgconfig/</link>
       <pubDate>Fri, 30 May 2014 08:32:53 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/05/30/pgconfig/</guid>
       <description>&lt;p&gt;Baseado na idéia da &lt;a href=&#34;http://lbconfig.appspot.com/&#34;&gt;ferramenta de configuração de Load Balancers da Redhat&lt;/a&gt;, criei uma página no mesmo formato, mas com a finalidade de fazer o tunning inicial do servidor PostgreSQL. Apesar de conhecer o &lt;a href=&#34;https://github.com/gregs1104/pgtune&#34;&gt;pgtune&lt;/a&gt;, achei que o formato web seria mais atrativo e tive ele como base em alguns parâmetros.&lt;/p&gt;
 
@@ -947,7 +950,7 @@ make install
       <title>Trabalhando com o londiste</title>
       <link>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</link>
       <pubDate>Fri, 25 Apr 2014 14:33:00 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</guid>
       <description>
 
@@ -1066,7 +1069,7 @@ make install
       <title>Utilizando o Londiste 3 com o PostgreSQL 8.4</title>
       <link>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</link>
       <pubDate>Thu, 24 Apr 2014 18:34:52 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/04/24/utilizando-o-londiste-3-com-o-postgresql-8-dot-4/</guid>
       <description>&lt;p&gt;Devido ao pacote do skytools não estar disponível no repositório oficial do pgdg, é necessário compilar o mesmo.&lt;/p&gt;
 
@@ -1100,7 +1103,7 @@ make install
       <title>Replicação lógica com o Londiste</title>
       <link>http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/</link>
       <pubDate>Fri, 18 Apr 2014 18:38:04 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/04/18/replicacao-logica-com-o-londiste/</guid>
       <description>
 
@@ -1490,7 +1493,7 @@ ERROR:  Table &#39;public.pessoa&#39; to queue &#39;q_teste_replica&#39;: change
       <title>Automatizando os reports do PGBadger</title>
       <link>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</link>
       <pubDate>Mon, 04 Nov 2013 00:58:11 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</guid>
       <description>&lt;p&gt;Minha idéia com esse post é &amp;lsquo;despejar&amp;rsquo; uma série de scripts e configurações pra que o &lt;a href=&#34;http://dalibo.github.io/pgbadger/&#34;&gt;pgbadger&lt;/a&gt; gere quase que automaticamente os reports, seguindo a regra de tempo abaixo:&lt;/p&gt;
 
@@ -1600,7 +1603,7 @@ echo $(date) - Done.
       <title>Corrigindo o problema de ordenação do PostgreSQL no RHEL 6</title>
       <link>http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/</link>
       <pubDate>Thu, 16 May 2013 19:46:53 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/</guid>
       <description>&lt;p&gt;Sobre o ambiente:&lt;/p&gt;
 
@@ -1704,7 +1707,7 @@ reorder-end
       <title>Listando as 10 maiores tabelas no PostgreSQL</title>
       <link>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</link>
       <pubDate>Tue, 22 Jan 2013 19:43:26 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/01/22/listando-as-10-maiores-tabelas-no-postgresql/</guid>
       <description>&lt;p&gt;Para listar as maiores tabelas do seu banco de dados, utilize a consulta abaixo:&lt;/p&gt;
 
@@ -1716,7 +1719,7 @@ reorder-end
       <title>Primeiras impressões do xDB Replication Server</title>
       <link>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</link>
       <pubDate>Tue, 08 Jan 2013 19:27:58 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/01/08/primeiras-impressoes-do-xdb-replication-server/</guid>
       <description>
 
@@ -1857,7 +1860,7 @@ ORA-06512: em “HR.RRPI_HR_TABELA_TESTE”, line 2
       <title>Listando os próximos jobs do pgagent</title>
       <link>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</link>
       <pubDate>Mon, 10 Dec 2012 19:25:49 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</guid>
       <description>&lt;p&gt;Para listar os próximos jobs, execute a consulta abaixo no banco postgres (ou o banco que tem o pgagent instalado):&lt;/p&gt;
 

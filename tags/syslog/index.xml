@@ -6,13 +6,16 @@
     <description>Recent content in Syslog on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/syslog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Automatizando os reports do PGBadger</title>
       <link>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</link>
       <pubDate>Mon, 04 Nov 2013 00:58:11 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2013/11/04/automatizando-reports-pgbadger/</guid>
       <description>&lt;p&gt;Minha idéia com esse post é &amp;lsquo;despejar&amp;rsquo; uma série de scripts e configurações pra que o &lt;a href=&#34;http://dalibo.github.io/pgbadger/&#34;&gt;pgbadger&lt;/a&gt; gere quase que automaticamente os reports, seguindo a regra de tempo abaixo:&lt;/p&gt;
 

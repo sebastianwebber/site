@@ -6,13 +6,16 @@
     <description>Recent content in Pgagent on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/pgagent/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Listando os próximos jobs do pgagent</title>
       <link>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</link>
       <pubDate>Mon, 10 Dec 2012 19:25:49 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/12/10/listando-os-proximos-jobs-do-pgagent/</guid>
       <description>&lt;p&gt;Para listar os próximos jobs, execute a consulta abaixo no banco postgres (ou o banco que tem o pgagent instalado):&lt;/p&gt;
 

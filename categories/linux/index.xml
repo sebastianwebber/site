@@ -6,13 +6,16 @@
     <description>Recent content in Linux on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Convertendo maquinas virtuais do VMWare Fusion para o VMware ESXI 5.X</title>
       <link>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</link>
       <pubDate>Wed, 22 Oct 2014 22:13:48 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</guid>
       <description>
 
@@ -64,7 +67,7 @@ Completed with errors
       <title>Expandindo o volume de uma partição no Grupo do LVM</title>
       <link>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</link>
       <pubDate>Wed, 15 Feb 2012 18:53:16 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</guid>
       <description>
 
@@ -186,7 +189,7 @@ The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
       <title>Compilando o PostgreSQL no RHEL 5</title>
       <link>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</link>
       <pubDate>Wed, 14 Jul 2010 02:13:35 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2010/07/14/compilando-postgresql-rhel-5/</guid>
       <description>&lt;p&gt;Confesso que não é muito diferente do debian, é só instalar as libs necessárias e o ./configure, make e make installl de sempre. Mas talvez isso possa ajudar alguém. Segue:&lt;/p&gt;
 

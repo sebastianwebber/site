@@ -6,13 +6,16 @@
     <description>Recent content in Log on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/log/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Utilizando o log CSV do PostgreSQL</title>
       <link>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</link>
       <pubDate>Sat, 14 Aug 2010 17:32:36 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2010/08/14/utilizando-o-log-csv-do-postgresql/</guid>
       <description>&lt;p&gt;Uma das novidades bacanas da versão 8.3 do PostgreSQL foi a possibilidade de gerar os logs do banco no formato &lt;a href=&#34;http://pt.wikipedia.org/wiki/Comma-separated_values&#34;&gt;CSV&lt;/a&gt;. Quando eu precisei de uma forma mais eficiente de analisar os logs do banco eu assumi o seguinte raciocínio: &amp;ldquo;com o csv eu posso criar minha super aplicação .net para extrair os dados e dai pensei: se fosse só uma tabela, é só dar um select!&amp;ldquo;. Abaixo eu dou mais detalhes de como isso faz sentido.&lt;/p&gt;
 

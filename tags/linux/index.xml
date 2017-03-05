@@ -6,13 +6,16 @@
     <description>Recent content in Linux on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Um rascunho sobre banco de dados e containers</title>
       <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
       <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
       <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
 
@@ -77,7 +80,7 @@
       <title>Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly</title>
       <link>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</link>
       <pubDate>Thu, 17 Jul 2014 14:14:52 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</guid>
       <description>&lt;p&gt;Execute o script abaixo, substituindo o diretório &lt;code&gt;/var/log/jbossas&lt;/code&gt; pelo diretório de logs do seu servidor JBoss/Wildfly:
 &amp;gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)&lt;/p&gt;
@@ -167,7 +170,7 @@ echo
       <title>ORA-00439: feature not enabled: Deferred Segment Creation</title>
       <link>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</link>
       <pubDate>Sun, 06 May 2012 16:34:38 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/05/06/ora-00439-feature-not-enabled-deferred-segment-creation/</guid>
       <description>&lt;p&gt;Durante a migração de um banco, me deparei com a seguinte saida do impdp:&lt;/p&gt;
 
@@ -210,7 +213,7 @@ deferred_segment_creation            boolean TRUE
       <title>Após reboot o ASM não iniciou (ORA-27154, ORA-27300, ORA-27301 e ORA-27302)</title>
       <link>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</link>
       <pubDate>Sat, 28 Apr 2012 15:12:19 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/04/28/apos-reboot-asm-nao-iniciou/</guid>
       <description>&lt;p&gt;Após reboot, a ASM não iniciou. Ao tentar iniciar manualmente, ocorre o erro abaixo:&lt;/p&gt;
 
@@ -267,7 +270,7 @@ kernel.sem = 250 32000 100 256
       <title>Expandindo o volume de uma partição no Grupo do LVM</title>
       <link>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</link>
       <pubDate>Wed, 15 Feb 2012 18:53:16 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2012/02/15/expandindo-o-volume-de-uma-partio-no-grupo-do-lvm/</guid>
       <description>
 
@@ -389,7 +392,7 @@ The filesystem on /dev/vg_server/lv_root is now 13501440 blocks long.
       <title>Instalando o client do XenApp no fedora 16</title>
       <link>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</link>
       <pubDate>Mon, 24 Oct 2011 17:22:40 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2011/10/24/instalando-o-client-do-xenapp-no-fedora-16/</guid>
       <description>
 

@@ -6,13 +6,16 @@
     <description>Recent content in Pgconfig on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <atom:link href="http://swebber.me/categories/pgconfig/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Utilizando API do pgconfig.org</title>
       <link>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</link>
       <pubDate>Sat, 05 Nov 2016 16:37:32 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</guid>
       <description>
 
@@ -438,7 +441,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>PGConfig agora tem um dominio próprio!</title>
       <link>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</link>
       <pubDate>Mon, 23 Feb 2015 09:31:40 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</guid>
       <description>&lt;p&gt;Depois de umas noites trabalhando no projeto do &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;, eu decidi registrar um dominio para facilitar o acesso ao mesmo e aí isso acabou mudando a URL de acesso do mesmo. Agora ficou &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;.&lt;/p&gt;
 
@@ -452,7 +455,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>pgconfig</title>
       <link>http://swebber.me/blog/2014/05/30/pgconfig/</link>
       <pubDate>Fri, 30 May 2014 08:32:53 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/05/30/pgconfig/</guid>
       <description>&lt;p&gt;Baseado na idéia da &lt;a href=&#34;http://lbconfig.appspot.com/&#34;&gt;ferramenta de configuração de Load Balancers da Redhat&lt;/a&gt;, criei uma página no mesmo formato, mas com a finalidade de fazer o tunning inicial do servidor PostgreSQL. Apesar de conhecer o &lt;a href=&#34;https://github.com/gregs1104/pgtune&#34;&gt;pgtune&lt;/a&gt;, achei que o formato web seria mais atrativo e tive ele como base em alguns parâmetros.&lt;/p&gt;
 

@@ -6,6 +6,9 @@
     <description>Recent content on SWebber IT Services</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
+    <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <lastBuildDate>Mon, 14 Nov 2016 14:10:41 -0200</lastBuildDate>
     <atom:link href="http://swebber.me/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +16,7 @@
       <title>O Autovacuum do PostgreSQL não é o inimigo!</title>
       <link>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</link>
       <pubDate>Mon, 14 Nov 2016 14:10:41 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</guid>
       <description>
 
@@ -234,7 +237,7 @@ select t_xmin, t_xmax from heap_page_items(get_raw_page(&#39;foo&#39;, 0));
       <title>Utilizando API do pgconfig.org</title>
       <link>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</link>
       <pubDate>Sat, 05 Nov 2016 16:37:32 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/05/utilizando-api-pgconfig-org/</guid>
       <description>
 
@@ -660,7 +663,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>Olá hugo! Até mais octopress. :)</title>
       <link>http://swebber.me/blog/2016/11/03/ola-hugo/</link>
       <pubDate>Thu, 03 Nov 2016 17:06:58 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/11/03/ola-hugo/</guid>
       <description>&lt;p&gt;Depois de sofrer com a migração pro octopress 3 eu meio que abandonei este blog.&lt;/p&gt;
 
@@ -678,7 +681,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>Checklist mensal do PostgreSQL</title>
       <link>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</link>
       <pubDate>Mon, 15 Feb 2016 16:54:52 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/02/15/checklist-mensal-do-postgresql/</guid>
       <description>
 
@@ -777,7 +780,7 @@ ALTER SYSTEM SET max_connections TO &#39;100&#39;;
       <title>Desafio sobre a replicação do PostgreSQL!</title>
       <link>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</link>
       <pubDate>Thu, 21 Jan 2016 20:05:03 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/desafio-sobre-a-replicao-do-postgresql/</guid>
       <description>
 
@@ -876,7 +879,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Um rascunho sobre banco de dados e containers</title>
       <link>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</link>
       <pubDate>Thu, 21 Jan 2016 17:35:14 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2016/01/21/um-rascunho-sobre-banco-de-dados-e-containers/</guid>
       <description>&lt;p&gt;Eu tenho notado que a onda do momento é deixar pra lá a virtualização e passar colocar tudo em container. As pessoas comentam com emoção: minha aplicação rodando no container fica auto-suficiente, configurada conforme os padrões do meu produto e todas as preocupações do fabricante.&lt;/p&gt;
 
@@ -941,7 +944,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Deu trabalho! mas agora o blog usa o octopress 3.0</title>
       <link>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</link>
       <pubDate>Fri, 28 Aug 2015 03:28:48 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2015/08/28/deu-trabalho-mas-agora-o-blog-usa-o-octopress-3-0/</guid>
       <description>&lt;p&gt;Depois de apanhar, desistir, insistir e jogar tudo pra cima. Blog está sendo migrado pra usar o octopress 3.0.&lt;/p&gt;
 
@@ -959,7 +962,7 @@ vacuumdb -U postgres -d imdb -z
       <title>PGConfig agora tem um dominio próprio!</title>
       <link>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</link>
       <pubDate>Mon, 23 Feb 2015 09:31:40 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2015/02/23/pgconfig-agora-tem-um-dominio-proprio/</guid>
       <description>&lt;p&gt;Depois de umas noites trabalhando no projeto do &lt;a href=&#34;http://pgconfig.org&#34;&gt;PGConfig&lt;/a&gt;, eu decidi registrar um dominio para facilitar o acesso ao mesmo e aí isso acabou mudando a URL de acesso do mesmo. Agora ficou &lt;a href=&#34;http://pgconfig.org&#34;&gt;http://pgconfig.org&lt;/a&gt;.&lt;/p&gt;
 
@@ -973,7 +976,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Script de inicialização do JBoss AS7&#43;/EAP 6&#43; em modo domain</title>
       <link>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</link>
       <pubDate>Thu, 30 Oct 2014 23:23:08 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/10/30/script-de-inicializacao-do-jboss-as7-plus-slash-eap-6-plus-em-modo-domain/</guid>
       <description>&lt;p&gt;Criei o script e deixei lá no github. Veja abaixo:&lt;/p&gt;
 
@@ -987,7 +990,7 @@ vacuumdb -U postgres -d imdb -z
       <title>Convertendo maquinas virtuais do VMWare Fusion para o VMware ESXI 5.X</title>
       <link>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</link>
       <pubDate>Wed, 22 Oct 2014 22:13:48 -0200</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/10/22/convertendo-do-vmware-fusion-para-o-vmware-esxi-5-dot-x/</guid>
       <description>
 
@@ -1039,7 +1042,7 @@ Completed with errors
       <title>Computando os erros mais frequentes no server.log do JBoss EAP/Wildfly</title>
       <link>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</link>
       <pubDate>Thu, 17 Jul 2014 14:14:52 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/07/17/computando-os-erros-mais-frequentes-no-server-dot-log-do-jboss-eap-slash-wildfly/</guid>
       <description>&lt;p&gt;Execute o script abaixo, substituindo o diretório &lt;code&gt;/var/log/jbossas&lt;/code&gt; pelo diretório de logs do seu servidor JBoss/Wildfly:
 &amp;gt; Nesse exemplo estou procurando os arquivos de log dos últimos 7 dias. ;)&lt;/p&gt;
@@ -1129,7 +1132,7 @@ echo
       <title>Instalando o PL/Debugger no PostgreSQL 9.3 no EL6</title>
       <link>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</link>
       <pubDate>Wed, 18 Jun 2014 11:41:06 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/06/18/instalando-o-pl-slash-debugger-no-postgresql-93-no-el6/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;NOTA:&lt;/strong&gt; Baseado na dica do @FabrizioMello, ajustei este post e ainda deixei o processo ainda mais simples.&lt;/p&gt;
@@ -1179,7 +1182,7 @@ make install
       <title>pgconfig</title>
       <link>http://swebber.me/blog/2014/05/30/pgconfig/</link>
       <pubDate>Fri, 30 May 2014 08:32:53 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/05/30/pgconfig/</guid>
       <description>&lt;p&gt;Baseado na idéia da &lt;a href=&#34;http://lbconfig.appspot.com/&#34;&gt;ferramenta de configuração de Load Balancers da Redhat&lt;/a&gt;, criei uma página no mesmo formato, mas com a finalidade de fazer o tunning inicial do servidor PostgreSQL. Apesar de conhecer o &lt;a href=&#34;https://github.com/gregs1104/pgtune&#34;&gt;pgtune&lt;/a&gt;, achei que o formato web seria mais atrativo e tive ele como base em alguns parâmetros.&lt;/p&gt;
 
@@ -1205,7 +1208,7 @@ make install
       <title>Instalação do Oracle JDK 6 no EL6</title>
       <link>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</link>
       <pubDate>Mon, 05 May 2014 09:49:11 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/05/05/instalacao-do-oracle-jdk-6-no-el6/</guid>
       <description>&lt;p&gt;Faça o download da versão legada na URL abaixo:&lt;/p&gt;
 
@@ -1242,7 +1245,7 @@ Current `best&#39; version is /usr/java/jdk1.6.0_45/bin/java.
       <title>Trabalhando com o londiste</title>
       <link>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</link>
       <pubDate>Fri, 25 Apr 2014 14:33:00 -0300</pubDate>
-      
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
       <guid>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</guid>
       <description>
 
