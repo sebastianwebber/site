@@ -23,6 +23,7 @@ $link-hover: $black-bis
 // $link-active: $link
 
 $size-normal: $size-5
+$default-shadow: #0041A7
 
 @import "bulma"
 
@@ -52,3 +53,32 @@ $size-normal: $size-5
     .meta
       display: table-cell
       text-align: right
+
+#main_page
+  h1
+    color: #fff
+    font-family: 'Lobster', sans-serif
+    text-shadow: 2px 2px 0px $default-shadow
+    font-size: 4.5rem
+  h2
+    font-family: 'Fjalla One', sans-serif
+    // text-shadow: 2px 2px 0px $grey-dark
+    // font-size: 3.5rem
+  p
+    color: #fff
+.hero
+  .hero-body
+    .container
+      h1
+        font-family: 'Fjalla One', sans-serif
+        color: $white
+        text-shadow: 2px 2px 0px $default-shadow
+
+.page-layout
+  .section
+    .container
+      h1,
+      h2,
+      h3
+        font-family: 'Fjalla One', sans-serif
+        text-shadow: 2px 2px 0px $grey-lighter
