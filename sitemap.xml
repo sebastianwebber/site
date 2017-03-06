@@ -102,6 +102,11 @@
   </url>
   
   <url>
+    <loc>http://swebber.me/blog/2013/07/26/diferencas-domain-mode-standalone-jboss-eap6-as7/</loc>
+    <lastmod>2013-07-26T19:53:44-02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://swebber.me/blog/2013/05/16/corrigindo-problema-ordenacao-postgresql-rhel6/</loc>
     <lastmod>2013-05-16T19:46:53-02:00</lastmod>
   </url>
@@ -182,13 +187,19 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/asm/</loc>
-    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <loc>http://swebber.me/tags/as7/</loc>
+    <lastmod>2013-07-26T19:53:44-02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://swebber.me/tags/asm/</loc>
+    <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/categories/asm/</loc>
     <lastmod>2012-04-28T15:12:19-03:00</lastmod>
     <priority>0</priority>
   </url>
@@ -259,13 +270,13 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/citrix/</loc>
+    <loc>http://swebber.me/tags/citrix/</loc>
     <lastmod>2011-10-24T17:22:40-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/citrix/</loc>
+    <loc>http://swebber.me/categories/citrix/</loc>
     <lastmod>2011-10-24T17:22:40-03:00</lastmod>
     <priority>0</priority>
   </url>
@@ -319,14 +330,26 @@
   </url>
   
   <url>
+    <loc>http://swebber.me/tags/docker/</loc>
+    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://swebber.me/categories/docker/</loc>
     <lastmod>2016-01-21T17:35:14-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/docker/</loc>
-    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
+    <loc>http://swebber.me/tags/domain-mode/</loc>
+    <lastmod>2013-07-26T19:53:44-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/eap/</loc>
+    <lastmod>2013-07-26T19:53:44-02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -391,13 +414,13 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/hugo/</loc>
+    <loc>http://swebber.me/tags/hugo/</loc>
     <lastmod>2016-11-03T17:06:58-02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/hugo/</loc>
+    <loc>http://swebber.me/categories/hugo/</loc>
     <lastmod>2016-11-03T17:06:58-02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -421,26 +444,26 @@
   </url>
   
   <url>
+    <loc>http://swebber.me/tags/jboss/</loc>
+    <lastmod>2013-07-26T19:53:44-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://swebber.me/categories/jboss/</loc>
     <lastmod>2014-10-30T23:23:08-02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/jboss/</loc>
-    <lastmod>2011-10-24T12:07:48-03:00</lastmod>
+    <loc>http://swebber.me/tags/linux/</loc>
+    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://swebber.me/categories/linux/</loc>
     <lastmod>2014-10-22T22:13:48-02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://swebber.me/tags/linux/</loc>
-    <lastmod>2016-01-21T17:35:14-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -493,14 +516,14 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/oracle/</loc>
-    <lastmod>2013-01-08T19:27:58-02:00</lastmod>
+    <loc>http://swebber.me/tags/oracle/</loc>
+    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/oracle/</loc>
-    <lastmod>2012-05-06T16:34:38-03:00</lastmod>
+    <loc>http://swebber.me/categories/oracle/</loc>
+    <lastmod>2013-01-08T19:27:58-02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -541,13 +564,13 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/postgresql/</loc>
+    <loc>http://swebber.me/tags/postgresql/</loc>
     <lastmod>2016-11-14T14:10:41-02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/postgresql/</loc>
+    <loc>http://swebber.me/categories/postgresql/</loc>
     <lastmod>2016-11-14T14:10:41-02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -595,14 +618,14 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/rhel/</loc>
-    <lastmod>2014-05-05T09:49:11-03:00</lastmod>
+    <loc>http://swebber.me/tags/rhel/</loc>
+    <lastmod>2012-04-21T16:18:57-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/rhel/</loc>
-    <lastmod>2012-04-21T16:18:57-03:00</lastmod>
+    <loc>http://swebber.me/categories/rhel/</loc>
+    <lastmod>2014-05-05T09:49:11-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -627,6 +650,12 @@
   <url>
     <loc>http://swebber.me/tags/sql/</loc>
     <lastmod>2013-01-22T19:43:26-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/standalone/</loc>
+    <lastmod>2013-07-26T19:53:44-02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -696,14 +725,14 @@
   </url>
   
   <url>
-    <loc>http://swebber.me/categories/wildfly/</loc>
-    <lastmod>2012-07-04T18:00:40-02:00</lastmod>
+    <loc>http://swebber.me/tags/wildfly/</loc>
+    <lastmod>2014-07-17T14:14:52-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://swebber.me/tags/wildfly/</loc>
-    <lastmod>2014-07-17T14:14:52-03:00</lastmod>
+    <loc>http://swebber.me/categories/wildfly/</loc>
+    <lastmod>2012-07-04T18:00:40-02:00</lastmod>
     <priority>0</priority>
   </url>
   

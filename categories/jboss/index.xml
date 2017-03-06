@@ -219,6 +219,43 @@ echo
     </item>
     
     <item>
+      <title>Diferenças entre Domain Mode e Standalone Mode no JBoss EAP 6/AS 7</title>
+      <link>http://swebber.me/blog/2013/07/26/diferencas-domain-mode-standalone-jboss-eap6-as7/</link>
+      <pubDate>Fri, 26 Jul 2013 19:53:44 -0200</pubDate>
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
+      <guid>http://swebber.me/blog/2013/07/26/diferencas-domain-mode-standalone-jboss-eap6-as7/</guid>
+      <description>&lt;p&gt;A única diferença é quanto ao gerenciamento.&lt;/p&gt;
+
+&lt;p&gt;Basicamente:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Domain mode não suporta deploy diretamente no filesystem, isso quer dizer que não é possível fazer deploy de EAR/WAR/SAR aberto&lt;/li&gt;
+&lt;li&gt;Domain mode permite gerenciamento centralizado de todas as instâncias JBoss do ambiente, porém há algumas limitações (ou problemas conhecidos) quanto a disponibilidade do domain causam instabilidade no ambiente:&lt;/li&gt;
+&lt;li&gt;Caso o HostController (HC) seja reiniciado mas o DomainController (DC) permaneça disponível, o HC não identifica a queda desse HC e quando ele tenta conectar novamente, o mesmo acusa que ele já está registrado.&lt;/li&gt;
+&lt;li&gt;Caso o DC esteja indisponível durante o inicio do HC, não é possível inicia-lo. É possível, claro, iniciar o HC com backup da ultima configuração disponível (usando os parâmetros —backup e —cached-dc).&lt;/li&gt;
+&lt;li&gt;Caso o DC fique indisponível mas o HC permaneça no ar, não há problemas.&lt;/li&gt;
+&lt;li&gt;Normalmente Standalone mode é utilizado para ambiente de desenvolvimento, principalmente pela simplicidade do ambiente, porém nada impede de usar Domain mode para gerenciar todas as instâncias JBoss do ambiente de desenvolvimento.&lt;/li&gt;
+&lt;li&gt;Standalone mode mantem cada instância com a configuração isolada, assim é possível que ocorra alguma divergência da configuração entre os servers, todo caso, é possível criar alguma ferramenta que ajuste os arquivos de configuração em todas as instâncias simultaneamente. Normalmente grandes alterações na configuração do ambiente somente ocorrem durante a implantação do mesmo. Assim, mesmo que trabalhoso, não é realmente um problema.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;E quanto ao deploy:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DomainMode faz, por padrão, deploy em todas as as instâncias do grupo simultaneamente o que pode causar indisponibilidade da aplicação durante esse tempo. É possível usar a opção rollup-to-servers para contornar o problema, porém a mesma só está disponível pelo JBoss-CLI. Para quem utiliza o JON (ou RHQ) para gerenciar os deploys, a opção rollup-to-servers não está disponível.&lt;/li&gt;
+&lt;li&gt;No StandaloneMode o deploy deve ser realizado uma instância de cada vez. Assim o JON (ou RHQ) tende a ser uma ferramenta essencial no processo.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/solutions/399683&#34;&gt;https://access.redhat.com/site/solutions/399683&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/site/solutions/237813&#34;&gt;https://access.redhat.com/site/solutions/237813&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://issues.jboss.org/browse/AS7-3852&#34;&gt;https://issues.jboss.org/browse/AS7-3852&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Script de inicialização para o JBoss EAP/AS</title>
       <link>http://swebber.me/blog/2012/07/04/script-inicializacao-jboss-eap-as/</link>
       <pubDate>Wed, 04 Jul 2012 18:00:40 -0200</pubDate>
