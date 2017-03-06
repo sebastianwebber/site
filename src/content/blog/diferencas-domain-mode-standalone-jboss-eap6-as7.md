@@ -1,7 +1,7 @@
 +++
 date = "2013-07-26T19:53:44-02:00"
 title = "Diferenças entre Domain Mode e Standalone Mode no JBoss EAP 6/AS 7"
-draft = true
+draft = false
 Categories = [ "JBoss" ]
 Tags = [ "Wildfly", "Jboss", "Domain Mode", "Standalone", "AS7", "EAP" ]
 
