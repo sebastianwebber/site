@@ -55,6 +55,22 @@ $default-shadow: #0041A7
       text-align: right
 
 #main_page
+  .content
+    color: #fff
+    p
+      color: #fff
+    a
+      color: #fff
+      font-weight: bold
+      text-decoration: none
+      border: none
+      &:link, &:visited, &:focus
+        color: #fff
+        font-weight: bold
+        text-decoration: none
+        border: none
+      &:hover, &:visited:hover, &:active
+        border-bottom: 1px solid #fff
   h1
     color: #fff
     font-family: 'Lobster', sans-serif
@@ -62,10 +78,9 @@ $default-shadow: #0041A7
     font-size: 4.5rem
   h2
     font-family: 'Fjalla One', sans-serif
-    // text-shadow: 2px 2px 0px $grey-dark
-    // font-size: 3.5rem
-  p
-    color: #fff
+    text-shadow: 1px 1px 0px $default-shadow
+
+
 .hero
   .hero-body
     .container
