@@ -33,7 +33,8 @@ gulp.task('ghpages', ['hugo'], function () {
 
 gulp.task('clean:dist', function () {
     return del([
-        './dist/**/*'
+        './dist/**/*',
+        // './.publish/**/*'
     ]);
 });
 
@@ -52,7 +53,7 @@ gulp.task('sass', function () {
       .on('error', sass.logError)
     )
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('./src/static/css/'));
+    .pipe(gulp.dest('./dist/css/'));
 });
 
 gulp.task('sass:watch', function () {

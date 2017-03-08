@@ -2,4 +2,4 @@ dist/
 .publish/
 .DS_Store
 node_modules/
-#src/static/css/*
+src/static/css/*
