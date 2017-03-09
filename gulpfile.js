@@ -20,10 +20,12 @@ function hugo(drafts) {
 
     var result = exec(cmd, { encoding: 'utf-8' });
     gutil.log('hugo: \n' + result);
+
 }
 
-gulp.task('hugo', function () {
+gulp.task('hugo', function (done) {
     hugo(false);
+    return done();
 });
 
 gulp.task('ghpages', function () {
