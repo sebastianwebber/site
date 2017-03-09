@@ -15,18 +15,18 @@ function hugo(drafts) {
 
     var cmd = 'hugo';
     if (drafts) {
-        cmd += ' --buildDrafts=true --verbose=true" ';
+        cmd += ' server --buildDrafts=true --verbose=true ';
     }
 
     var result = exec(cmd, { encoding: 'utf-8' });
     gutil.log('hugo: \n' + result);
 }
 
-gulp.task('hugo', ['clean:dist'], function () {
+gulp.task('hugo', function () {
     hugo(false);
 });
 
-gulp.task('ghpages', ['hugo'], function () {
+gulp.task('ghpages', function () {
     return gulp.src('./dist/**/*')
         .pipe(ghPages());
 });
@@ -34,10 +34,8 @@ gulp.task('ghpages', ['hugo'], function () {
 gulp.task('clean:dist', function () {
     return del([
         './dist/**/*',
-        // './.publish/**/*'
     ]);
 });
-
 
 gulp.task('sass', function () {
   return gulp.src('./sass/**/*.s*ss')
@@ -56,14 +54,36 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./dist/css/'));
 });
 
+gulp.task('sass:dev', function () {
+  return gulp.src('./sass/**/*.s*ss')
+    .pipe(
+      sass(
+        {
+          includePaths: [
+            './node_modules/bulma',
+          ],
+          errLogToConsole: true
+        }
+      )
+      .on('error', sass.logError)
+    )
+    .pipe(gulp.dest('./src/static/css/'));
+});
+//
 gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.sass', ['sass']);
+  gulp.watch('./sass/**/*.sass', gulp.series('sass:dev'));
 });
 
+gulp.task('hugo:serve', function () {
+    hugo(true);
+});
 
-gulp.task('deploy', [
+gulp.task('dev', gulp.parallel('hugo:serve', 'sass:watch'));
+
+
+gulp.task('deploy', gulp.series(
     'clean:dist',
     'sass',
     'hugo',
     'ghpages'
-]);
+));
