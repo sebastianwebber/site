@@ -1,6 +1,7 @@
 ---
 title: Desafio sobre a replicação do PostgreSQL!
 date: 2016-01-21T20:05:03-02:00
+last_update: 2017-03-11T20:05:03-02:00
 Categories:
  - PostgreSQL
 Tags:
@@ -26,7 +27,7 @@ Até o momento, essas são as soluções mais populares:
 ## A proposta
 
 A idéia é fazer um ambiente de testes utilizando a versão mais recente do banco e da solução cobrindo os pontos abaixo:
- 
+
  * Instalação e configuração
  * Operação basica para replicar dados ou conjunto de dados
  * Procedimentos que previnem tolerancia a falhas
@@ -69,7 +70,7 @@ Detalhes da configuração de rede:
 
 
 Abaixo segue o Vagrantfile:
-{{< gist sebastianwebber d49ac8507d48c9cfdc4f "Vagrantfile" >}}
+{{< gist sebastianwebber d49ac8507d48c9cfdc4f "Vagrantfile.rb" >}}
 
 Para utiliza-lo, execute:
 
