@@ -1,7 +1,7 @@
 ---
 title: Desafio sobre a replicação do PostgreSQL!
 date: 2016-01-21T20:05:03-02:00
-last_update: 2017-03-11T20:05:03-02:00
+lastmod: 2017-03-11T20:05:03-02:00
 Categories:
  - PostgreSQL
 Tags:
