@@ -10,7 +10,7 @@
 					<li>
 						<a href="{{ .Permalink }}">{{ .Title }} {{ if .GetParam "draft"}}DRAFT{{end}}
 							{{ if and (not .Lastmod.IsZero) (ne .Date .Lastmod) }}
-							 <span class="tag is-danger">UPDATED ON {{ .Lastmod.Format "Jan 2, 2006" }}</span>
+							 &nbsp;<span class="tag is-danger">Last update on {{ .Lastmod.Format "Jan 2, 2006" }}</span>
 							{{ end }}
 						</a>
 						<div class="meta">{{ .Date.Format "Mon, Jan 2, 2006" }}</div>
