@@ -9,8 +9,32 @@
     <managingEditor>sebastian@swebber.me (Sebastian Webber)</managingEditor>
     <webMaster>sebastian@swebber.me (Sebastian Webber)</webMaster>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 14 Nov 2016 14:10:41 -0200</lastBuildDate>
+    <lastBuildDate>Thu, 11 May 2017 13:14:18 -0300</lastBuildDate>
     <atom:link href="http://swebber.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>DBA Brasil 2.0: eu estive lá!</title>
+      <link>http://swebber.me/blog/2017/05/11/dba-brasil-2.0-eu-estive-la/</link>
+      <pubDate>Thu, 11 May 2017 13:14:18 -0300</pubDate>
+      <author>sebastian@swebber.me (Sebastian Webber)</author>
+      <guid>http://swebber.me/blog/2017/05/11/dba-brasil-2.0-eu-estive-la/</guid>
+      <description>
+
+&lt;p&gt;Esse ano eu consegui ir no DBA Brasil 2.0, e cara, foi muito divertido! Teve algumas coisas maneiras, como a &lt;em&gt;&lt;a href=&#34;http://timbira.com.br&#34;&gt;Timbira&lt;/a&gt; patrocinando o evento e tendo seu stand&lt;/em&gt; e também muita gente de varios bancos de dados. Eu queria mais tempo pra poder aproveitar as palestras dos colegas. =/&lt;/p&gt;
+
+&lt;p&gt;Foi um prazer imenso estar por lá e falar com todos sobre PostgreSQL e compartilhar minhas experiências. Obrigado a todos que participaram para que esse evento fosse tão especial!&lt;/p&gt;
+
+&lt;p&gt;Abaixo eu deixo os slides das minhas palestras (inclusive uma que fiz com o &lt;a href=&#34;http://savepoint.blog.br&#34;&gt;Fabio Telles&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h3 id=&#34;healthcheck-do-seu-servidor-postgresql&#34;&gt;HealthCheck do seu servidor PostgreSQL&lt;/h3&gt;
+
+&lt;script async class=&#39;speakerdeck-embed&#39; data-id=&#39;7e6f0b08fd0c4944b358c112aef1f042&#39; data-ratio=&#39;1.33333333333333&#39; src=&#39;//speakerdeck.com/assets/embed.js&#39;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;migre-seu-banco-pra-nuvem-pergunte-me-como&#34;&gt;Migre seu banco pra nuvem. Pergunte-me como!&lt;/h3&gt;
+
+&lt;script async class=&#39;speakerdeck-embed&#39; data-id=&#39;6ffe6bfd22014e1292f9c451029ea531&#39; data-ratio=&#39;1.33333333333333&#39; src=&#39;//speakerdeck.com/assets/embed.js&#39;&gt;&lt;/script&gt;
+</description>
+    </item>
     
     <item>
       <title>O Autovacuum do PostgreSQL não é o inimigo!</title>
@@ -1237,125 +1261,6 @@ java - status is auto.
  link currently points to /usr/java/jdk1.6.0_45/bin/java
 /usr/java/jdk1.6.0_45/bin/java - priority 20000
 Current `best&#39; version is /usr/java/jdk1.6.0_45/bin/java.
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Trabalhando com o londiste</title>
-      <link>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</link>
-      <pubDate>Fri, 25 Apr 2014 14:33:00 -0300</pubDate>
-      <author>sebastian@swebber.me (Sebastian Webber)</author>
-      <guid>http://swebber.me/blog/2014/04/25/trabalhando-com-o-londiste/</guid>
-      <description>
-
-&lt;p&gt;Este post é um complemento para o post que cita a instalação e configuração do Londiste. Vou atualizar este post conforme possível.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;É importante lembrar que a citação &lt;code&gt;[CON_STR]&lt;/code&gt; quer dizer a string de conexão utilizada, seguindo o padrão utilizado pela libpq.&lt;/p&gt;
-
-&lt;p&gt;Para simplificar a configuração, ao citar o arquivo de configuração, vou sempre utilizar o arquivo &lt;code&gt;/etc/londiste/config.ini&lt;/code&gt;, mas lembre é necessário criar um arquivo separado para cada job.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;string-de-conexão&#34;&gt;String de conexão&lt;/h2&gt;
-
-&lt;p&gt;A string de conexão é detalhada na documentação oficial, conforme abaixo:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Sintaxe:&lt;/strong&gt; &lt;a href=&#34;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-CONNSTRING&#34;&gt;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-CONNSTRING&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Opções:&lt;/strong&gt; &lt;a href=&#34;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS&#34;&gt;http://www.postgresql.org/docs/9.2/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Exemplo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host=localhost port=5432 dbname=mydb connect_timeout=10
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;manutenção-dos-nós&#34;&gt;Manutenção dos nós&lt;/h2&gt;
-
-&lt;h3 id=&#34;adicionando-e-removendo-nós&#34;&gt;Adicionando e removendo nós&lt;/h3&gt;
-
-&lt;p&gt;Para adicionar o nó tipo &lt;code&gt;root&lt;/code&gt; (master da replicação):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini create-root nome_node &amp;quot;[CON_STR]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Para adicionar nós tipo &lt;code&gt;branch&lt;/code&gt; ou &lt;code&gt;leaf&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini create-XXXXX nome_node &amp;quot;[CON_STR_DESTINO]&amp;quot; --provider=&amp;quot;[CON_STR_ROOT]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Aonde &lt;code&gt;XXXXX&lt;/code&gt; é o tipo de nó (branch ou leaf)&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[CON_STR_DESTINO]&lt;/code&gt; é a string de conexão do servidor que será o nó (slave)&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;[CON_STR_ROOT]&lt;/code&gt; é a string de conexão do servidor que será o root (master)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Para remover o nó:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini drop-node nome_node
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;iniciando-e-parando-o-daemon&#34;&gt;Iniciando e parando o daemon&lt;/h3&gt;
-
-&lt;p&gt;Para iniciar:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini -d worker
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Para parar:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini --stop
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Para forçar a parada do mesmo, substitua o &lt;code&gt;\-\-stop&lt;/code&gt; por &lt;code&gt;\-\-kill&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;trabalhando-com-tabelas&#34;&gt;Trabalhando com tabelas&lt;/h2&gt;
-
-&lt;p&gt;Cada operação é específica para cada nó.&lt;/p&gt;
-
-&lt;h3 id=&#34;adicionando-e-removendo-tabelas&#34;&gt;Adicionando e removendo tabelas&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;a opção &lt;code&gt;\-\-all&lt;/code&gt; pode ser utilizada para aplicar a operação em todos os objetos&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Para adicionar:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini add-table nome_tabela
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Para remover:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini remove-table nome_tabela
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;listando-objetos-replicadas&#34;&gt;Listando objetos replicadas&lt;/h3&gt;
-
-&lt;p&gt;Para listar as tabelas:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini tables
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Para listar as sequências:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini seqs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;listando-objetos-disponíveis-para-replicação&#34;&gt;Listando objetos disponíveis para replicação&lt;/h3&gt;
-
-&lt;p&gt;O comando a baixo necessáriamente precisa ser executado em um nó slave (leaf ou branch).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini missing
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;listando-status-da-replicação&#34;&gt;Listando status da replicação&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;londiste3 /etc/londiste/config.ini status
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

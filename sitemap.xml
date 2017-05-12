@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://swebber.me/blog/2017/05/11/dba-brasil-2.0-eu-estive-la/</loc>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://swebber.me/blog/2016/11/14/autovacuum-nao-e-o-inimigo/</loc>
     <lastmod>2016-11-14T14:10:41-02:00</lastmod>
   </url>
@@ -236,13 +241,13 @@
   
   <url>
     <loc>http://swebber.me/</loc>
-    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://swebber.me/blog/</loc>
-    <lastmod>2016-11-14T14:10:41-02:00</lastmod>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -330,6 +335,12 @@
   </url>
   
   <url>
+    <loc>http://swebber.me/tags/dba-brasil/</loc>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://swebber.me/tags/docker/</loc>
     <lastmod>2016-01-21T17:35:14-03:00</lastmod>
     <priority>0</priority>
@@ -374,6 +385,12 @@
   <url>
     <loc>http://swebber.me/tags/erros-oracle/</loc>
     <lastmod>2012-04-28T15:12:19-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/eventos/</loc>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -535,7 +552,13 @@
   
   <url>
     <loc>http://swebber.me/categories/outros/</loc>
-    <lastmod>2015-08-28T03:28:48-03:00</lastmod>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://swebber.me/tags/palestras/</loc>
+    <lastmod>2017-05-11T13:14:18-03:00</lastmod>
     <priority>0</priority>
   </url>
   
