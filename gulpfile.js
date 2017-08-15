@@ -23,60 +23,56 @@ function hugo(drafts) {
 
 }
 
-gulp.task('hugo', function (done) {
+gulp.task('hugo', function(done) {
     hugo(false);
     return done();
 });
 
-gulp.task('ghpages', function () {
+gulp.task('ghpages', function() {
     return gulp.src('./dist/**/*')
         .pipe(ghPages());
 });
 
-gulp.task('clean:dist', function () {
+gulp.task('clean:dist', function() {
     return del([
         './dist/**/*',
     ]);
 });
 
-gulp.task('sass', function () {
-  return gulp.src('./sass/**/*.s*ss')
-    .pipe(
-      sass(
-        {
-          includePaths: [
-            './node_modules/bulma',
-          ],
-          errLogToConsole: true
-        }
-      )
-      .on('error', sass.logError)
-    )
-    .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('./dist/css/'));
+gulp.task('sass', function() {
+    return gulp.src('./sass/**/*.s*ss')
+        .pipe(
+            sass({
+                includePaths: [
+                    './node_modules/bulma',
+                ],
+                errLogToConsole: true
+            })
+            .on('error', sass.logError)
+        )
+        .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(gulp.dest('./dist/css/'));
 });
 
-gulp.task('sass:dev', function () {
-  return gulp.src('./sass/**/*.s*ss')
-    .pipe(
-      sass(
-        {
-          includePaths: [
-            './node_modules/bulma',
-          ],
-          errLogToConsole: true
-        }
-      )
-      .on('error', sass.logError)
-    )
-    .pipe(gulp.dest('./src/static/css/'));
+gulp.task('sass:dev', function() {
+    return gulp.src('./sass/**/*.s*ss')
+        .pipe(
+            sass({
+                includePaths: [
+                    './node_modules/bulma',
+                ],
+                errLogToConsole: true
+            })
+            .on('error', sass.logError)
+        )
+        .pipe(gulp.dest('./src/static/css/'));
 });
 //
-gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.sass', gulp.series('sass:dev'));
+gulp.task('sass:watch', function() {
+    gulp.watch('./sass/**/*.sass', gulp.series('sass:dev'));
 });
 
-gulp.task('hugo:serve', function () {
+gulp.task('hugo:serve', function() {
     hugo(true);
 });
 
@@ -88,4 +84,10 @@ gulp.task('deploy', gulp.series(
     'sass',
     'hugo',
     'ghpages'
+));
+
+gulp.task('build', gulp.series(
+    'clean:dist',
+    'sass',
+    'hugo'
 ));
