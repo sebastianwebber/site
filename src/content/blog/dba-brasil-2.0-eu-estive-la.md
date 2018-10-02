@@ -16,10 +16,7 @@ Foi um prazer imenso estar por lá e falar com todos sobre PostgreSQL e comparti
 
 Abaixo eu deixo os slides das minhas palestras (inclusive uma que fiz com o [Fabio Telles](http://savepoint.blog.br)).
 
-### HealthCheck do seu servidor PostgreSQL
+### [HealthCheck do seu servidor PostgreSQL](https://speakerdeck.com/sebastianwebber/healthcheck-do-seu-servidor-postgresql)
 
-{{< speakerdeck 7e6f0b08fd0c4944b358c112aef1f042 >}}
 
-### Migre seu banco pra nuvem. Pergunte-me como!
-
-{{< speakerdeck 6ffe6bfd22014e1292f9c451029ea531 >}}
+### [Migre seu banco pra nuvem. Pergunte-me como!](https://speakerdeck.com/sebastianwebber/migre-seu-banco-de-dados-pra-nuvem-pergunte-me-como)
