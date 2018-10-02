@@ -1,7 +1,10 @@
 // Override variables here
 // You can add new ones or update existing ones:
-
-@import "node_modules/bulma/sass/utilities/_all.sass"
+@charset "utf-8"
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+//@import "node_modules/bulma/sass/utilities/_all.sass"
+@import "utilities/initial-variables.sass"
 
 // $primary: $yellow
 //
@@ -25,7 +28,13 @@ $link-hover: $black-bis
 $size-normal: $size-5
 $default-shadow: #0041A7
 
-@import "bulma"
+//@import "bulma"
+@import "utilities/_all.sass"
+@import "base/_all.sass"
+@import "components/_all.sass"
+@import "elements/_all.sass"
+@import "grid/_all.sass"
+@import "layout/_all.sass"
 
 .content
   p

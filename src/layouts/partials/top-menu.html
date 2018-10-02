@@ -1,25 +1,24 @@
  {{ $currentNode := . }}
 
-<nav class="nav has-shadow animated bounceInDown">
-    <div id='nav-menu-left' class="nav-left">
-        <a href="/" class="nav-item is-tab {{ if eq $currentNode.URL " / " }}is-active{{end}}">Home</a>
-        <a href="/blog" class="nav-item is-tab {{ if hasPrefix $currentNode.URL " /blog " }}is-active{{end}}">Blog</a>
-        <a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="nav-item is-tab">Palestras</a>
-        <a href="/contato" class="nav-item is-tab {{ if hasPrefix $currentNode.URL " /contato " }}is-active{{end}}">Fale Comigo!</a>
-
-    </div>
-
-    <span id="nav-toggle" class="nav-toggle">
-	    <span></span>
-    <span></span>
-    <span></span>
-    </span>
-
-    <div id='nav-menu-right' class="nav-right nav-menu">
-        <span class="nav-item">
+<div class="hero-head">
+    <nav class="navbar has-shadow animated bounceInDown">
+      <div class="container">
+        <div class="navbar-menu">
+          <div class="navbar-start">
+       			<a href="/" class="navbar-item {{ if eq $currentNode.URL "/" }}is-active{{end}}">Home</a>
+       		 	<a href="/blog" class="navbar-item {{ if hasPrefix $currentNode.URL "/blog" }}is-active{{end}}">Blog</a>
+       		 	<a href="https://speakerdeck.com/sebastianwebber" target="_blank" class="navbar-item">Palestras</a>
+       		 	<a href="/contato" class="navbar-item {{ if hasPrefix $currentNode.URL "/contato" }}is-active{{end}}">Fale Comigo!</a>
+          </div>
+        </div>
+				<div class="navbar-end">
+        <span class="navbar-item">
         Veja também:
       </span>
-        <a href="https://www.youtube.com/c/PostgreSQLScreencasts" target="_blank" class="nav-item is-tab external-link">PGCasts</a>
-        <a href="https://pgconfig.org" target="_blank" class="nav-item is-tab external-link">PGConfig.org</a>
-    </div>
-</nav>
+        <a href="https://www.youtube.com/c/PostgreSQLScreencasts" target="_blank" class="navbar-item external-link">PGCasts</a>
+        <a href="https://pgconfig.org" target="_blank" class="navbar-item external-link">PGConfig.org</a>
+
+				</div>
+      </div>
+    </nav>
+  </div>
