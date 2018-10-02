@@ -13,9 +13,7 @@
  	"scripts": {
   	"build": "npm install && hugo"
   }, 
-  "devDependencies": {
+  "dependencies": {
     "bulma": "^0.7.1"
-      },
-  "dependencies": {},
-  "optionalDependencies": {}
+  }
 }
