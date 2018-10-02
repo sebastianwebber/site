@@ -10,6 +10,9 @@
   "author": "Sebastian Webber",
   "license": "BSD-3-Clause",
   "homepage": "http://swebber.me",
+ 	"scripts": {
+  	"build": "npm install && hugo"
+  }, 
   "devDependencies": {
     "bulma": "^0.7.1"
       },
